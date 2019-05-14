@@ -1,0 +1,45 @@
+.carDetailsCon{
+	width:90%;
+	margin:20px auto 0 auto;
+	padding:10px;
+	border: none;
+}
+
+#carDetailsNav {
+	width:50%;
+	justify-content:space-around;
+	margin:auto;
+	font:15px sans-serif;
+}
+
+#carDetailsNav a{
+	color:black;
+	text-align:center;
+}
+
+#carDetailsNav a:hover{
+	color:#cc2900;
+}
+
+@media(max-width: 768px){
+	.carDetailsCon .hFlex{
+		flex-direction:column;
+	}
+	
+	#carDetailsNav a{
+	border: 1px #009999 solid;
+	padding:5px;
+}
+	
+	#carDetailsNav {
+		width:100%;
+		margin:0;
+		font:15px sans-serif;
+		justify-content:center;
+	}
+	
+	#carDetailsNav  a{
+		margin:0 10px 0 10px
+	}
+}
+}

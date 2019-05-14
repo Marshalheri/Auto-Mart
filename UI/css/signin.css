@@ -1,0 +1,26 @@
+.signinCon{
+	display: flex;
+	height:80vh;
+	border: none;
+	justify-content:center;
+	align-items: center;
+}
+
+label, input[type="email"], input[type="password"]{
+	width: 100%;
+}
+
+#loginForm{
+	width:30%;
+}
+
+#forgetPwd a{
+	font-size:14px;
+}
+
+/**Media query for small screen devices...**/
+@media(max-width: 768px){
+	#loginForm{
+	width:70%;
+}
+}
