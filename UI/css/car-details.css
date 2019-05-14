@@ -42,9 +42,4 @@
 		margin:0 10px 0 10px
 	}
 }
-
-@media(max-width: 360px){
-#carDetailsNav .hflex{
-	flex-direction:row;
-}
 }
