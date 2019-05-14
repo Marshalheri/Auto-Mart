@@ -90,6 +90,12 @@ input:focus, textarea:focus{
 	text-decoration:none;
 }
 
+.agreeLeft{
+	font-size:14px;
+	text-align:left;
+	text-decoration:none;
+}
+
 .agree a{
 	color:#009999;
 }

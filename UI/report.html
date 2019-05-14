@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>AutoMart | Report-Ad</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--This is where i import my style sheet for the page....-->
+<link rel="stylesheet" href="./css/index.css" />
+<link rel="stylesheet" href="./css/create-ad.css" />
+<link rel="stylesheet" href="./css/report.css" />
+</head>
+<body>
+<header class="hFlex">
+<div id="siteLogo">
+<a href="index.html"><h3>Buy_My_Car</h3></a>
+</div>
+</header>
+
+<h1>Report Fraudulent Ad<h1> 
+<hr>
+
+<div id="reportCarDetailsDiv" class="hFlex mainContainer">
+<div id="reportedCarDivDetails">
+<p><b>Manufacturer Name: </b><span id="reportedCarName">Volvo</span></p>
+<p><b>Model: </b><span id="reportedCarModel">V_1344</span></p>
+<p><b>Price: </b><span id="reportedCarPrice">$ 1,000</span></p>
+<p><b>Description: </b><span id="reportedCarDescription">This is a description point for the reported car....</span></p>
+</div>
+<div id="reportedCarDivImage">
+<img src="./img/carBackground.jpg" alt="car_Image..." />
+</div>
+</div>
+
+<form class="createAdCon" action="post">
+
+<hr>
+
+<div class="vFlex">
+<label for="carDescription">Tell us what is wrong with the Ad*</label>
+<textarea rows="10" placeholder="Please Write a description of your report here..." name="reportDescription" required></textarea>
+</div>
+
+<p class="agreeLeft">Upload Pictures to support your report (If any)</p>
+
+<div class="vFlex">
+<input type="file" accept="image/*"/>
+<input type="file" accept="image/*"/>
+<input type="file" accept="image/*"/>
+</div>
+    
+<button type="submit" class="btn">Report Ad</button>
+
+</form>
+
+</body>
+</html>
