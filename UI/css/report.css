@@ -1,0 +1,25 @@
+#reportedCarDivDetails, #reportedCarDivImage{
+width: 50%;
+margin: 10px 0;
+}
+
+#reportedCarDivDetails p{
+	text-align:left;
+	font-size: 14px;
+}
+
+#reportedCarDivImage img{
+	width: 80%;
+}
+
+/**Media query for small screen devices...**/
+@media(max-width: 768px){
+	#reportedCarDivDetails, #reportedCarDivImage{
+		width: 100%;
+		margin: 0;
+	}
+
+	#reportCarDetailsDiv .hFlex{
+		flex-direction: row;
+	}
+}
