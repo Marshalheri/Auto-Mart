@@ -1,0 +1,125 @@
+.viewAllCarsCon{
+min-height:100vh;
+}
+
+.eachViewedCarCon{
+	margin-bottom:10px;
+}
+
+.viewAllCarNav{
+	width:50%;
+}
+
+.viewAllCarNavMenu{
+	width:100%;	
+}
+
+.viewAllCarNavMenuItem {
+	text-align:right;
+}
+
+.viewAllCarNavMenuItem a{
+	padding:10px;
+}
+
+.viewAllCarNavMenuItem  a:hover{
+	color:#cc2900;
+	font-weight:bold;
+}
+
+.viewAllCarSearch{
+	padding:10px;
+}
+
+.viewAllCarSearch input[type="text"], .viewAllCarSearch select {
+	width:150px;
+	height:20px;
+	outline: none;
+	border-color: #009999;
+}
+
+.viewAllCarSearch select{
+	margin-top:3px;
+	padding:2px;
+}
+
+.viewAllCarSearch form{
+	margin-right:10px;
+}
+
+.navPriceRange{
+	margin: 3px 0;
+	padding-left:10px;
+	justify-content:flex-start;	
+}
+
+.navPriceRange input[type="number"]{
+	width:60px;
+	height:15px;
+}
+
+.viewAllCarDetailsPar{
+	height:50%;
+	width:100%;
+}
+
+.viewAllCarDetailsPar p{
+	margin:0;
+}
+
+.viewAllCarDetailsNav{
+	display:flex;
+	width:60%;
+	margin: 0 auto;
+	height:50%;
+	justify-content:space-between;
+}
+
+.viewAllCarDetailsNav a{
+	align-self: flex-end;
+	color:black;	
+}
+
+.viewAllCarDetailsNav a:hover{
+	color:#cc2900;
+}
+
+.viewAllCarDetailsNav + hr{
+	margin:0;
+}
+
+
+@media(max-width: 768px){
+	.eachViewedCarCon{
+		margin-bottom:15px;
+	}
+	.viewAllCarNav, .viewAllCarSearch, .navPriceRange {
+		width:100%;
+		justify-content:center;
+	}
+	
+	.viewAllCarNavMenuItem{
+		width:100%;
+		text-align:center;
+	}
+	
+	.viewAllCarNavMenuItem a{
+		padding:5px;
+	}
+	
+	.viewAllCarDetailsPar, .viewAllCarDetailsNav{
+		height:auto;
+	}
+	
+	 .viewAllCarDetailsNav{
+		 display:flex;
+		 flex-direction: column;
+		 width:100%;
+		 margin-top:10px;
+	 }
+	 
+	.viewAllCarDetailsNav a{
+		width: 100%;
+		border: 1px #009999 solid;
+	}
+}
