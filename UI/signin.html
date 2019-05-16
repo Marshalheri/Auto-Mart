@@ -10,16 +10,24 @@
 <link rel="stylesheet" href="./css/signup.css" />
 <link rel="stylesheet" href="./css/signin.css" />
 </head>
+
 <body>
 <header class="hFlex">
 <div id="siteLogo">
-<a href="index.html"><h3>Buy_My_Car</h3></a>
+<a href="index.html"><h3 class="highlight">Buy_My_Car</h3></a>
 </div>
 </header>
 
 <div class="vFlex signinCon">
 <form id="loginForm" method="post">
-<h1>LOGIN<h1> 
+<div id="userAdminLogin" class="hFlex">
+<button type="submit" id="toggleUserBtn" >User Login</button>
+<button type="submit" id="toggleAdminBtn" >Admin Login</button>
+</div>
+
+<!--User login form div starts here-->
+<div id="userLoginForm" class="vFlex">
+<h1 class="h1Config">USER LOGIN<h1> 
 <hr>
 <div class="hFlex formSpacing">
 <label for="email">Email</label>
@@ -31,14 +39,42 @@
 <input type="password" placeholder="Please Enter your password" name="password" required />
 </div>
 
-<button type="submit" class="btn">Login</button>
+<button type="submit" class="btn" id="loginUser">Login User</button>
 
 <hr>
 <p class="agree"><a href="forgetpassword.html"> Forget Password? </a></p>
 <p class="agree">Don't have an account? <a href="signup.html">Register here...</a></p>
+</div>
+<!--USer login form div ends here-->
+
+
+<!--Admin login form div starts here-->
+<div id="adminLoginForm" class="vFlex">
+<h1 class="h1Config">ADMIN LOGIN<h1> 
+<hr>
+<div class="hFlex formSpacing">
+<label for="email">Email</label>
+<input type="email" placeholder="Please Enter a valid email address" name="email" required />
+</div>
+
+<div class="hFlex formSpacing">
+<label for="password">Password</label>
+<input type="password" placeholder="Please Enter your password" name="password" required />
+</div>
+
+<button type="submit" class="btn" id="loginAdmin">Login Admin</button>
+
+<hr>
+<p class="agree"><a href="forgetpassword.html"> Forget Password? </a></p>
+<p class="agree">Don't have an account? <a href="signup.html">Register here...</a></p>
+</div>
+<!--Admin login form div ends here-->
 </form>
 
 </div>
 
+<!--This is where i link my script-->
+<script src="./JS/index.js"></script>
+<script src="./JS/signin.js"></script>
 </body>
 </html>
