@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<title>AutoMart | Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--This is where i import my style sheet for the page...-->
+<link rel="stylesheet" type="text/css" href="./css/index.css" />
+<link rel="stylesheet" type="text/css" href="./css/dashboard.css" />
+</head>
+
+<body>
+<header class="hFlex">
+<div id="siteLogo">
+<a href="index.html"><h3 class="highlight">Buy_My_Car</h3></a>
+</div>
+<div id="authorization">
+<a href="signin.html">SignOut</a>
+</div>
+
+</header>
+
+<hr>
+
+<div class="myDashboard hFlex ">
+
+<div class="leftSection">
+<div class="userProfileMenu vFlex">
+<a href="dashboard.html">My Dashboard</a>
+<a href="my_order.html">My Orders</a>
+<a href="my_settings.html">My Settings</a>
+</div>
+</div>
+
+<!--the right section of the page....-->
+<div class="rightSection">
+
+<!--This is where the section for active ads starts-->
+<div>
+<h2>My Active Ads</h2>
+<hr>
+<section class="hFlex productCard">
+<div class="card">
+<img src="./img/carBackground.jpg" alt="Mercedes_benz" />
+<hr>
+<p><label>Amount: </label> $1000</p>
+<hr>
+<p>Details of the car you are about to buy.....<br /><a href="car-details.html">View more</a></p>
+<div>
+<button type="submit" id="editAdBtn" class="btn editBtn">Edit Ad</button>
+<button type="submit" class="btn markAsSoldBtn">Mark_As Sold</button>
+</div>
+</div>
+
+<div class="card">
+<img src="./img/carBackground.jpg" alt="Mercedes_benz" />
+<hr>
+<p><label>Amount: </label> $1000</p>
+<hr>
+<p>Details of the car you are about to buy.....<br /><a href="car-details.html">View more</a></p>
+<div>
+<button type="submit" id="editAdBtn" class="btn editBtn">Edit Ad</button>
+<button type="submit" class="btn markAsSoldBtn">Mark_As Sold</button>
+</div>
+</div>
+
+<div class="card">
+<img src="./img/carBackground.jpg" alt="Mercedes_benz" />
+<hr>
+<p><label>Amount: </label> $1000</p>
+<hr>
+<p>Details of the car you are about to buy.....<br /><a href="car-details.html">View more</a></p>
+<div>
+<button type="submit"id="editAdBtn" class="btn editBtn">Edit Ad</button>
+<button type="submit" class="btn markAsSoldBtn">Mark_As Sold</button>
+</div>
+</div>
+
+<div class="card">
+<img src="./img/carBackground.jpg" alt="Mercedes_benz" />
+<hr>
+<p><label>Amount: </label> $1000</p>
+<hr>
+<p>Details of the car you are about to buy.....<br /><a href="car-details.html">View more</a></p>
+<div>
+<button type="submit" id="editAdBtn" class="btn editBtn">Edit Ad</button>
+<button type="submit" class="btn markAsSoldBtn">Mark_As Sold</button>
+</div>
+</div>
+
+</section>
+</div>
+<!--This is where the section for active ads ends-->
+
+</div> <!--the right section of the page ends here....-->
+</div>
+
+<footer class="hFlex">
+<div><b> &#169 </b> <span id="year"></span></div>
+</footer>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content vFlex">
+    <div class="modal-head">
+	<h3 class="modal-title">Edit Your Ads Here 	<button id="closeModal" class="btn modal-close-btn">close</button></h3>
+	</div>
+	<hr>
+	<div class="modal-body">
+
+		<div class="vFlex margin3px">
+		<label for="carManufacturer">Manufacturer Name*</label>
+		<input type="text" placeholder="Please Enter car manufacturer name" name="carManufacturer" required />
+		</div>
+
+		<div class="vFlex margin3px">
+		<label for="carModel">Model*</label>
+		<input type="text" placeholder="Please Enter car model" name="carModel" required />
+		</div>
+
+		<div class="vFlex margin3px">
+		<label for="carModelYear">Model Year*</label>
+		<input type="number" placeholder="Please Enter the year this car was produced" name="carModelYear" required />
+		</div>
+
+		<div class="vFlex margin3px">
+		<label for="carPrice">Price*</label>
+		<input type="number" placeholder="Please Enter car price" name="carPrice" required />
+		</div>
+
+		<div class="vFlex margin3px">
+		<label>Select one of the button to indicate the condition of the car</label>
+			<select>
+				<option value="New">New</option>
+				<option value="Used">Used</option>
+			</select>
+		</div>
+
+		<div class="vFlex margin3px">
+		<label for="carDescription">Description*</label>
+		<textarea rows="10" placeholder="Please Write a description of the car" name="carDescription" required></textarea>
+		</div>
+		<button type="submit" id="updateAdBtn" class="btn">Update Ad</button>
+	</div> 	<!--modal body ends here...-->
+  </div> <!--modal content ends here...-->
+</div> <!--modal ends here...-->
+
+
+<!--This is where i import the index.js script -->
+<script src="./JS/index.js"></script>
+<script src="./JS/dashboard.js"></script>
+</body>
+</html>
