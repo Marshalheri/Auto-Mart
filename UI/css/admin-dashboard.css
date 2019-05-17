@@ -1,0 +1,59 @@
+.adminRightSection h2{
+	margin-bottom:10px;
+}
+
+.leftSection{
+	border-right:0
+}
+
+.userProfileMenu a{
+	border-right: 1px solid #009999;
+}
+
+.adminSummaryCard{
+	width:20%;
+	height: 15vh;
+}
+
+.adminSummaryCard label{
+	font-size: 1.5vw;
+	font-weight:bold;
+}
+
+.adminSummaryCard p{
+	margin: 0;
+}
+
+.adminSummaryCard a:hover{
+	color: #ce2900;
+	font-weight:bold;
+}
+
+footer{
+	position:absolute;
+	left:0;
+	bottom:0;
+	width: 100%
+}
+
+@media(max-width: 768px){
+	.adminSummaryCard{
+		height: 15vh;
+	}
+
+	.adminSummaryCard label{
+	font-size: 3vw;
+	margin: 0;
+}
+
+footer{
+	position:relative;
+}
+}
+
+/**Media for extra small screens**/
+@media(max-width: 400px){
+	.adminSummaryCard label{
+		font-size:4vw;
+	}
+}

@@ -1,0 +1,36 @@
+.adminRightSection label{
+	font-size:2vw;
+	font-weight:bold;
+}
+
+.adminDelete, .adminViewMore{
+	border:0;
+	cursor:pointer;
+	height:30px;
+}
+
+.adminDelete:hover{
+	background:red;
+	font-weight:bold;
+}
+
+footer{
+	position:relative;
+	bottom:0px;
+	left:0px;
+}
+
+/**Media query for small screen...**/
+@media(max-width:768px){
+	.adminRightSection label{
+	font-size:4vw;
+	}
+}
+
+/**Media query for extra small screen...**/
+@media(max-width:400px){
+	.adminRightSection label{
+	font-size:6vw;
+	}
+}
+
