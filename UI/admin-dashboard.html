@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<title>AutoMart | Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--This is where i import my style sheet for the page...-->
+<link rel="stylesheet" type="text/css" href="./css/index.css" />
+<link rel="stylesheet" type="text/css" href="./css/dashboard.css" />
+<link rel="stylesheet" type="text/css" href="./css/admin-dashboard.css" />
+</head>
+
+<body>
+<header class="hFlex">
+<div id="siteLogo">
+<a href="index.html"><h3 class="highlight">Buy_My_Car</h3></a>
+</div>
+<div id="authorization">
+<a href="signin.html">SignOut</a>
+</div>
+
+</header>
+
+<hr>
+
+<div class="myDashboard hFlex"> <!--Admin dashboard body starts here....-->
+
+<div class="leftSection">
+<div class="userProfileMenu vFlex">
+<a href="admin-dashboard.html">My Dashboard</a>
+<a href="">My Settings</a>
+</div>
+</div>
+
+<!--the right section of the page....-->
+<div class="rightSection adminRightSection">
+
+<div> <!--This is where the section summary cards starts-->
+<h2>Site Summary</h2>
+<hr>
+<div class="hFlex productCard">
+<div class="card adminSummaryCard">
+<label>Total Number Of Users</label>
+<hr>
+<p id="totalUsersPar"><b>19</b></p>
+</div>
+
+<div class="card adminSummaryCard">
+<label>Total Number Of Sold Cars</label>
+<hr>
+<p id="totalSoldCarsPar"><b>4</b></p>
+<a href="view-all-cars-sold.html">View All Sold Cars...</a>
+</div>
+
+<div class="card adminSummaryCard">
+<label>Total Number Of Unsold Cars</label>
+<hr>
+<p id="totalUnsoldCarsPar"><b>4</b></p>
+<a href="view-all-cars-unsold.html">View All Unsold Cars...</a>
+</div>
+
+</div>
+
+</div> <!--This is where the section for active ads ends-->
+</div> <!--the right section of the page ends here....-->
+</div> <!--Admin dashboard body ends here....-->
+
+<footer class="hFlex">
+<div><b> &#169 </b> <span id="year"></span></div>
+</footer>
+
+<!--This is where i import the index.js script -->
+<script src="./JS/index.js"></script>
+</body>
+</html>
