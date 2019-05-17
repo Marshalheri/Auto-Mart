@@ -18,7 +18,7 @@
 <body>
 <header class="hFlex">
 <div id="siteLogo">
-<a href="index.html"><h3 class="highlight">Buy_My_Car</h3></a>
+<a href="admin-dashboard.html"><h3 class="highlight">Buy_My_Car</h3></a>
 </div>
 <div id="authorization">
 <a href="signin.html">SignOut</a>
@@ -58,7 +58,7 @@
 </div>
 
 <div id="" class="viewAllCarDetailsNav">
-<button type="submit" class="adminViewMore">View-More-More</button>
+<button type="submit" class="adminViewMore">View More</button>
 <button type="submit" class="adminDelete">Delete Ad</button>
 </div> 
 <hr>
@@ -80,7 +80,7 @@
 </div>
 
 <div id="" class="viewAllCarDetailsNav">
-<button type="submit" class="adminViewMore">View-More-More</button>
+<button type="submit" class="adminViewMore">View More</button>
 <button type="submit" class="adminDelete">Delete Ad</button>
 </div> 
 <hr>
@@ -103,7 +103,7 @@
 </div>
 
 <div id="" class="viewAllCarDetailsNav">
-<button type="submit" class="adminViewMore">View-More-More</button>
+<button type="submit" class="adminViewMore">View More</button>
 <button type="submit" class="adminDelete">Delete Ad</button>
 </div> 
 <hr>
@@ -125,7 +125,7 @@
 </div>
 
 <div id="" class="viewAllCarDetailsNav">
-<button type="submit" class="adminViewMore">View-More-More</button>
+<button type="submit" class="adminViewMore">View More</button>
 <button type="submit" class="adminDelete">Delete Ad</button>
 </div> 
 <hr>
@@ -143,7 +143,39 @@
 <div><b> &#169 </b> <span id="year"></span></div>
 </footer>
 
+<!-- The Modal -->
+<div id="soldCarModalAdmin" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content carModalAdmin vFlex">
+    <div class="modal-head">
+	<h3 class="modal-title">Details Of Sold Car 	<button id="closeModal" class="btn modal-close-btn">close</button></h3>
+	</div>
+	<hr>
+	<div class="modal-body">
+
+		<div class="carDetailsCon">
+		<div class="hFlex">
+		<div id="reportedCarDivImage">
+		<img src="./img/carBackground.jpg" alt="car_Image..." />
+		</div>
+		<div id="reportedCarDivDetails">
+		<p><b>Manufacturer Name: </b><span id="reportedCarName">Volvo</span></p>
+		<p><b>Model: </b><span id="reportedCarModel">V_1344</span></p>
+		<p><b>Price: </b><span id="reportedCarPrice">$ 1,000</span></p>
+		<p><b>Description: </b><span id="reportedCarDescription">This is a description point for the reported car....</span></p>
+		</div>
+		</div>
+
+		<hr>
+		</div>
+	</div> 	<!--modal body ends here...-->
+  </div> <!--modal content ends here...-->
+</div> <!--modal ends here...-->
+
+
 <!--This is where i import the index.js script -->
 <script src="./JS/index.js"></script>
+<script src="./JS/view-all-sold-car.js"></script>
 </body>
 </html>
