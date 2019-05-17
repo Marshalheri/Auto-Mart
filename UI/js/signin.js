@@ -37,7 +37,8 @@ loginUser.addEventListener("click", (e) =>{
 	console.log(currentUrl.protocol);
 	console.log(currentUrl.host);
 	console.log(redirectUrl);
-	//window.location.assign(redirectUrl);}
+	//window.location.assign(redirectUrl);
+	}
 })
 
 //This section handles the admin login
