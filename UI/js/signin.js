@@ -34,7 +34,10 @@ loginUser.addEventListener("click", (e) =>{
 	else{
 	let currentUrl = location;
 	let redirectUrl = currentUrl.protocol + currentUrl.host + "/home.html"
-	window.location.assign(redirectUrl);}
+	console.log(currentUrl.protocol);
+	console.log(currentUrl.host);
+	console.log(redirectUrl);
+	//window.location.assign(redirectUrl);}
 })
 
 //This section handles the admin login
@@ -48,7 +51,9 @@ loginAdmin.addEventListener("click", (e) =>{
 	}else{
 		let currentUrl = location;
 		let redirectUrl = currentUrl.protocol + currentUrl.host + "/admin-dashboard.html"
-		
-		window.location.assign(redirectUrl);
+		console.log(currentUrl.protocol);
+	console.log(currentUrl.host);
+	console.log(redirectUrl);
+		//window.location.assign(redirectUrl);
 	}
 })
