@@ -33,7 +33,7 @@ loginUser.addEventListener("click", (e) =>{
 	}
 	else{
 	let currentUrl = location;
-	let redirectUrl = currentUrl.protocol + currentUrl.host + "/C:/Users/Marshalheri/Documents/Auto-Mart/UI/home.html"
+	let redirectUrl = currentUrl.protocol + currentUrl.host + "/Auto-Mart/UI/home.html"
 	window.location.assign(redirectUrl);}
 })
 
@@ -47,7 +47,7 @@ loginAdmin.addEventListener("click", (e) =>{
 		//add some functions here later....
 	}else{
 		let currentUrl = location;
-		let redirectUrl = currentUrl.protocol + currentUrl.host + "/C:/Users/Marshalheri/Documents/Auto-Mart/UI/admin-dashboard.html"
+		let redirectUrl = currentUrl.protocol + currentUrl.host + "/Auto-Mart/UI/admin-dashboard.html"
 		
 		window.location.assign(redirectUrl);
 	}
