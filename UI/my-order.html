@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<title>AutoMart | Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--This is where i import my style sheet for the page...-->
+<link rel="stylesheet" type="text/css" href="./css/index.css" />
+<link rel="stylesheet" type="text/css" href="./css/dashboard.css" />
+<link rel="stylesheet" type="text/css" href="./css/my-order.css" />
+</head>
+
+<body>
+<header class="hFlex">
+<div id="siteLogo">
+<a href="home.html"><h3 class="highlight">Buy_My_Car</h3></a>
+</div>
+<div id="authorization">
+<a href="signin.html">Sign Out</a>
+</div>
+
+</header>
+
+<hr>
+
+<div class="myDashboard hFlex ">
+
+<div class="leftSection">
+<div class="userProfileMenu vFlex">
+<a href="dashboard.html">My Dashboard</a>
+<a href="my-order.html">My Orders</a>
+<a href="my-settings.html">My Settings</a>
+</div>
+</div>
+
+<!--the right section of the page....-->
+<div class="rightSection">
+
+<!--This is where the section for active ads starts-->
+<div id="myOrdersCon">
+<h2>My Order(s)</h2>
+<hr>
+
+<div class="hFlex eachOrderCon">
+<div class="hFlex orderDescription">
+<label>Order Description: <span>Describe my order here...... dhsjhdjshdjhsjd sdhhsdjhdajjha hjdsjhahdjahd
+adahdsjahjdjahd sajhdjahdsjhajd ajhdbjhabjdhbjabds sajdsjhbajbdjasb djsadjbsabdsjbja djsa djhsavdsjbsa djh ajdvjsa</span></label>
+<label>Order Amount: <span id="orderPrice">1,000,000 NGN</span></label> 
+</div>
+<div class="orderAction">
+<button type="submit" class="editOrderPriceBtn btn">Edit</button>
+<input type="number" class="updateOrderPrice" />
+<button type="submit" class="updateOrderPriceBtn btn">Update Price</button>
+</div>
+</div>
+
+</div>
+<!--This is where the section for active ads ends-->
+
+</div> <!--the right section of the page ends here....-->
+</div>
+
+<footer class="hFlex">
+<div><b> &#169 </b> <span id="year"></span></div>
+</footer>
+
+
+<!--This is where i import the index.js script -->
+<script src="./JS/index.js"></script>
+<script src="./JS/my-order.js"></script>
+</body>
+</html>
