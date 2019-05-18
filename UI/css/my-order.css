@@ -1,0 +1,74 @@
+#myOrdersCon{
+	min-height:76.1vh;
+}
+.orderDescription{
+width:80%;
+text-align:left;
+}
+
+label{
+	font-weight:bold;
+	font-size: 1.5vw;
+	width:100%;
+}
+
+label span{
+	font-weight:normal;
+	font-size:1vw;
+}
+
+.orderAction{
+	width:19%;
+	margin: 0 auto;
+}
+.eachOrderCon{
+	margin:5px 0;
+}
+
+.updateOrderPrice{
+	display: none;
+	width:50%;
+}
+
+.updateOrderPriceBtn{
+	display: none;
+	width: 50%;
+}
+
+
+.editOrderPriceBtn{
+	width:50%;
+	margin: 10px auto;
+}
+
+
+/**Media query for small screens**/
+@media(max-width:768px){
+	.eachOrderCon{
+		flex-direction:column;
+	}
+	
+	.orderDescription, .orderAction{
+		width:100%;
+	}
+	
+	label{
+		font-size: 4vw;
+	}
+	
+	label span{
+		font-size: 3vw;
+	}
+}
+
+
+/**Media query for small screens**/
+@media(max-width:400px){
+	label{
+		font-size: 6vw;
+	}
+	
+		label span{
+		font-size: 4vw;
+	}
+}
