@@ -91,13 +91,6 @@ section{
 	overflow:auto;
 }
 
-footer{
-	position:relative;
-	left:0;
-	bottom:0;
-	width: 100%
-}
-
 
 /**Media query for small screen devices...**/
 @media(max-width: 768px){
