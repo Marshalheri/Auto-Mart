@@ -45,7 +45,6 @@ loginUser.addEventListener("click", (e) =>{
 	// 	.then((jsonResponse) => {
 	// 		console.log(jsonResponse);
 				window.location.assign(redirectUrl);
-		})
 	}
 })
 
