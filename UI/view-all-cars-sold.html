@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<title>AutoMart | Admin-View-Sold-Cars</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--This is where i import my style sheet for the page...-->
+<link rel="stylesheet" type="text/css" href="./css/index.css" />
+<link rel="stylesheet" href="./css/car-details.css" />
+<link rel="stylesheet" href="./css/report.css" />
+<link rel="stylesheet" type="text/css" href="./css/dashboard.css" />
+<link rel="stylesheet" type="text/css" href="./css/admin-dashboard.css" />
+<link rel="stylesheet" type="text/css" href="./css/view-all-cars-sold.css" />
+</head>
+
+<body>
+<header class="hFlex">
+<div id="siteLogo">
+<a href="admin-dashboard.html"><h3 class="highlight">Buy_My_Car</h3></a>
+</div>
+<div id="authorization">
+<a href="signin.html">SignOut</a>
+</div>
+
+</header>
+
+<hr>
+
+<div class="myDashboard hFlex"> <!--Admin dashboard body starts here....-->
+
+<div class="leftSection">
+<div class="userProfileMenu vFlex">
+<a href="admin-dashboard.html">My Dashboard</a>
+<a href="">My Settings</a>
+</div>
+</div>
+
+<!--the right section of the page....-->
+<div class="rightSection adminRightSection">
+<label>Sold Cars</label>
+<hr>
+
+<div class="carDetailsCon">
+<!--This is the container for all car ads on the site...-->
+<div class="hFlex eachViewedCarCon">
+<div id="reportedCarDivImage">
+<img src="./img/carBackground.jpg" alt="car_Image..." />
+</div>
+<div id="reportedCarDivDetails">
+<div class="viewAllCarDetailsPar">
+<p><b>Manufacturer Name: </b><span id="viewedCarName">Volvo</span></p>
+<p><b>Model: </b><span id="viewedCarModel">V_1344</span></p>
+<p><b>Price: </b><span id="viewedCarPrice">$ 1,000</span></p>
+<p><b>Car Condition: </b><span id="viewedCarCondition">New</span></p>
+<p><b>Description: </b><span id="viewedCarDescription">This is a description point for the reported car....</span></p>
+</div>
+
+<div id="" class="viewAllCarDetailsNav">
+<button type="submit" class="adminViewMore">View More</button>
+<button type="submit" class="adminDelete">Delete Ad</button>
+</div> 
+<hr>
+
+</div>
+</div>
+
+<div class="hFlex eachViewedCarCon">
+<div id="reportedCarDivImage">
+<img src="./img/carBackground.jpg" alt="car_Image..." />
+</div>
+<div id="reportedCarDivDetails">
+<div class="viewAllCarDetailsPar">
+<p><b>Manufacturer Name: </b><span id="viewedCarName">Volvo</span></p>
+<p><b>Model: </b><span id="viewedCarModel">V_1344</span></p>
+<p><b>Price: </b><span id="viewedCarPrice">$ 1,000</span></p>
+<p><b>Car Condition: </b><span id="viewedCarCondition">New</span></p>
+<p><b>Description: </b><span id="viewedCarDescription">This is a description point for the reported car....</span></p>
+</div>
+
+<div id="" class="viewAllCarDetailsNav">
+<button type="submit" class="adminViewMore">View More</button>
+<button type="submit" class="adminDelete">Delete Ad</button>
+</div> 
+<hr>
+
+</div>
+</div>
+
+
+<div class="hFlex  eachViewedCarCon">
+<div id="reportedCarDivImage">
+<img src="./img/carBackground.jpg" alt="car_Image..." />
+</div>
+<div id="reportedCarDivDetails">
+<div class="viewAllCarDetailsPar">
+<p><b>Manufacturer Name: </b><span id="viewedCarName">Volvo</span></p>
+<p><b>Model: </b><span id="viewedCarModel">V_1344</span></p>
+<p><b>Price: </b><span id="viewedCarPrice">$ 1,000</span></p>
+<p><b>Car Condition: </b><span id="viewedCarCondition">New</span></p>
+<p><b>Description: </b><span id="viewedCarDescription">This is a description point for the reported car....</span></p>
+</div>
+
+<div id="" class="viewAllCarDetailsNav">
+<button type="submit" class="adminViewMore">View More</button>
+<button type="submit" class="adminDelete">Delete Ad</button>
+</div> 
+<hr>
+
+</div>
+</div>
+
+<div class="hFlex eachViewedCarCon">
+<div id="reportedCarDivImage">
+<img src="./img/carBackground.jpg" alt="car_Image..." />
+</div>
+<div id="reportedCarDivDetails">
+<div class="viewAllCarDetailsPar">
+<p><b>Manufacturer Name: </b><span id="viewedCarName">Volvo</span></p>
+<p><b>Model: </b><span id="viewedCarModel">V_1344</span></p>
+<p><b>Price: </b><span id="viewedCarPrice">$ 1,000</span></p>
+<p><b>Car Condition: </b><span id="viewedCarCondition">New</span></p>
+<p><b>Description: </b><span id="viewedCarDescription">This is a description point for the reported car....</span></p>
+</div>
+
+<div id="" class="viewAllCarDetailsNav">
+<button type="submit" class="adminViewMore">View More</button>
+<button type="submit" class="adminDelete">Delete Ad</button>
+</div> 
+<hr>
+
+</div>
+</div>
+
+<hr>
+
+<!--The container for all car ads ends here....-->
+</div>
+</div> <!--Admin dashboard body ends here....-->
+
+<footer class="hFlex">
+<div><b> &#169 </b> <span id="year"></span></div>
+</footer>
+
+<!-- The Modal -->
+<div id="soldCarModalAdmin" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content carModalAdmin vFlex">
+    <div class="modal-head">
+	<h3 class="modal-title">Details Of Sold Car 	<button id="closeModal" class="btn modal-close-btn">close</button></h3>
+	</div>
+	<hr>
+	<div class="modal-body">
+
+		<div class="carDetailsCon">
+		<div class="hFlex">
+		<div id="reportedCarDivImage">
+		<img src="./img/carBackground.jpg" alt="car_Image..." />
+		</div>
+		<div id="reportedCarDivDetails">
+		<p><b>Manufacturer Name: </b><span id="reportedCarName">Volvo</span></p>
+		<p><b>Model: </b><span id="reportedCarModel">V_1344</span></p>
+		<p><b>Price: </b><span id="reportedCarPrice">$ 1,000</span></p>
+		<p><b>Description: </b><span id="reportedCarDescription">This is a description point for the reported car....</span></p>
+		</div>
+		</div>
+
+		<hr>
+		</div>
+	</div> 	<!--modal body ends here...-->
+  </div> <!--modal content ends here...-->
+</div> <!--modal ends here...-->
+
+
+<!--This is where i import the index.js script -->
+<script src="./JS/index.js"></script>
+<script src="./JS/view-all-sold-car.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>AutoMart | Sign-Up</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--This is where i import my style sheet for the page...-->
+<link rel="stylesheet" href="./css/index.css" />
+<link rel="stylesheet" href="./css/signup.css" />
+<link rel="stylesheet" href="./css/signin.css" />
+</head>
+
+<body>
+<header class="hFlex">
+<div id="siteLogo">
+<a href="index.html"><h3 class="highlight">Buy_My_Car</h3></a>
+</div>
+</header>
+
+<div class="vFlex signinCon">
+<form id="loginForm" method="post">
+<div id="userAdminLogin" class="hFlex">
+<button type="submit" id="toggleUserBtn" >User Login</button>
+<button type="submit" id="toggleAdminBtn" >Admin Login</button>
+</div>
+
+<!--User login form div starts here-->
+<div id="userLoginForm" class="vFlex">
+<h1 class="h1Config">USER LOGIN<h1> 
+<hr>
+<div class="hFlex formSpacing">
+<label for="userEmail">Email</label>
+<input type="email" id="userEmail" placeholder="Please Enter a valid email address" name="userEmail" required />
+</div>
+
+<div class="hFlex formSpacing">
+<label for="userPassword">Password</label>
+<input type="password" id="userPassword" placeholder="Please Enter your password" name="userPassword" required />
+</div>
+
+<button type="submit" class="btn" id="loginUserBtn">Login User</button>
+
+<hr>
+<p class="agree"><a href="forgetpassword.html"> Forget Password? </a></p>
+<p class="agree">Don't have an account? <a href="signup.html">Register here...</a></p>
+</div>
+<!--USer login form div ends here-->
+
+
+<!--Admin login form div starts here-->
+<div id="adminLoginForm" class="vFlex">
+<h1 class="h1Config">ADMIN LOGIN<h1> 
+<hr>
+<div class="hFlex formSpacing">
+<label for="adminEmail">Email</label>
+<input type="email" id="adminEmail" placeholder="Please Enter a valid email address" name="adminEmail" required />
+</div>
+
+<div class="hFlex formSpacing">
+<label for="adminPassword">Password</label>
+<input type="password" id="adminPassword" placeholder="Please Enter your password" name="adminPassword" required />
+</div>
+
+<button type="submit" class="btn" id="loginAdminBtn">Login Admin</button>
+
+<hr>
+<p class="agree"><a href="forgetpassword.html"> Forget Password? </a></p>
+<p class="agree">Don't have an account? <a href="signup.html">Register here...</a></p>
+</div>
+<!--Admin login form div ends here-->
+</form>
+
+</div>
+
+<!--This is where i link my script-->
+<script src="./js/signin.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<title>AutoMart | Create Order</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--This is where i import my style sheet for the page...-->
+<link rel="stylesheet" type="text/css" href="./css/index.css" />
+<link rel="stylesheet" type="text/css" href="./css/create-order.css" />
+</head>
+
+<body>
+<header class="hFlex">
+<div id="siteLogo">
+<a href="index.html"><h3 class="highlight">Buy_My_Car</h3></a>
+</div>
+<div id="authorization">
+<a href="signin.html">Sign Out</a>
+</div>
+
+<nav>
+<ul class="hFlex">
+<li class="active"><a href="index.html">Home</a></li>
+<li><a href="">About-Us</a></li>
+<li><a href="">Contact-Us</a></li>
+</ul>
+</nav>
+</header>
+
+<hr>
+
+<div class="vFlex createOrderCon">
+<form action="" method="post">
+<h3>Place Your Order</h3>
+<hr>
+<div class="vFlex formSpacing">
+<label for="orderAmount">Order Amount</label>
+<input type="number" name="orderAmount" placeholder="Please enter amount for order..." required />
+</div>
+<div class="vFlex formSpacing">
+<label for="orderMessage">Order Message</label>
+<textarea rows="10" name="orderMessage" placeholder="Enter order message if any!!!"></textarea>
+</div>
+
+<hr>
+<div class="orderBtnGroup hFlex">
+<button type="submit" class="btn" id="placeOrderBtn">Place Order</button>
+<button type="submit" class="btn" id="cancelOrderBtn">Cancel Order</button>
+</div>
+</form>
+</div>
+
+<footer class="hFlex">
+<div><b> &#169 </b> <span id="year"></span></div>
+</footer>
+
+
+<!--This is where i import the index.js script -->
+<script src="./JS/index.js"></script>
+<script src="./JS/create-order.js"></script>
+</body>
+</html>
