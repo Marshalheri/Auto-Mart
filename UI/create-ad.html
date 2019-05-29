@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>AutoMart | Create-Ad</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--This is where i import my style sheet for the page....-->
+<link rel="stylesheet" href="./css/index.css" />
+<link rel="stylesheet" href="./css/create-ad.css" />
+</head>
+<body>
+<header class="hFlex">
+<div id="siteLogo">
+<a href="home.html"><h3 class="highlight">Buy_My_Car</h3></a>
+</div>
+</header>
+
+<form class="createAdCon" action="post">
+<h1>Create Free Ad<h1> 
+<hr>
+
+<h2 class="adSectionHeading">Car Details</h2>
+
+<hr class="noMarginHr">
+
+<div class="vFlex">
+<label for="carManufacturer">Manufacturer Name*</label>
+<input type="text" placeholder="Please Enter car manufacturer name" name="carManufacturer" required />
+</div>
+
+<div class="vFlex">
+<label for="carModel">Model*</label>
+<input type="text" placeholder="Please Enter car model" name="carModel" required />
+</div>
+
+<div class="vFlex">
+<label for="carModelYear">Model Year*</label>
+<input type="number" placeholder="Please Enter the year this car was produced" name="carModelYear" required />
+</div>
+
+<div class="vFlex">
+<label for="carPrice">Price*</label>
+<input type="number" placeholder="Please Enter car price" name="carPrice" required />
+</div>
+
+<div class="vFlex">
+<h3>Select one of the button to indicate the condition of the car</h3>
+<div class="radioBtn">
+
+<div>
+<input type="radio" name="carState" id="newCar" value="New" checked="checked"><b>New Car</b></input>
+<input type="radio" name="carState" id="usedCard" value="Used"><b>Used Car</b></input>
+</div>
+
+</div>
+</div>
+
+<div class="vFlex">
+<label for="carDescription">Description*</label>
+<textarea rows="10" placeholder="Please Write a description of the car" name="carDescription" required></textarea>
+</div>
+
+<h2 class="adSectionHeading">Car Images</h2>
+
+<hr class="noMarginHr">
+
+<p class="agreeLeft">Increase your potential of getting more clients by uploading pictures...
+(Max file size for upload is 3 mb). Supported file types .png,.jpg,.jpeg and.gif</p>
+
+<div class="vFlex">
+<input type="file" accept="image/*"/>
+<input type="file" accept="image/*"/>
+<input type="file" accept="image/*"/>
+</div>
+
+<h2 class="adSectionHeading">Seller Contact Details</h2>
+
+<hr class="noMarginHr">
+
+<div class="vFlex">
+<label for="sellerName">Name*</label>
+<input type="text" placeholder="Please Enter your name" name="sellerName" required />
+</div>
+
+<div class="vFlex">
+<label for="sellerPNUm">Phone Number*</label>
+<input type="text" placeholder="Please Enter phone number (+234)-81 0456 1546" name="sellerPNUm" required />
+</div>
+
+<div class="vFlex">
+<label for="sellerState">State*</label>
+<input type="text" name="sellerState" required />
+</div>
+
+<div class="vFlex">
+<label for="sellerCity">City/region*</label>
+<input type="text" name="sellerCity" required />
+</div>
+
+<div class="vFlex">
+<label for="sellerAddress">Address*</label>
+<textarea rows="3" placeholder="Please enter your location address" name="sellerAddress" required></textarea>
+</div>
+    
+<p class="agree"><b>Note </b>By publishing your ad you agree to our <a href="#">Terms & Conditions</a>.</p>
+
+<button type="submit" class="btn" id="createAdBtn">Create Ad</button>
+
+</form>
+
+<!--This is where i import the create-ad.js script -->
+<script src="./js/create-ad.js"></script>
+
+</body>
+</html>

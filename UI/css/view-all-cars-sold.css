@@ -1,0 +1,48 @@
+.adminRightSection label{
+	font-size:2vw;
+	font-weight:bold;
+}
+
+.adminDelete, .adminViewMore{
+	border:0;
+	cursor:pointer;
+	height:30px;
+}
+
+.adminDelete:hover{
+	background:red;
+	font-weight:bold;
+}
+
+.modal-head > h3{
+	font-size:2vw;
+}
+
+.carModalAdmin{
+	width:50%;
+}
+
+footer{
+	position:relative;
+	bottom:0px;
+	left:0px;
+}
+
+/**Media query for small screen...**/
+@media(max-width:768px){
+	.adminRightSection label, .modal-head > h3{
+	font-size:4vw;
+	}
+	
+	.carModalAdmin{
+		width:90%;
+	}
+}
+
+/**Media query for extra small screen...**/
+@media(max-width:400px){
+	.adminRightSection label{
+	font-size:6vw;
+	}
+}
+

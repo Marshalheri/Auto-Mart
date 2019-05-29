@@ -1,0 +1,143 @@
+section{
+	min-height:65vh;
+}
+
+.leftSection{
+	width:15%;
+	border-right:1px #009999 solid;
+}
+
+.rightSection{
+	width:83.5%;
+	padding: 5px
+}
+
+.userProfileMenu a{
+	width:98%;
+	color: #009999;
+	font-weight:bold;
+	text-align:left;
+	padding-left:5px;
+	text-transform: none;
+}
+
+.userProfileMenu a{
+	border-bottom: 1px #009999 solid;
+}
+
+.editBtn, .markAsSoldBtn{
+	width:45%;
+	height:30px;
+	background:#009999;
+	color:#ffffff;
+	text-align:center;
+	font-size:1vw;
+	margin:0 auto 2px auto;
+}
+
+/*margin of 1 to 5px*/
+.margin3px{
+	margin-bottom:5px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #ffffff;
+  margin: 10px auto;
+  padding: 10px;
+  border: 1px solid #009999;
+  width: 80%;
+} 
+
+.modal-head{
+	width:100%;
+	margin-top:0;
+}
+
+.modal-title{
+	width: 100%;
+	text-transform:uppercase;
+	margin-top:0;
+	margin-bottom: 0;
+	font-size:3vw;
+}
+
+/* The Close Button */
+.modal-close-btn {
+	width:7%;
+	height:1vh;
+	padding-bottom:20px;
+	float:right;
+	font-size: 1vw;
+}
+
+.modal-body{
+	width:90;
+	margin:0 auto;
+	overflow:auto;
+}
+
+
+/**Media query for small screen devices...**/
+@media(max-width: 768px){
+	.myDashboard .hFlex{
+		flex-direction:column;
+	}
+	
+	.leftSection, .rightSection {
+		width:100%;
+	}
+	
+	.leftSection {
+		border:none;
+	}
+	.userProfileMenu a{
+		width:97%;
+		margin:auto;
+		border-right: 1px #009999 solid;
+		border-left: 1px #009999 solid;
+		border-top: 1px #009999 solid;
+	}
+	
+	.updateBtn{
+		width:80%;
+	}
+	
+	.productCard .card{
+		margin:15px 0 0 0;
+	}
+	
+	.editBtn, .markAsSoldBtn{
+		font-size:2vw;
+	}
+
+	
+	.modal-close-btn {
+		width:15%;
+		height:3vh;
+		font-size:2vh;
+		padding:0;
+	}
+}
+
+/**Media query for small screen devices...**/
+@media(max-width: 400px){
+	.modal-close-btn{
+		font-size:2.5vw;
+		padding:0;
+	}
+}
