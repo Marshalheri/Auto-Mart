@@ -1,4 +1,6 @@
 
+var getUrl = location.protocol + "//" + location.host + "/api/v1/login-api";
+
 //This section handles the toggle between the admin login form and the user login form...
 let userBtn = document.getElementById("toggleUserBtn");
 let adminBtn = document.getElementById("toggleAdminBtn");
@@ -8,7 +10,7 @@ let adminForm = document.getElementById("adminLoginForm");
 userBtn.onclick = (e) =>{
 	e.preventDefault();
 	adminForm.style.display = "none";
-	userForm.style.display = "flex";	
+	userForm.style.display = "flex";
 }
 
 
@@ -34,7 +36,16 @@ loginUser.addEventListener("click", (e) =>{
 	else{
 	let currentUrl = location;
 	let redirectUrl = currentUrl.protocol + "//" + currentUrl.host + "/Auto-Mart/UI/home.html"
-	window.location.assign(redirectUrl);
+	// fetch(getUrl)
+	// 	.then((res)=> {
+	// 		console.log(res);
+	// 		console.log(res.status);
+	// 		return res.json();
+	// 	})
+	// 	.then((jsonResponse) => {
+	// 		console.log(jsonResponse);
+				window.location.assign(redirectUrl);
+		})
 	}
 })
 
@@ -49,6 +60,16 @@ loginAdmin.addEventListener("click", (e) =>{
 	}else{
 		let currentUrl = location;
 		let redirectUrl = currentUrl.protocol + "//" + currentUrl.host +  "/Auto-Mart/UI/admin-dashboard.html"
-		window.location.assign(redirectUrl);
+			window.location.assign(redirectUrl);
+		// fetch(getUrl).then((res)=>{
+		// 	var data =  res;
+		// 	console.log(res);
+		// 	console.log(data);
+		// 	console.log(res.url);
+		//
+		// }).then((data)=>{
+		// 	console.log(data);
+		// })
+		//
 	}
 })
