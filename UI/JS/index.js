@@ -1,6 +1,6 @@
 
-/**This function is used to get the current year .**/
-let currentDate = new Date();
-let year = currentDate.getFullYear();
+/** This function is used to get the current year .* */
+const currentDate = new Date();
+const year = currentDate.getFullYear();
 
-document.getElementById("year").innerHTML = year;
+document.getElementById('year').innerHTML = year;
