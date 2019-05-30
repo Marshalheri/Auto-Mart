@@ -1,0 +1,50 @@
+{
+  "name": "auto-mart",
+  "version": "1.0.0",
+  "description": "This is a project of a website w\u001b[D\u001b[A\u001b[B\u001b[D\u001b[A\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C that offers users the platform to buy and sell cars.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint .",
+    "start": "node index",
+    "dev": "nodemon --exec babel-node Server/index",
+    "test": "mocha ./test/**/*.js",
+    "sample_test": "mocha --require @babel/register ./Server/test/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Marshalheri/Auto-Mart.git"
+  },
+  "keywords": [
+    "Auto",
+    "Mart",
+    "Auto-Mart",
+    "Cars",
+    "Sell",
+    "Cars",
+    "Buy",
+    "Cars"
+  ],
+  "author": "Chizoba Nnamani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Marshalheri/Auto-Mart/issues"
+  },
+  "homepage": "https://github.com/Marshalheri/Auto-Mart#readme",
+  "dependencies": {
+    "@babel/cli": "7.4.4",
+    "@babel/core": "7.4.5",
+    "@babel/node": "7.4.5",
+    "@babel/preset-env": "7.4.5",
+    "body-parser": "1.19.0",
+    "express": "4.17.0"
+  },
+  "devDependencies": {
+    "chai": "4.2.0",
+    "chai-http": "4.3.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "13.1.0",
+    "eslint-plugin-import": "2.17.3",
+    "mocha": "6.1.4",
+    "nodemon": "1.19.0"
+  }
+}
