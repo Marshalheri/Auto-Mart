@@ -18,12 +18,12 @@ describe('EXPRESS SERVER SETUP', () => {
   });
   it('responds to the get request on path / and returns status 200', (done) => {
     request(server)
-    .get('/api/v1')
-    .end((err, res) => {
-      const status = res.status;
-      chai.expect(status).to.eql(200);
-      done(err);
-    });
+      .get('/api/v1')
+      .end((err, res) => {
+        const { status } = res;
+        chai.expect(status).to.eql(200);
+        done(err);
+      });
   });
   it('sends the welcome message', (done) => {
     request(server)
