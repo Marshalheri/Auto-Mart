@@ -1,6 +1,6 @@
 import express from 'express';
-import AppConfig from './config/appConfig';
 import path from 'path';
+import AppConfig from './config/appConfig';
 
 const app = express();
 const PORT = process.env.PORT || 3000;

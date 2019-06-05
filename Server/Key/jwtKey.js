@@ -1,3 +1,3 @@
 export const jwtKeyObj = {
-  jwtKey: 'signmytoken'
-}
+  jwtKey: 'signmytoken',
+};
