@@ -11,7 +11,7 @@ appConfig.configure(app);
 app.use(express.static(path.join(__dirname, 'UI')));
 
 
-app.listen(3000, () => { console.log(`listening on port: ${PORT}`); });
+app.listen(PORT, () => { console.log(`listening on port: ${PORT}`); });
 
 
 export default app;

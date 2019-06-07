@@ -1,9 +1,11 @@
 import { Router } from 'express';
 import { UsersController, CarsController } from './Controllers';
+import { cloudinary_upload } from './Helpers/cloudinaryUpload';
 
 const router = Router();
 const usersController = new UsersController();
 const carsController = new CarsController();
+const imageUpload = cloudinary_upload();
 
 router.get('/', (req, res) => {
   res.status(200).json({
@@ -22,7 +24,7 @@ router.get('/user-all', usersController.getAllUsers);
 // This are the routes that handles the creation of ad...
 router.get('/car-all', carsController.getAllCars);
 router.get('/car-all/:car_id', carsController.getCarById);
-router.post('/car-create', carsController.createNewCarAd);
+router.post('/car-create', imageUpload.single('image'), carsController.createNewCarAd);
 router.patch('/car-update/price/:car_id', carsController.updateCarPice);
 router.patch('/car-update/status/:car_id', carsController.updateCarSoldStatus);
 

@@ -7,6 +7,7 @@ import { jwtKeyObj } from '../../Key/jwtKey';
 
 const PATH = '/api/v1';
 const { jwtKey } = jwtKeyObj;
+const token = jwt.sign({ email: 'chizyberto@gmail.com' }, jwtKey);
 const userTestPayload = {
   id: 1,
   email: 'chizyberto@gmail.com',
@@ -16,7 +17,7 @@ const userTestPayload = {
   address: '79, osho drive olodi apapa lagos',
   is_admin: true,
   phone_number: '+2348162956658',
-  token: jwt.sign({ email: 'chizyberto@gmail.com' }, jwtKey),
+  token,
 };
 
 describe('USERS ROUTES TEST', () => {

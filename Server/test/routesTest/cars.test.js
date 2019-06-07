@@ -62,12 +62,16 @@ describe('CARS ROUTES TEST', () => {
           done(err);
         });
     });
-    it('should return all car', (done) => {
+    it('should return only cars with status available if user is not admin', (done) => {
       chai.request(app)
         .get(`${PATH}/car-all`)
         .end((err, res) => {
           const { body, status } = res;
-          chai.expect(body).to.have.ownProperty('data');
+          const { data } = body;
+          const carStatus = data[0].status;
+          const { length } = data;
+          chai.expect(length).to.be.eql(1);
+          chai.expect(carStatus).to.be.eql('available');
           chai.expect(status).to.be.eql(200);
           done(err);
         });
@@ -90,6 +94,50 @@ describe('CARS ROUTES TEST', () => {
         .end((err, res) => {
           const { status } = res;
           chai.expect(status).to.be.eql(404);
+          done(err);
+        });
+    });
+    it('should return cars by specific status', (done) => {
+      const carStatus = 'available';
+      chai.request(app)
+        .get(`${PATH}/car-all?status=${carStatus}`)
+        .end((err, res) => {
+          const { body, status } = res;
+          chai.expect(body).to.have.ownProperty('data');
+          chai.expect(status).to.be.eql(200);
+          done(err);
+        });
+    });
+    it('should return cars by specific state', (done) => {
+      const carState = 'new';
+      chai.request(app)
+        .get(`${PATH}/car-all?state=${carState}`)
+        .end((err, res) => {
+          const { body, status } = res;
+          chai.expect(body).to.have.ownProperty('data');
+          chai.expect(status).to.be.eql(200);
+          done(err);
+        });
+    });
+    it('should return cars by specific body type', (done) => {
+      const bodyType = 'car';
+      chai.request(app)
+        .get(`${PATH}/car-all?body_type=${bodyType}`)
+        .end((err, res) => {
+          const { body, status } = res;
+          chai.expect(body).to.have.ownProperty('data');
+          chai.expect(status).to.be.eql(200);
+          done(err);
+        });
+    });
+    it('should return an empty array if manufacturer supplied in query string does not exist', (done) => {
+      const manufacturer = 'xxxxxx';
+      chai.request(app)
+        .get(`${PATH}/car-all?manufacturer=${manufacturer}`)
+        .end((err, res) => {
+          const { body, status } = res;
+          chai.expect(body).to.not.have.ownProperty('data');
+          chai.expect(status).to.be.eql(200);
           done(err);
         });
     });
@@ -117,14 +165,14 @@ describe('CARS ROUTES TEST', () => {
             done(err);
           });
       });
-      it('should create car Ad', (done) => {
+      it('should throw error if authorization header set to create car Ad is invalid ', (done) => {
         chai.request(app)
           .post(`${PATH}/car-create`)
           .set({ authorization: `${token}` })
           .send(carTestPayload)
           .end((err, res) => {
             const { status } = res;
-            chai.expect(status).to.be.eql(201);
+            chai.expect(status).to.be.eql(401);
             done(err);
           });
       });

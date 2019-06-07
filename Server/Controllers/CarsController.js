@@ -2,12 +2,15 @@ import { usersModel } from '../Models';
 import ApiErrors from '../Helpers/errorClass';
 import HandleUserHeader from '../Helpers/authorizer';
 import CarsHelper from '../Helpers/carsHelper';
+import CarServices from '../Services/carsServices';
 
 const { userDb } = usersModel;
 const {
   createNewCar, updateCarPriceHelper,
-  updateCarSoldHelper, getAllCarsHelper,
-  getCarByIdHelper,
+  updateCarSoldHelper, getCarByIdHelper,
+  getCarsByBodyHelper, getCarsByPriceRange,
+  getCarsByState, getCarsByStatusHelper,
+  getCarsByManufacturerHelper,
 } = CarsHelper;
 
 export class CarsController {
@@ -30,10 +33,7 @@ export class CarsController {
         throw new ApiErrors(message, 401);
       }
     } catch (err) {
-      res.status(err.statusCode || 500).json({
-        message: err.message,
-        status: err.statusCode || err.status,
-      });
+      CarServices.carErrResService(err, res);
     }
   }
 
@@ -59,10 +59,7 @@ export class CarsController {
         throw new ApiErrors(message, 401);
       }
     } catch (err) {
-      res.status(err.statusCode || 500).json({
-        message: err.message,
-        status: err.statusCode || err.status,
-      });
+      CarServices.carErrResService(err, res);
     }
   }
 
@@ -88,34 +85,50 @@ export class CarsController {
         throw new ApiErrors(message, 401);
       }
     } catch (err) {
-      res.status(err.statusCode || 500).json({
-        message: err.message,
-        status: err.statusCode || err.status,
-      });
+      CarServices.carErrResService(err, res);
     }
   }
 
   // This method handles the request to get all cars...
   async getAllCars(req, res) {
     try {
-      const allCars = getAllCarsHelper();
-      if (allCars == []) {
-        res.status(200).json({
-          message: 'There is no car currently stored in the database.',
-          status: 200,
-        });
-      } else {
-        res.status(200).json({
-          data: allCars,
-          message: 'Successfully retrieved all cars from the database.',
-          status: 200,
-        });
+      const { authorization } = req.headers;
+      const allCars = await CarServices.getAllCarsService(authorization);
+      const queryParam = req.query;
+
+      // This block returns the cars in the database if no query string is sent by client...
+      if (Object.getOwnPropertyNames(queryParam).length === 0) {
+        const optMessage = 'There is no car currently stored in the database.';
+        CarServices.getCarResService(res, optMessage, allCars);
+      }
+      // This block returns the cars in the database if query string is sent by client...
+      else {
+        const returnedCars = (queryParam.body_type)
+          ? (
+            await getCarsByBodyHelper(allCars, { ...queryParam })
+          )
+          : (// if the car price range was supplied in the query string....
+            (queryParam.max_price || queryParam.min_price)
+              ? (await getCarsByPriceRange(allCars, { ...queryParam }))
+              : (// if the car state was supplied in the query string...
+                (queryParam.state)
+                  ? (await getCarsByState(allCars, { ...queryParam }))
+                  : (// if the car status was supplied in the query string....
+                    (queryParam.status)
+                      ? (await getCarsByStatusHelper(allCars, { ...queryParam }))
+                      : ( // if the car manufacturer was supplied in the query string....
+                        (queryParam.manufacturer)
+                          ? (await getCarsByManufacturerHelper(allCars, { ...queryParam }))
+                          : (new ApiErrors('The query string supplied is not correct.', 400))
+                      )
+                  )
+              )
+          );
+        const optMessage = 'There is no car currently stored in the database.';
+        CarServices.getCarResService(res, optMessage, returnedCars);
       }
     } catch (err) {
-      res.status(err.statusCode || 500).json({
-        message: err.message,
-        status: err.statusCode || err.status,
-      });
+      CarServices.carErrResService(err, res);
     }
   }
 
@@ -123,17 +136,21 @@ export class CarsController {
   async getCarById(req, res) {
     try {
       const { car_id } = req.params;
-      const car = getCarByIdHelper(car_id);
-      res.status(200).json({
-        data: car,
-        message: `Successfully retrieved car with id: ${car_id} from the database.`,
-        status: 200,
-      });
+      const { authorization } = req.headers;
+      const sortedCarsDb = await CarServices.getAllCarsService(authorization);
+      const car = getCarByIdHelper(car_id, sortedCarsDb);
+      if (car == null || car == undefined) {
+        const message = `Car Ad with id ${car_id} was not found.`;
+        throw new ApiErrors(message, 404);
+      } else {
+        res.status(200).json({
+          data: car,
+          message: `Successfully retrieved car with id: ${car_id} from the database.`,
+          status: 200,
+        });
+      }
     } catch (err) {
-      res.status(err.statusCode || 500).json({
-        message: err.message,
-        status: err.statusCode || err.status,
-      });
+      CarServices.carErrResService(err, res);
     }
   }
 }
