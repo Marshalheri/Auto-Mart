@@ -69,15 +69,89 @@ const CarsHelper = {
   // This method gets all cars in the database...
   getAllCarsHelper: () => carsDb,
 
+  // This method gets all unsold cars in the database...
+  getUnsoldCarsHelper: () => {
+    const status = 'available';
+    const unsoldCarsDb = [];
+    carsDb.forEach((car) => {
+      if (car.status === status) {
+        unsoldCarsDb.push(car);
+      }
+    });
+    return unsoldCarsDb;
+  },
+
+  // This method gets all  cars in the database by body_type...
+  getCarsByBodyHelper: (allCars, { body_type }) => {
+    const sortedCarsDb = [];
+    if (body_type != undefined || body_type != null) {
+      allCars.forEach((car) => {
+        if (car.body_type == body_type) {
+          sortedCarsDb.push(car);
+        }
+      });
+    }
+    return sortedCarsDb;
+  },
+
+  // This method gets all  cars in the database by price range...
+  getCarsByPriceRange: (allCars, { min_price, max_price }) => {
+    const sortedCarsDb = [];
+    if (min_price != undefined || max_price != undefined) {
+      allCars.forEach((car) => {
+        if (car.price >= min_price && car.price <= max_price) {
+          sortedCarsDb.push(car);
+        }
+      });
+    }
+    return sortedCarsDb;
+  },
+
+  // This method gets all  cars in the database by state (used or new)...
+  getCarsByState: (allCars, { state }) => {
+    const sortedCarsDb = [];
+    if (state != undefined || state != undefined) {
+      allCars.forEach((car) => {
+        if (car.state == state) {
+          sortedCarsDb.push(car);
+        }
+      });
+    }
+    return sortedCarsDb;
+  },
+
+  // This method gets all cars in the database by status...
+  getCarsByStatusHelper: (allCars, { status }) => {
+    const sortedCarsDb = [];
+    if (status != undefined || status != undefined) {
+      allCars.forEach((car) => {
+        if (car.status == status) {
+          sortedCarsDb.push(car);
+        }
+      });
+    }
+    return sortedCarsDb;
+  },
+
+  // This method gets all cars in the database by manufacturer...
+  getCarsByManufacturerHelper: (allCars, { manufacturer }) => {
+    const sortedCarsDb = [];
+    if (manufacturer != undefined || manufacturer != undefined) {
+      allCars.forEach((car) => {
+        if (car.manufacturer == manufacturer) {
+          sortedCarsDb.push(car);
+        }
+      });
+    }
+    return sortedCarsDb;
+  },
+
   // This method gets a car by its id...
-  getCarByIdHelper: (car_id) => {
+  getCarByIdHelper: (car_id, sortedCarsDb) => {
     let car = null;
-    carsDb.some((eachCar) => {
+    sortedCarsDb.some((eachCar) => {
       if (eachCar.id == car_id) {
         car = eachCar;
-      } else {
-        const message = `Car Ad with id ${car_id} was not found.`;
-        throw new ApiErrors(message, 404);
       }
     });
 

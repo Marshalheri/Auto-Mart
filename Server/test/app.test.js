@@ -1,7 +1,7 @@
 import chai, { request } from './config/testConfig';
 import app from '..';
 
-const PORT = process.env.PORT || 4000;
+const PORT = 4000;
 
 describe('EXPRESS SERVER SETUP', () => {
   let server;
