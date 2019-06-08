@@ -14,7 +14,7 @@ const {
 } = CarsHelper;
 
 export class CarsController {
-  // This is the methd that handles the ceatin of a new car ad...
+  // This is the methd that handles the creation of a new car ad...
   async createNewCarAd(req, res) {
     try {
       const { body, headers } = req;
