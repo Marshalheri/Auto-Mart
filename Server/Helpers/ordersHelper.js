@@ -34,38 +34,27 @@ const OrdersHelper = {
   // This method gets all orders in the database...
   getAllOrdersHelper: () => ordersDb,
 
-  // This method gets all orders of a user in the database...
-  getAllOrdersByUserIdHelper: (userId) => {
-    const userOrders = [];
-    ordersDb.forEach((eachOrder) => {
-      if (eachOrder.buyer == userId) {
-        userOrders.push(eachOrder);
-      }
-    });
-    return userOrders;
-  },
-
-  // This method gets order of any user in the database by its id...
-  getOrdersByIdHelper: (order_id) => {
+  // This method gets order(s) of any user in the database by its id...
+  getOrdersByIdHelper: (sortedOrderDb, order_id, is_admin, userId) => {
     let specificOrder;
-    ordersDb.forEach((eachOrder) => {
-      if (eachOrder.id == order_id) {
-        specificOrder = eachOrder;
-      }
-    });
+    if (is_admin == true) {
+      sortedOrderDb.forEach((eachOrder) => {
+        if (eachOrder.id == order_id) {
+          specificOrder = eachOrder;
+        }
+      });
+    } else {
+      sortedOrderDb.forEach((eachOrder) => {
+        if (eachOrder.id == order_id && eachOrder.buyer == userId) {
+          specificOrder = eachOrder;
+        } else {
+          const message = `No order was found for user with id: ${userId}.`;
+          throw new ApiErrors(message, 404);
+        }
+      });
+    }
     return specificOrder;
-  },
-
-  // This method gets order of specific user in the database by its id...
-  getSpecificUserOrdersByIdHelper: (user_id, order_id) => {
-    let specificOrder;
-    ordersDb.forEach((eachOrder) => {
-      if (eachOrder.buyer == user_id && eachOrder.id == order_id) {
-        specificOrder = eachOrder;
-      }
-    });
-    return specificOrder;
-  },
+  }
 };
 
 export default OrdersHelper;
