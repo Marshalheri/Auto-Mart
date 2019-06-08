@@ -3,9 +3,7 @@ import HandleUserHeader from '../Helpers/authorizer';
 import OrdersHelper from '../Helpers/ordersHelper';
 
 const {
-  updateOrderPriceHelper,
-  getAllOrdersHelper, getAllOrdersByUserIdHelper,
-  getOrdersByIdHelper, getSpecificUserOrdersByIdHelper,
+  updateOrderPriceHelper, getAllOrdersHelper,
 } = OrdersHelper;
 
 const OrdersServices = {
@@ -20,29 +18,20 @@ const OrdersServices = {
   getAllOrdersService: async (authorization) => {
     const user = await HandleUserHeader.getUserToken(authorization);
     let allOrders = [];
+    let is_admin = false;
     if (user == null || user == undefined) {
       const message = 'Please supply a valid authorization token for this request.';
       throw new ApiErrors(message, 401);
     } else if (user.is_admin == true) {
       allOrders = getAllOrdersHelper();
-    } else {
-      allOrders = getAllOrdersByUserIdHelper(user.id);
+      is_admin = true;
     }
-    return allOrders;
-  },
-
-  getOrderByIdService: async ({ auth, order_id }) => {
-    const user = await HandleUserHeader.getUserToken(auth);
-    let specificOrder;
-    if (user == null || user == undefined) {
-      const message = 'Please supply a valid authorization token for this request.';
-      throw new ApiErrors(message, 401);
-    } else if (user.is_admin == true) {
-      specificOrder = getOrdersByIdHelper(order_id);
-    } else {
-      specificOrder = getSpecificUserOrdersByIdHelper(user.id, order_id);
-    }
-    return specificOrder;
+    const allOrdersData = {
+      allOrders,
+      is_admin,
+      userId: user.id,
+    };
+    return allOrdersData;
   },
 
   getOrdersResService: (res, message, allOrders) => {
