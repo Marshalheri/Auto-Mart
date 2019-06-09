@@ -10,7 +10,7 @@
     "dev": "nodemon --exec babel-node Server/index.js",
     "esformat": "prettier-eslint **/**/*.{ js, json }",
     "lint": "eslint Server/**/*.js --fix",
-    "start": "npm run build && node ./build",
+    "start": "node ./build/index.js",
     "sample_test": "mocha --require @babel/register ./Server/test/**/*.js --write",
     "test": "nyc --reporter=lcov --reporter=text-summary --reporter html mocha --reporter spec --require @babel/register --require @babel/polyfill ./Server/test/**/*.js --exit"
   },
