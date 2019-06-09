@@ -35,6 +35,11 @@
   },
   "homepage": "https://github.com/Marshalheri/Auto-Mart#readme",
   "dependencies": {
+    "@babel/cli": "7.4.4",
+    "@babel/core": "7.4.5",
+    "@babel/node": "7.4.5",
+    "@babel/preset-env": "7.4.5",
+    "@babel/polyfill": "7.4.4",
     "bcryptjs": "2.4.3",
     "body-parser": "1.19.0",
     "cloudinary": "1.14.0",
@@ -47,11 +52,6 @@
     "swagger-ui-express": "4.0.6"
   },
   "devDependencies": {
-    "@babel/cli": "7.4.4",
-    "@babel/core": "7.4.5",
-    "@babel/node": "7.4.5",
-    "@babel/preset-env": "7.4.5",
-    "@babel/polyfill": "7.4.4",
     "chai": "4.2.0",
     "chai-http": "4.3.0",
     "coveralls": "3.0.3",
