@@ -4,8 +4,8 @@
   "description": "This is a project of a website w\u001b[D\u001b[A\u001b[B\u001b[D\u001b[A\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C that offers users the platform to buy and sell cars.",
   "main": "index.js",
   "scripts": {
-    "build":"npm run clean && babel Server --out-dir build",
-    "clean":"rm -rf build",
+    "build": "npm run clean && babel Server --out-dir build",
+    "clean": "rm -rf build",
     "coverage": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "dev": "nodemon --exec babel-node Server/index.js",
     "esformat": "prettier-eslint **/**/*.{ js, json }",
@@ -35,11 +35,7 @@
   },
   "homepage": "https://github.com/Marshalheri/Auto-Mart#readme",
   "dependencies": {
-    "@babel/cli": "7.4.4",
-    "@babel/core": "7.4.5",
-    "@babel/node": "7.4.5",
-    "@babel/preset-env": "7.4.5",
-    "@babel/polyfill": "7.4.4",
+    "@babel/runtime": "7.4.5",
     "bcryptjs": "2.4.3",
     "body-parser": "1.19.0",
     "cloudinary": "1.14.0",
@@ -52,6 +48,12 @@
     "swagger-ui-express": "4.0.6"
   },
   "devDependencies": {
+    "@babel/cli": "7.4.4",
+    "@babel/core": "7.4.5",
+    "@babel/node": "7.4.5",
+    "@babel/plugin-transform-runtime": "7.4.4",
+    "@babel/polyfill": "7.4.4",
+    "@babel/preset-env": "7.4.5",
     "chai": "4.2.0",
     "chai-http": "4.3.0",
     "coveralls": "3.0.3",

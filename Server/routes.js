@@ -39,6 +39,10 @@ router.patch('/car-update/status/:car_id', carsController.updateCarSoldStatus);
 // These are the routes that handles the creation and management of orders...
 router.get('/order-all', ordersController.getAllOrders);
 router.get('/order-all/:order_id', ordersController.getOrdersById);
+router.post('/order-create', ordersController.createNewCarOrder);
+router.patch('/order-update/amount/:order_id', ordersController.updateOrderAmount);
+router.patch('/order-update/status/:order_id', ordersController.updateOrderStatus);
+
 
 
 export default router;

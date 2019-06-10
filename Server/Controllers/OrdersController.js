@@ -5,7 +5,7 @@ import OrdersHelper from '../Helpers/ordersHelper';
 import OrdersServices from '../Services/ordersServices';
 
 const { ordersDb } = ordersModel;
-const { createOrderHelper, getOrdersByIdHelper } = OrdersHelper;
+const { createNewOrderHelper, updateOrderAmountHelper, getOrdersByIdHelper } = OrdersHelper;
 const {
   getAllOrdersService, getOrderByIdService,
   orderErrResService, getOrdersResService,
@@ -18,7 +18,19 @@ export class OrdersController {
       const { body, headers } = req;
       const token = headers.authorization;
       const user = await HandleUserHeader.getUserToken(token);
-    } catch (err) {
+      if (user != null || user != undefined) {
+        body.buyer = user.id;
+        const newCreatedOrder = createNewOrderHelper(body);
+        res.status(201).json({
+          data: newCreatedOrder,
+          message: 'Successfully created new order.',
+          status: 201,
+        });
+      } else {
+        const message = 'Signup or Signin to create an order for this Ad.';
+        throw new ApiErrors(message, 401);
+    }
+  }catch (err) {
       orderErrResService(err, res);
     }
   }
@@ -26,6 +38,7 @@ export class OrdersController {
   // This is the method that handles the request to update order status...
   async updateOrderStatus(req, res) {
     try {
+      const { body, headers, params } = req;
 
     } catch (err) {
 
@@ -33,10 +46,24 @@ export class OrdersController {
   }
 
   // This is the method that handles the request to update order price...
-  async updateOrderPrice(req, res) {
+  async updateOrderAmount(req, res) {
     try {
-
-    } catch (err) {
+      const { body, headers, params } = req;
+      const token = headers.authorization;
+      const user = await HandleUserHeader.getUserToken(token);
+      if (user != null || user != undefined) {
+        body.order_id = params.order_id;
+        body.buyer = user.id;
+        const updatedOrderAmount = await updateOrderAmountHelper(body);
+        if (updatedOrderAmount != null || updatedOrderAmount != undefined) {
+          res.status(200).json({
+            data: updatedOrderAmount,
+            message: `Successfully updated the order amount of the Ad to ${updatedOrderAmount.amount}.`,
+            status: 200,
+          });
+        }
+    }
+  } catch (err) {
       orderErrResService(err, res);
     }
   }
