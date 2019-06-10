@@ -3,32 +3,49 @@ import { ordersModel } from '../Models';
 
 const { ordersDb } = ordersModel;
 
+const getOrderByIdFunc = (order_id) => {
+  let order = null;
+  ordersDb.some((eachOrder) => {
+    if (eachOrder.id == order_id) {
+      order = eachOrder;
+    }
+  });
+  return order;
+};
+
 const OrdersHelper = {
 
   // This method will create a new order...
-  createOrderHelper: (body) => {
+  createNewOrderHelper: (body) => {
     const newOrderId = ordersDb.length + 1;
     const newOrderPayload = {
       id: newOrderId,
-      buyer: body.userId,
+      buyer: body.buyer,
       car_id: body.carId,
       created_on: new Date(),
-      price: body.orderPrice,
-      status: body.orderStatus,
+      amount: body.orderAmount,
+      status: (body.orderStatus) ? (body.orderStatus) : ('pending')
     };
+
+    // Push the new order payload into the database....
+    ordersDb.push(newOrderPayload);
+    return newOrderPayload;
   },
 
   // This method will create a new order...
-  updateOrderPriceHelper: (body) => {
+  updateOrderAmountHelper: ({ order_id, new_amount, buyer }) => {
     const newOrderId = ordersDb.length + 1;
-    const newOrderPayload = {
-      id: newOrderId,
-      buyer: body.userId,
-      car_id: body.carId,
-      created_on: new Date(),
-      price: body.orderPrice,
-      status: body.orderStatus,
-    };
+
+    const orderToUpdate = getOrderByIdFunc(order_id);
+
+    if (orderToUpdate.buyer != buyer) {
+      const message = `Order with id ${car_id} was not found.`;
+      throw new ApiErrors(message, 404);
+    } else {
+      orderToUpdate.amount = new_amount;
+      carsDb.splice(index, 1, orderToUpdate);
+      return orderToUpdate;
+    }
   },
 
   // This method gets all orders in the database...

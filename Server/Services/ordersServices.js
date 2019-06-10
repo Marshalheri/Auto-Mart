@@ -2,8 +2,7 @@ import ApiErrors from '../Helpers/errorClass';
 import HandleUserHeader from '../Helpers/authorizer';
 import OrdersHelper from '../Helpers/ordersHelper';
 
-const {
-  updateOrderPriceHelper, getAllOrdersHelper,
+const { getAllOrdersHelper,
 } = OrdersHelper;
 
 const OrdersServices = {
