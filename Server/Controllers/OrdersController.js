@@ -5,7 +5,10 @@ import OrdersHelper from '../Helpers/ordersHelper';
 import OrdersServices from '../Services/ordersServices';
 
 const { ordersDb } = ordersModel;
-const { createNewOrderHelper, updateOrderAmountHelper, getOrdersByIdHelper } = OrdersHelper;
+const {
+  createNewOrderHelper, updateOrderAmountHelper,
+  getOrdersByUserIdHelper, getOrdersByIdHelper,
+} = OrdersHelper;
 const {
   getAllOrdersService, getOrderByIdService,
   orderErrResService, getOrdersResService,
@@ -29,8 +32,8 @@ export class OrdersController {
       } else {
         const message = 'Signup or Signin to create an order for this Ad.';
         throw new ApiErrors(message, 401);
-    }
-  }catch (err) {
+      }
+    } catch (err) {
       orderErrResService(err, res);
     }
   }
@@ -39,7 +42,6 @@ export class OrdersController {
   async updateOrderStatus(req, res) {
     try {
       const { body, headers, params } = req;
-
     } catch (err) {
 
     }
@@ -62,8 +64,8 @@ export class OrdersController {
             status: 200,
           });
         }
-    }
-  } catch (err) {
+      }
+    } catch (err) {
       orderErrResService(err, res);
     }
   }
@@ -73,9 +75,17 @@ export class OrdersController {
     try {
       const { authorization } = req.headers;
       const allOrdersData = await getAllOrdersService(authorization);
-      const { allOrders } = allOrdersData;
-      const optMessage = 'There is no order currently stored in the database.';
-      getOrdersResService(res, optMessage, allOrders);
+      const { allOrders, is_admin, userId } = allOrdersData;
+      let returnedOrders = [];
+      let optMessage;
+      if (is_admin == true) {
+        returnedOrders = allOrders;
+        optMessage = 'There is no order currently stored in the database.';
+      } else {
+        returnedOrders = getOrdersByUserIdHelper(allOrders, userId);
+        optMessage = `There is no order currently stored in the database for user with id: ${userId}.`;
+      }
+      getOrdersResService(res, optMessage, returnedOrders);
     } catch (err) {
       orderErrResService(err, res);
     }
