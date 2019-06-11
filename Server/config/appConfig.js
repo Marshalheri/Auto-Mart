@@ -9,7 +9,7 @@ export default class AppConfig {
     app.use(urlencoded({ extended: true }));
     app.use(logger('dev'));
     app.use('/api/v1', router);
-    app.use('/api/v1', swagRouter)
+    app.use('/api/v1', swagRouter);
     app.use('*', (req, res) => {
       res.status(404).json({
         success: false,
@@ -19,7 +19,7 @@ export default class AppConfig {
         ],
         solution: [
           'use /api/v1 as the base url for this app.',
-          'Check that the address you entered is correct.'
+          'Check that the address you entered is correct.',
         ],
       });
     });

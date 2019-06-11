@@ -2,9 +2,15 @@ import jwt from 'jsonwebtoken';
 import chai, { request } from '../config/testConfig';
 import app from '../..';
 import { jwtKeyObj } from '../../Key/jwtKey';
+import { usersModel } from '../../Models';
 
 const PATH = '/api/v1';
 const { jwtKey } = jwtKeyObj;
+const { userDb } = usersModel;
+
+const { token } = userDb[0];
+const errToken = jwt.sign({ email: 'chizyberto@gmail.com' }, jwtKey);
+
 const carTestPayload = {
   id: 1,
   owner: 1,
@@ -28,8 +34,6 @@ const carTestErrorPayload = {
   model: 'Benz 190',
   body_type: 'car',
 };
-
-const token = jwt.sign({ email: 'chizyberto@gmail.com' }, jwtKey);
 
 describe('CARS ROUTES TEST', () => {
   describe('GET REQUEST ROUTES', () => {
@@ -165,10 +169,21 @@ describe('CARS ROUTES TEST', () => {
             done(err);
           });
       });
-      it('should throw error if authorization header set to create car Ad is invalid ', (done) => {
+      it('should create new car Ad if user exist in the database', (done) => {
         chai.request(app)
           .post(`${PATH}/car-create`)
           .set({ authorization: `${token}` })
+          .send(carTestPayload)
+          .end((err, res) => {
+            const { status } = res;
+            chai.expect(status).to.be.eql(201);
+            done(err);
+          });
+      });
+      it('should throw error if authorization header set to create car Ad is invalid ', (done) => {
+        chai.request(app)
+          .post(`${PATH}/car-create`)
+          .set({ authorization: `${errToken}` })
           .send(carTestPayload)
           .end((err, res) => {
             const { status } = res;
