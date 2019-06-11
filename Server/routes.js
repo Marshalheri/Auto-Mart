@@ -45,5 +45,4 @@ router.patch('/order-update/amount/:order_id', ordersController.updateOrderAmoun
 router.patch('/order-update/status/:order_id', ordersController.updateOrderStatus);
 
 
-
 export default router;
