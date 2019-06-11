@@ -14,11 +14,11 @@ export default class AppConfig {
     app.use(urlencoded({ extended: true }));
     app.use(logger('dev'));
     //app.use(express.static(path.join(__dirname, 'UI')));
-    app.use( (res, req, next) => {
-      baseUrl(req);
-      next();
-    });
-    app.use('/', router);
+    // app.use( (res, req, next) => {
+    //   baseUrl(req);
+    //   next();
+    // });
+    app.use('/api/v1', router);
     app.use('/api/v1', swagRouter);
     app.use('*', (req, res) => {
       res.status(404).json({
