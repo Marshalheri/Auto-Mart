@@ -3,12 +3,22 @@ import logger from 'morgan';
 import router from '../routes';
 import swagRouter from '../docs/swagger';
 
+const baseUrl = (req) => {
+  let newUrl = `${req.protocol}://${req.get('host')}/api/v1`;
+  return newUrl;
+}
+
 export default class AppConfig {
   configure(app) {
     app.use(json());
     app.use(urlencoded({ extended: true }));
     app.use(logger('dev'));
-    app.use('/api/v1', router);
+    //app.use(express.static(path.join(__dirname, 'UI')));
+    app.use( (res, req, next) => {
+      baseUrl(req);
+      next();
+    });
+    app.use('/', router);
     app.use('/api/v1', swagRouter);
     app.use('*', (req, res) => {
       res.status(404).json({
@@ -18,7 +28,7 @@ export default class AppConfig {
           'Maybe you entered the url wrong',
         ],
         solution: [
-          'use /api/v1 as the base url for this app.',
+          'use /api/v1 as the base path url for this app.',
           'Check that the address you entered is correct.',
         ],
       });
