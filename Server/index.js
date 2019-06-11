@@ -8,7 +8,7 @@ const appConfig = new AppConfig();
 appConfig.configure(app);
 
 // This is where i use express to serve my html files in the UI folder.....
-app.use(express.static(path.join(__dirname, 'UI')));
+app.use('/UI', express.static(path.join(__dirname, 'UI')));
 
 
 app.listen(PORT, () => { console.log(`listening on port: ${PORT}`); });
