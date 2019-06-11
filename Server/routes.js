@@ -1,9 +1,8 @@
 import { Router } from 'express';
-import { serve, setup } from 'swagger-ui-express';
 
 import { UsersController, CarsController, OrdersController } from './Controllers';
 import { cloudinary_upload } from './Helpers/cloudinaryUpload';
-import swaggerDoc from '../swagger.json';
+
 
 const router = Router();
 const usersController = new UsersController();
@@ -13,14 +12,16 @@ const imageUpload = cloudinary_upload();
 
 router.get('/', (req, res) => {
   res.status(200).json({
+    availableUrls: [
+      '/user-create', '/user-login', '/user-all/:user_id', '/user-all',
+      '/car-all', '/car-all/:car_id', '/car-create', '/car-update/price/:car_id', '/car-update/status/:car_id',
+      '/order-all', '/order-all/:order_id', '/order-create', '/order-update/amount/:order_id',
+      '/order-update/status/:order_id',
+    ],
     message: 'Welcome to the Auto-Mart API',
     status: 200,
   });
 });
-
-// This is where the swagger file is served....
-router.use('/', serve);
-router.get('/api-docs', setup(swaggerDoc));
 
 // These are the routes where the user authentication and creation will be handled...
 router.post('/user-create', usersController.createNewUser);
