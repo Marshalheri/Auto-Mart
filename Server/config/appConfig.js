@@ -18,14 +18,14 @@ const errorMsg = {
   ],
 };
 
-const welcomeMsg ={
+const welcomeMsg = {
   success: true,
   message: [
     'Welcome to AutoMart server.',
     'use /api/v1 as the base path url for the APIs of this app.',
     'use /UI as the base path url for the UI of this app.',
-  ]
-}
+  ],
+};
 
 export default class AppConfig {
   configure(app) {
@@ -50,7 +50,5 @@ export default class AppConfig {
     app.use('*', (req, res) => {
       res.status(404).json(errorMsg);
     });
-
-
   }
 }
