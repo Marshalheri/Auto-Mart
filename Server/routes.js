@@ -15,8 +15,8 @@ router.get('/', (req, res) => {
     availableUrls: [
       '/user-create', '/user-login', '/user-all/:user_id', '/user-all',
       '/car-all', '/car-all/:car_id', '/car-create', '/car-update/price/:car_id', '/car-update/status/:car_id',
-      '/order-all', '/order-all/:order_id', '/order-create', '/order-update/amount/:order_id',
-      '/order-update/status/:order_id',
+      '/car-delete/:car_id', '/order-all', '/order-all/:order_id', '/order-create',
+      '/order-update/amount/:order_id', '/order-update/status/:order_id',
     ],
     message: 'Welcome to the Auto-Mart API',
     status: 200,
@@ -36,6 +36,7 @@ router.get('/car-all/:car_id', carsController.getCarById);
 router.post('/car-create', imageUpload.single('image'), carsController.createNewCarAd);
 router.patch('/car-update/price/:car_id', carsController.updateCarPice);
 router.patch('/car-update/status/:car_id', carsController.updateCarSoldStatus);
+router.delete('/car-delete/:car_id', carsController.deleteCar);
 
 // These are the routes that handles the creation and management of orders...
 router.get('/order-all', ordersController.getAllOrders);

@@ -206,6 +206,41 @@ describe('CARS ROUTES TEST', () => {
             done(err);
           });
       });
-    }); // Post describe ends here......
+    });
+  }); // Post describe ends here......
+
+  describe('DELETE REQUEST ROUTE', () => {
+    it('should throw error if authorization header is not set', (done) => {
+      const car_id = 2;
+      chai.request(app)
+        .delete(`${PATH}/car-delete/:${car_id}`)
+        .end((err, res) => {
+          const { status } = res;
+          chai.expect(status).to.be.eql(401);
+          done(err);
+        });
+    });
+    it('should throw error if authorization header set is invalid', (done) => {
+      const car_id = 2;
+      chai.request(app)
+        .delete(`${PATH}/car-delete/:${car_id}`)
+        .set({ authorization: `${errToken}` })
+        .end((err, res) => {
+          const { status } = res;
+          chai.expect(status).to.be.eql(401);
+          done(err);
+        });
+    });
+    it('should throw error if car id set is not found', (done) => {
+      const car_id = 5;
+      chai.request(app)
+        .delete(`${PATH}/car-delete/:${car_id}`)
+        .set({ authorization: `${token}` })
+        .end((err, res) => {
+          const { status } = res;
+          chai.expect(status).to.be.eql(404);
+          done(err);
+        });
+    });
   });
 });
