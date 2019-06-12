@@ -13,6 +13,11 @@ const {
   getCarsByManufacturerHelper,
 } = CarsHelper;
 
+const {
+  carErrResService, deleteCarByIdService,
+  getCarResService, getAllCarsService,
+} = CarServices;
+
 export class CarsController {
   // This is the methd that handles the creation of a new car ad...
   async createNewCarAd(req, res) {
@@ -33,7 +38,7 @@ export class CarsController {
         throw new ApiErrors(message, 401);
       }
     } catch (err) {
-      CarServices.carErrResService(err, res);
+      carErrResService(err, res);
     }
   }
 
@@ -59,7 +64,7 @@ export class CarsController {
         throw new ApiErrors(message, 401);
       }
     } catch (err) {
-      CarServices.carErrResService(err, res);
+      carErrResService(err, res);
     }
   }
 
@@ -85,7 +90,7 @@ export class CarsController {
         throw new ApiErrors(message, 401);
       }
     } catch (err) {
-      CarServices.carErrResService(err, res);
+      carErrResService(err, res);
     }
   }
 
@@ -93,13 +98,13 @@ export class CarsController {
   async getAllCars(req, res) {
     try {
       const { authorization } = req.headers;
-      const allCars = await CarServices.getAllCarsService(authorization);
+      const allCars = await getAllCarsService(authorization);
       const queryParam = req.query;
 
       // This block returns the cars in the database if no query string is sent by client...
       if (Object.getOwnPropertyNames(queryParam).length === 0) {
         const optMessage = 'There is no car currently stored in the database.';
-        CarServices.getCarResService(res, optMessage, allCars);
+        getCarResService(res, optMessage, allCars);
       }
       // This block returns the cars in the database if query string is sent by client...
       else {
@@ -125,10 +130,10 @@ export class CarsController {
               )
           );
         const optMessage = 'There is no car currently stored in the database.';
-        CarServices.getCarResService(res, optMessage, returnedCars);
+        getCarResService(res, optMessage, returnedCars);
       }
     } catch (err) {
-      CarServices.carErrResService(err, res);
+      carErrResService(err, res);
     }
   }
 
@@ -137,7 +142,7 @@ export class CarsController {
     try {
       const { car_id } = req.params;
       const { authorization } = req.headers;
-      const sortedCarsDb = await CarServices.getAllCarsService(authorization);
+      const sortedCarsDb = await getAllCarsService(authorization);
       const car = getCarByIdHelper(car_id, sortedCarsDb);
       if (car == null || car == undefined) {
         const message = `Car Ad with id ${car_id} was not found.`;
@@ -150,7 +155,25 @@ export class CarsController {
         });
       }
     } catch (err) {
-      CarServices.carErrResService(err, res);
+      carErrResService(err, res);
+    }
+  }
+
+  // This method handles the request to delete a car by id...
+  async deleteCar(req, res) {
+    try {
+      const { car_id } = req.params;
+      const { authorization } = req.headers;
+      const { carsDb, deleteSuccess } = await deleteCarByIdService(authorization, car_id);
+      if (deleteSuccess == true) {
+        res.status(200).json({
+          data: carsDb,
+          message: `Successfully deleted car with id: ${car_id} from the database.`,
+          status: 200,
+        });
+      }
+    } catch (err) {
+      carErrResService(err, res);
     }
   }
 }

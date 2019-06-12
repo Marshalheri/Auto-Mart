@@ -158,6 +158,26 @@ const CarsHelper = {
     return car;
   },
 
+  // This method delete's a car by its id...
+  deleteCarByIdHelper: (car_id) => {
+    const index = car_id - 1;
+    let deleteSuccess = false;
+
+    const carToDelete = getCarByIdFunc(car_id);
+
+    if (carToDelete == null || carToDelete == undefined) {
+      const message = `Car Ad with id ${car_id} was not found.`;
+      throw new ApiErrors(message, 404);
+    } else {
+      carsDb.splice(index, 1);
+      deleteSuccess = true;
+    }
+    return {
+      carsDb,
+      deleteSuccess,
+    };
+  },
+
 };
 
 export default CarsHelper;

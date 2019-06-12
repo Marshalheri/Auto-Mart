@@ -2,7 +2,7 @@ import ApiErrors from '../Helpers/errorClass';
 import HandleUserHeader from '../Helpers/authorizer';
 import CarsHelper from '../Helpers/carsHelper';
 
-const { getAllCarsHelper, getUnsoldCarsHelper } = CarsHelper;
+const { getAllCarsHelper, getUnsoldCarsHelper, deleteCarByIdHelper } = CarsHelper;
 
 const CarServices = {
   getAllCarsService: async (authorization) => {
@@ -17,6 +17,18 @@ const CarServices = {
       throw new ApiErrors(message, 400);
     }
     return allCars;
+  },
+
+  deleteCarByIdService: async (authorization, car_id) => {
+    const user = await HandleUserHeader.getUserToken(authorization);
+    let deleteServiceData;
+    if (user == null || user == undefined) {
+      const message = 'Please supply a valid admin authorization header to delete an Ad.';
+      throw new ApiErrors(message, 401);
+    } else if (user.is_admin === true && user.token === authorization) {
+      deleteServiceData = deleteCarByIdHelper(car_id);
+    }
+    return deleteServiceData;
   },
 
   getCarResService: (res, message, allCars) => {
