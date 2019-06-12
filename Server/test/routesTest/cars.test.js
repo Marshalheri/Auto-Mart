@@ -66,6 +66,21 @@ describe('CARS ROUTES TEST', () => {
           done(err);
         });
     });
+    it('should return cars with status sold if user is admin', (done) => {
+      chai.request(app)
+        .get(`${PATH}/car-all`)
+        .set({ authorization: `${token}` })
+        .end((err, res) => {
+          const { body, status } = res;
+          const { data } = body;
+          const carStatus = data[0].status;
+          const carStatus2 = data[1].status;
+          chai.expect(carStatus).to.be.eql('available');
+          chai.expect(carStatus2).to.be.eql('sold');
+          chai.expect(status).to.be.eql(200);
+          done(err);
+        });
+    });
     it('should return only cars with status available if user is not admin', (done) => {
       chai.request(app)
         .get(`${PATH}/car-all`)
