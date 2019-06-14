@@ -1,6 +1,8 @@
 import { Router } from 'express';
 
-import { UsersController, CarsController, OrdersController } from './Controllers';
+import {
+  UsersController, CarsController, OrdersController, FlagsController,
+} from './Controllers';
 import { cloudinary_upload } from './Helpers/cloudinaryUpload';
 
 
@@ -8,6 +10,7 @@ const router = Router();
 const usersController = new UsersController();
 const carsController = new CarsController();
 const ordersController = new OrdersController();
+const flagsController = new FlagsController();
 const imageUpload = cloudinary_upload();
 
 router.get('/', (req, res) => {
@@ -44,6 +47,9 @@ router.get('/order-all/:order_id', ordersController.getOrdersById);
 router.post('/order-create', ordersController.createNewCarOrder);
 router.patch('/order-update/amount/:order_id', ordersController.updateOrderAmount);
 router.patch('/order-update/status/:order_id', ordersController.updateOrderStatus);
+
+// These are the routes that handles the creation and management of flags...
+router.post('/flag-create', flagsController.createNewFlag);
 
 
 export default router;
