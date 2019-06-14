@@ -74,7 +74,7 @@ describe('ORDERS ROUTES TEST', () => {
     });
   });// describe for get request ends here...
 
-  describe('Post To Create New Order', () => {
+  describe('POST REQUEST ROUTES', () => {
     it('should throw an error if the post request header does not have an authorization token', (done) => {
       chai.request(app)
         .post(`${PATH}/order-create`)
