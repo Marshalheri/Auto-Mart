@@ -5,6 +5,7 @@ import CarsHelper from '../Helpers/carsHelper';
 import CarServices from '../Services/carsServices';
 
 const { userDb } = usersModel;
+const { getUserToken } = HandleUserHeader;
 const {
   createNewCar, updateCarPriceHelper,
   updateCarSoldHelper, getCarByIdHelper,
@@ -24,7 +25,7 @@ export class CarsController {
     try {
       const { body, headers } = req;
       const token = headers.authorization;
-      const user = await HandleUserHeader.getUserToken(token);
+      const user = await getUserToken(token);
       if (user != null || user != undefined) {
         body.owner = user.id;
         const newCreatedCar = createNewCar(body);
@@ -47,7 +48,7 @@ export class CarsController {
     try {
       const { body, headers, params } = req;
       const token = headers.authorization;
-      const user = await HandleUserHeader.getUserToken(token);
+      const user = await getUserToken(token);
       if (user != null || user != undefined) {
         body.car_id = params.car_id;
         body.owner = user.id;
@@ -73,7 +74,7 @@ export class CarsController {
     try {
       const { body, headers, params } = req;
       const token = headers.authorization;
-      const user = await HandleUserHeader.getUserToken(token);
+      const user = await getUserToken(token);
       if (user != null || user != undefined) {
         body.car_id = params.car_id;
         body.owner = user.id;

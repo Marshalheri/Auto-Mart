@@ -5,6 +5,7 @@ import OrdersHelper from '../Helpers/ordersHelper';
 import OrdersServices from '../Services/ordersServices';
 
 const { ordersDb } = ordersModel;
+const { getUserToken } = HandleUserHeader;
 const {
   createNewOrderHelper, updateOrderAmountHelper,
   getOrdersByUserIdHelper, getOrdersByIdHelper,
@@ -19,8 +20,8 @@ export class OrdersController {
   async createNewCarOrder(req, res) {
     try {
       const { body, headers } = req;
-      const token = headers.authorization;
-      const user = await HandleUserHeader.getUserToken(token);
+      const { authorization } = headers;
+      const user = await getUserToken(authorization);
       if (user != null || user != undefined) {
         body.buyer = user.id;
         const newCreatedOrder = createNewOrderHelper(body);
@@ -52,7 +53,7 @@ export class OrdersController {
     try {
       const { body, headers, params } = req;
       const token = headers.authorization;
-      const user = await HandleUserHeader.getUserToken(token);
+      const user = await getUserToken(token);
       if (user != null || user != undefined) {
         body.order_id = params.order_id;
         body.buyer = user.id;

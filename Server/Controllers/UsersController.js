@@ -5,6 +5,7 @@ import ApiErrors from '../Helpers/errorClass';
 import UserHelper from '../Helpers/userHelper';
 
 const { userDb } = usersModel;
+const {isUserInDb, createNewUser, getUserById, getUserByEmail } = UserHelper;
 
 export class UsersController {
   // This is the method that handles the request for a user to be signed up...
@@ -12,11 +13,11 @@ export class UsersController {
     try {
       const { body } = req;
       // First check if the email of the new user already exist in the database...
-      if (UserHelper.isUserInDb(body) == true) {
+      if (isUserInDb(body) == true) {
         const message = 'Email already exist in the database, please use a different email';
         throw new ApiErrors(message, 400);
       } else {
-        const createdUser = UserHelper.createNewUser(body);
+        const createdUser = createNewUser(body);
         res.status(201).json({
           message: `Successfully created ${createdUser.first_name} ${createdUser.last_name} as a new user`,
           status: 201,
@@ -35,7 +36,7 @@ export class UsersController {
     try {
       const { email, password } = req.body;
 
-      const validUser = UserHelper.getUserByEmail(email);
+      const validUser = getUserByEmail(email);
       if (validUser == null || validUser == undefined) {
         const message = `There is no user with email: ${email} on the database`;
         throw new ApiErrors(message, 404);
@@ -68,7 +69,7 @@ export class UsersController {
   getUserById(req, res) {
     try {
       const { user_id } = req.params;
-      const userById = UserHelper.getUserById(user_id);
+      const userById = getUserById(user_id);
       if (userById != null || userById != undefined) {
         res.status(200).json({
           data: userById,
