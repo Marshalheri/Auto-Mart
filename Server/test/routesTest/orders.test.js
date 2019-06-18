@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import chai, { request } from '../config/testConfig';
 import app from '../..';
 import { jwtKeyObj } from '../../Key/jwtKey';
-import { usersModel } from '../../Models';
+import { usersModel } from '../../DataStructureDb/Models';
 
 const PATH = '/api/v1';
 const { jwtKey } = jwtKeyObj;

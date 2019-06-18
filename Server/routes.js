@@ -1,13 +1,17 @@
 import { Router } from 'express';
 
 import {
-  UsersController, CarsController, OrdersController, FlagsController,
-} from './Controllers';
-import { cloudinary_upload } from './Helpers/cloudinaryUpload';
+  UserController, CarsController, OrdersController, FlagsController,
+} from './DataStructureDb/Controllers';
+import {
+  UsersController
+} from './PostgresDb/Controllers';
+import { cloudinary_upload } from './DataStructureDb/Helpers/cloudinaryUpload';
 
 
 const router = Router();
-const usersController = new UsersController();
+const userController = new UsersController(); // PostgresDb...
+const usersController = new UserController();
 const carsController = new CarsController();
 const ordersController = new OrdersController();
 const flagsController = new FlagsController();
@@ -27,7 +31,7 @@ router.get('/', (req, res) => {
 });
 
 // These are the routes where the user authentication and creation will be handled...
-router.post('/user-create', usersController.createNewUser);
+router.post('/user-create', userController.createNewUser);
 router.post('/user-login', usersController.loginUser);
 router.get('/user-all/:user_id', usersController.getUserById);
 router.get('/user-all', usersController.getAllUsers);
