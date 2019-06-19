@@ -17,6 +17,22 @@ const UsersHelper = {
   generateToken: (email) => {
     const token = jwt.sign({ email: email }, jwtKey);
     return token;
+  },
+
+  //This handles the response to an error....
+  userErrorResponse: (err, res) => {
+    var message;
+    var statusCode
+    if (err.code == 23505 || err.constraint == 'users_email_key') {
+       message = 'Email already exist in the database, please signup with a different email';
+       statusCode = 400;
+    } else {
+      message = err.message;
+    }
+    res.status(statusCode || 500).json({
+      message: message,
+      status: statusCode || 500,
+    });
   }
 };
 

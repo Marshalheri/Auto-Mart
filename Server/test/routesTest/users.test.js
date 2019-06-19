@@ -10,13 +10,13 @@ const { jwtKey } = jwtKeyObj;
 const token = jwt.sign({ email: 'chizyberto@gmail.com' }, jwtKey);
 const userTestPayload = {
   id: 1,
-  email: 'chizyberto@gmail.com',
-  first_name: 'Chizoba',
-  last_name: 'Nnamani',
+  email: 'testuser1@gmail.com',
+  firstName: 'Chizoba',
+  lastName: 'Nnamani',
   password: hashSync('adminpassword', genSaltSync(10)),
   address: '79, osho drive olodi apapa lagos',
-  is_admin: true,
-  phone_number: '+2348162956658',
+  isAdmin: true,
+  phoneNumber: '+2348162956658',
   token,
 };
 
@@ -76,7 +76,7 @@ describe('USERS ROUTES TEST', () => {
           });
       });
       it('should create a new user', (done) => {
-        userTestPayload.email = 'testuser1@gmail.com';
+        userTestPayload.email = 'testuser100@gmail.com';
         chai.request(app)
           .post(`${PATH}/user-create`)
           .send(userTestPayload)
