@@ -7,7 +7,7 @@ import UserHelper from '../Helpers/userHelper';
 const { userDb } = usersModel;
 const {isUserInDb, createNewUser, getUserById, getUserByEmail } = UserHelper;
 
-export class UsersController {
+export class UserController {
   // This is the method that handles the request for a user to be signed up...
   createNewUser(req, res) {
     try {

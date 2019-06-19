@@ -1,6 +1,6 @@
 import { hashSync, genSaltSync } from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { jwtKeyObj } from '../Key/jwtKey';
+import { jwtKeyObj } from '../../Key/jwtKey';
 
 const { jwtKey } = jwtKeyObj;
 
