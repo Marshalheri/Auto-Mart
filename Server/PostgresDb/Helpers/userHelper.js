@@ -1,9 +1,9 @@
 import { hashSync, genSaltSync } from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-import { jwtKeyObj } from '../../Key/jwtKey';
+import { environment } from '../../myEnvironment';
 
-const { jwtKey } = jwtKeyObj;
+const { jwtSecret } = environment;
 
 const UsersHelper = {
 
@@ -14,8 +14,8 @@ const UsersHelper = {
   },
 
   //This function generates a token for the user...
-  generateToken: (email) => {
-    const token = jwt.sign({ email: email }, jwtKey);
+  generateToken: ({id}) => {
+    const token = jwt.sign({ userId: id }, jwtSecret);
     return token;
   },
 
@@ -29,9 +29,9 @@ const UsersHelper = {
     } else {
       message = err.message;
     }
-    res.status(statusCode || 500).json({
+    res.status(err.statusCode || statusCode || 500).json({
       message: message,
-      status: statusCode || 500,
+      status: err.statusCode || statusCode || 500,
     });
   }
 };
