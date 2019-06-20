@@ -32,7 +32,7 @@ const UsersModel = {
     }
   },
 
-// This is the method that handles the request to login a user that exist on the database....
+// This is the method that handles the request to login a user that exist on the database.....
   async loginUserModel (req, res) {
     try {
       const { email, password } = req.body;
