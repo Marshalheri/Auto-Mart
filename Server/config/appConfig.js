@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import { json, urlencoded } from 'body-parser';
 import logger from 'morgan';
-import router from '../routes';
+import router from '../appRoutes/postgresRoutes';
 import swagRouter from '../docs/swagger';
 
 const errorMsg = {
