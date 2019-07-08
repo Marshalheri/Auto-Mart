@@ -14,4 +14,5 @@ export const environment = {
   pgDatabase: process.env.PGDATABASE,
   pgPort: process.env.PGPORT,
   testToken: process.env.TESTTOKEN,
+  testErrToken: process.env.TESTERRORTOKEN,
 };

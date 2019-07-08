@@ -3,19 +3,21 @@ import { compareSync } from 'bcryptjs';
 import dbConfig from '../dbConfig';
 import ApiErrors from '../Services/errorClass';
 import UsersHelper from '../Helpers/userHelper';
-import AuthorizeUser from '../Services/authorizer'
+import AuthorizeUser from '../Services/authorizer';
 import { Constants } from '../Services';
 
 const { hashPassword, generateToken, userErrorResponse } = UsersHelper;
 const { verifyUser } = AuthorizeUser;
-const { notAuthorizedMessage, supplyAuthHeader } = Constants;
+const { invalidToken, notAuthorizedMessage, supplyAuthHeader } = Constants;
 
 const UsersModel = {
 
-//This is the function that will create a new user in the database...
-  async createNewUserModel (req, res) {
+  // This is the function that will create a new user in the database...
+  async createNewUserModel(req, res) {
     try {
-      const { email, firstName, lastName, isAdmin, address, phoneNumber, password } = req.body;
+      const {
+        email, firstName, lastName, isAdmin, address, phoneNumber, password,
+      } = req.body;
       const newUserPassword = hashPassword(password);
       const createQuery = `INSERT INTO
       users(email, "firstName", "lastName", "isAdmin", address, "phoneNumber", password)
@@ -32,8 +34,8 @@ const UsersModel = {
     }
   },
 
-// This is the method that handles the request to login a user that exist on the database.....
-  async loginUserModel (req, res) {
+  // This is the method that handles the request to login a user that exist on the database.....
+  async loginUserModel(req, res) {
     try {
       const { email, password } = req.body;
       const validUser = await this.getUserByEmailModel(email);
@@ -44,7 +46,7 @@ const UsersModel = {
         const message = 'The password entered is not correct';
         throw new ApiErrors(message, 404);
       } else {
-        const token = generateToken({...validUser}) ;
+        const token = generateToken({ ...validUser });
         res.status(200).json({
           data: {
             address: validUser.address,
@@ -57,48 +59,14 @@ const UsersModel = {
           message: 'Login successful',
           status: 200,
         });
-      };
+      }
     } catch (err) {
       userErrorResponse(err, res);
     }
   },
 
-//This function returns all users stored in the database...
-  async getAllUsersModel (req, res) {
-    const { user_id } = req.params;
-    const { authorization } = req.headers;
-    try {
-      if (authorization == null || authorization == undefined) {
-        supplyAuthHeader()
-      } else {
-        const user = await verifyUser(authorization, res);
-        if (user.isAdmin == true) {
-          const getEmailQuery = `SELECT * FROM users`;
-          const { rows } = await dbConfig.query(getEmailQuery);
-          if (rows.length == 0) {
-            const message = `The is no user currently in the database.`;
-            res.status(200).json({
-              message: message,
-              status: 200,
-            });
-          } else {
-            res.status(200).json({
-              data: rows,
-              status: 200,
-            });
-          }
-        }
-        else {
-          notAuthorizedMessage();
-        }
-      }
-    } catch (err) {
-      userErrorResponse(err, res);
-    };
-  },
-
-//This function returns a user by its id...
-  async getUserByIdModel (req, res) {
+  // This function returns all users stored in the database...
+  async getAllUsersModel(req, res) {
     const { user_id } = req.params;
     const { authorization } = req.headers;
     try {
@@ -107,7 +75,41 @@ const UsersModel = {
       } else {
         const user = await verifyUser(authorization, res);
         if (user.isAdmin == true) {
-          const getIdQuery = `SELECT * FROM users WHERE id = $1`;
+          const getEmailQuery = 'SELECT * FROM users';
+          const { rows } = await dbConfig.query(getEmailQuery);
+          if (rows.length == 0) {
+            const message = 'There is no user currently in the database.';
+            res.status(200).json({
+              message,
+              status: 200,
+            });
+          } else {
+            res.status(200).json({
+              data: rows,
+              status: 200,
+            });
+          }
+        } else {
+          (user.name == 'JsonWebTokenError')
+            ? (invalidToken(user)) : (notAuthorizedMessage());
+        }
+      }
+    } catch (err) {
+      userErrorResponse(err, res);
+    }
+  },
+
+  // This function returns a user by its id...
+  async getUserByIdModel(req, res) {
+    const { user_id } = req.params;
+    const { authorization } = req.headers;
+    try {
+      if (authorization == null || authorization == undefined) {
+        supplyAuthHeader();
+      } else {
+        const user = await verifyUser(authorization, res);
+        if (user.isAdmin == true) {
+          const getIdQuery = 'SELECT * FROM users WHERE id = $1';
           const { rows } = await dbConfig.query(getIdQuery, [user_id]);
           if (rows.length == 0) {
             const message = `The user with id: ${user_id} does not exist.`;
@@ -118,22 +120,22 @@ const UsersModel = {
               status: 200,
             });
           }
-        }
-        else {
-          notAuthorizedMessage();
+        } else {
+          (user.name == 'JsonWebTokenError')
+            ? (invalidToken(user)) : (notAuthorizedMessage());
         }
       }
     } catch (err) {
-        userErrorResponse(err, res);
+      userErrorResponse(err, res);
     }
   },
 
-//This function returns a user by its email...
-  async getUserByEmailModel (email) {
-    const getEmailQuery = `SELECT * FROM users WHERE email = $1`;
+  // This function returns a user by its email...
+  async getUserByEmailModel(email) {
+    const getEmailQuery = 'SELECT * FROM users WHERE email = $1';
     const { rows } = await dbConfig.query(getEmailQuery, [email]);
     return rows[0];
-  }
+  },
 
 };
 

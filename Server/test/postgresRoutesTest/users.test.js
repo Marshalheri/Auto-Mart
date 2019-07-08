@@ -24,7 +24,7 @@ describe('USERS ROUTES TEST', () => {
     it('should return an array of users stored in the database', (done) => {
       chai.request(app)
         .get(`${PATH}/user-all`)
-        .set({authorization: token})
+        .set({ authorization: token })
         .end((err, res) => {
           const { body } = res;
           chai.expect(body.data).to.be.instanceof(Array);
@@ -34,7 +34,7 @@ describe('USERS ROUTES TEST', () => {
     it('should return a body object that contains a data and status key', (done) => {
       chai.request(app)
         .get(`${PATH}/user-all`)
-        .set({authorization: token})
+        .set({ authorization: token })
         .end((err, res) => {
           const { body } = res;
           chai.expect(body).to.haveOwnProperty('data' && 'status');
@@ -55,7 +55,7 @@ describe('USERS ROUTES TEST', () => {
       const id = 0;
       chai.request(app)
         .get(`${PATH}/user-all/${id}`)
-        .set({authorization: token})
+        .set({ authorization: token })
         .end((err, res) => {
           const { status } = res;
           chai.expect(status).to.be.eql(404);
@@ -66,7 +66,7 @@ describe('USERS ROUTES TEST', () => {
       const id = 1;
       chai.request(app)
         .get(`${PATH}/user-all/${id}`)
-        .set({authorization: token})
+        .set({ authorization: token })
         .end((err, res) => {
           const { status } = res;
           chai.expect(status).to.be.eql(200);

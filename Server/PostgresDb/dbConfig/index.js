@@ -2,9 +2,10 @@ import { Pool } from 'pg';
 
 import { environment } from '../../myEnvironment';
 
-const connectionstring = 'postgres://ChizobaDev:automartdev@localhost:5432/AutoMartDB';
+const connectionString = { connectionString: process.env.DATABASE_URL };
+const connection = connectionString || environment;
 
-const pool = new Pool();
+const pool = new Pool(connection);
 
 (async () => {
   const client = await pool.connect();
@@ -95,5 +96,5 @@ const pool = new Pool();
 })().catch(err => console.log(err.stack));
 
 export default {
-  query : (text, params, callback) => pool.query(text, params, callback),
+  query: (text, params, callback) => pool.query(text, params, callback),
 };
