@@ -15,7 +15,7 @@ export class FlagsController {
       const { body, headers } = req;
       const { authorization } = headers;
       const queryParam = req.query;
-      //const { car_id } = req.qeury;
+      // const { car_id } = req.qeury;
       const user = await getUserToken(authorization);
       if (user != null || user != undefined) {
         body.car_id = queryParam.car_id;

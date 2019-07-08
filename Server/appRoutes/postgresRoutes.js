@@ -1,12 +1,14 @@
 import { Router } from 'express';
 
 import {
-  UsersController
+  UsersController, CarsController,
 } from '../PostgresDb/Controllers';
 import { cloudinary_upload } from '../DataStructureDb/Helpers/cloudinaryUpload';
 
 const router = Router();
-const userController = new UsersController();
+const usersController = new UsersController();
+const carsController = new CarsController();
+const imageUpload = cloudinary_upload();
 
 router.get('/', (req, res) => {
   res.status(200).json({
@@ -22,9 +24,17 @@ router.get('/', (req, res) => {
 });
 
 // These are the routes where the user authentication and creation will be handled...
-router.post('/user-create', userController.createNewUser);
-router.post('/user-login', userController.loginUser);
-router.get('/user-all/:user_id', userController.getUserById);
-router.get('/user-all', userController.getAllUsers);
+router.post('/user-create', usersController.createNewUser);
+router.post('/user-login', usersController.loginUser);
+router.get('/user-all/:user_id', usersController.getUserById);
+router.get('/user-all', usersController.getAllUsers);
+
+// These are the routes that handles the creation and management of ad...
+router.get('/car-all', carsController.getAllCars);
+router.get('/car-all/:car_id', carsController.getCarById);
+router.post('/car-create', imageUpload.single('image'), carsController.createNewCarAd);
+router.patch('/car-update/price/:car_id', carsController.updateCarPrice);
+router.patch('/car-update/status/:car_id', carsController.updateCarStatus);
+router.delete('/car-delete/:car_id', carsController.deleteCar);
 
 export default router;

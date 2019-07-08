@@ -5,7 +5,9 @@ import ApiErrors from '../Helpers/errorClass';
 import UserHelper from '../Helpers/userHelper';
 
 const { userDb } = usersModel;
-const {isUserInDb, createNewUser, getUserById, getUserByEmail } = UserHelper;
+const {
+  isUserInDb, createNewUser, getUserById, getUserByEmail,
+} = UserHelper;
 
 export class UserController {
   // This is the method that handles the request for a user to be signed up...
