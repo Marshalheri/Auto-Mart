@@ -75,8 +75,8 @@ const UsersModel = {
       } else {
         const user = await verifyUser(authorization, res);
         if (user.isAdmin == true) {
-          const getEmailQuery = 'SELECT * FROM users';
-          const { rows } = await dbConfig.query(getEmailQuery);
+          const getUserQuery = 'SELECT * FROM users';
+          const { rows } = await dbConfig.query(getUserQuery);
           if (rows.length == 0) {
             const message = 'There is no user currently in the database.';
             res.status(200).json({

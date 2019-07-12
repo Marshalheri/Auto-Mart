@@ -35,7 +35,7 @@ const CarsHelper = {
     let statusCode;
     if (err.code == '22P02') {
       message = 'Ensure that all values supplied for this request are of a valid data type.';
-      statusCode = 500;
+      statusCode = 400;
     } else {
       message = err.message;
     }
