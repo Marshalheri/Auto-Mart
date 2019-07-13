@@ -22,12 +22,12 @@ export const Constants = {
   },
 
   cannotUpdateAd(owner) {
-    const message = `User with id = ${owner} cannot update this Ad.`;
+    const message = `User with id = ${owner} cannot carryout the update.`;
     throw new ApiErrors(message, 400);
   },
 
-  cannotFindAd(car_id) {
-    const message = `The car with id: ${car_id} was not found.`;
+  cannotFind(message) {
     throw new ApiErrors(message, 404);
   },
+
 };

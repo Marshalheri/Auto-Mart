@@ -1,13 +1,14 @@
 import { Router } from 'express';
 
 import {
-  UsersController, CarsController,
+  CarsController, OrdersController, UsersController,
 } from '../PostgresDb/Controllers';
 import { cloudinary_upload } from '../DataStructureDb/Helpers/cloudinaryUpload';
 
 const router = Router();
-const usersController = new UsersController();
 const carsController = new CarsController();
+const ordersController = new OrdersController();
+const usersController = new UsersController();
 const imageUpload = cloudinary_upload();
 
 router.get('/', (req, res) => {
@@ -15,7 +16,7 @@ router.get('/', (req, res) => {
     availableUrls: [
       '/user-create', '/user-login', '/user-all/:user_id', '/user-all',
       '/car-all', '/car-all/:car_id', '/car-create', '/car-update/price/:car_id', '/car-update/status/:car_id',
-      '/car-delete/:car_id', '/order-all', '/order-all/:order_id', '/order-create',
+      '/car-delete/:car_id', '/order-all', '/order-user-all', '/order-all/:order_id', '/order-create',
       '/order-update/amount/:order_id', '/order-update/status/:order_id',
     ],
     message: 'Welcome to the Auto-Mart API',
@@ -36,5 +37,14 @@ router.post('/car-create', imageUpload.single('image'), carsController.createNew
 router.patch('/car-update/price/:car_id', carsController.updateCarPrice);
 router.patch('/car-update/status/:car_id', carsController.updateCarStatus);
 router.delete('/car-delete/:car_id', carsController.deleteCar);
+
+// These are the routes that handles the creation and management of orders...
+router.get('/order-all', ordersController.getAllOrders);
+router.get('/order-user-all', ordersController.getAllUserOrders);
+router.get('/order-all/:order_id', ordersController.getOrdersById);
+router.post('/order-create', ordersController.createNewCarOrder);
+router.patch('/order-update/amount/:order_id', ordersController.updateOrderAmount);
+router.patch('/order-update/status/:order_id', ordersController.updateOrderStatus);
+router.delete('/order-delete/:order_id', ordersController.deleteOrder);
 
 export default router;
