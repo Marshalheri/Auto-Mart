@@ -7,7 +7,7 @@ import CarsModel from './carsModel';
 
 const { verifyUser } = AuthorizeUser;
 const {
-  cannotUpdateAd, cannotFindAd, invalidToken, notAuthorizedMessage,
+  cannotUpdateAd, cannotFind, invalidToken, notAuthorizedMessage,
   supplyAuthHeader, supplyBodyValue,
 } = Constants;
 const { getOrdersResponse, orderErrorResponse } = OrdersHelper;
@@ -73,7 +73,7 @@ const OrdersModel = {
           body.id = order_id;
           body.buyer = user.userId;
           const { id, buyer, orderAmount } = body;
-          const row = await this.retunOrderByIdAndBuyer(order_id, { ...user });
+          const row = await this.returnOrderByIdAndBuyer(order_id, { ...user });
           if (row.length == 0) {
             const message = `Order with id ${order_id} was not found.`;
             throw new ApiErrors(message, 404);
@@ -118,7 +118,7 @@ const OrdersModel = {
           body.id = order_id;
           body.buyer = user.userId;
           const { id, buyer, orderStatus } = body;
-          const row = await this.retunOrderByIdAndBuyer(order_id, { ...user });
+          const row = await this.returnOrderByIdAndBuyer(order_id, { ...user });
           if (row.length == 0) {
             const message = `Order with id ${order_id} was not found.`;
             throw new ApiErrors(message, 404);
@@ -169,6 +169,7 @@ const OrdersModel = {
   // This is the method that handles the request to get all orders of a user...
   async getAllUserOrdersModel(req, res) {
     const { authorization } = req.headers;
+    var message;
     try {
       if (authorization == null || authorization == undefined) {
         supplyAuthHeader();
@@ -177,7 +178,11 @@ const OrdersModel = {
         if (user.userId) {
           const { rows } = await dbConfig.query('SELECT id, buyer, "carId", amount, status, "priceOffered",'
                                                   + ' "oldPriceOffered" FROM orders WHERE buyer = $1', [user.userId]);
-          const message = `There is no order currently stored in the database for user with id: ${user.userId}.`;
+          if (rows.length == 0) {
+             message = `There is no order currently stored in the database for user with id: ${user.userId}.`;
+          } else {
+            message = `Successfully retrieved all orders from the database for user with id: ${user.userId}.`;
+          }
           getOrdersResponse(res, rows, user, message);
         } else {
           (user.name == 'JsonWebTokenError')
@@ -201,7 +206,7 @@ const OrdersModel = {
         if (user.userId) {
           const rows = (user.isAdmin == true)
             ? (await this.returnOrderById(order_id))
-            : (await this.retunOrderByIdAndBuyer(order_id, { ...user }));
+            : (await this.returnOrderByIdAndBuyer(order_id, { ...user }));
           if (rows.length == 0) {
             const message = `Order with id ${order_id} was not found.`;
             throw new ApiErrors(message, 404);
@@ -227,35 +232,45 @@ const OrdersModel = {
   },
 
   // This method returns an order of a particular user...
-  async retunOrderByIdAndBuyer(orderId, { userId }) {
+  async returnOrderByIdAndBuyer(orderId, { userId }) {
     const queryText = 'SELECT id, buyer, "carId", amount, status, "priceOffered", "oldPriceOffered"'
                     + ' FROM orders WHERE id = $1 AND buyer = $2';
     const values = [orderId, userId];
     const { rows } = await dbConfig.query(queryText, values);
     return rows;
   },
-  //
-  // async getOrderByIsAdmin(user, res, orderId) {
-  //   let returnRows;
-  //   try {
-  //     if (orderId == null || orderId == undefined) {
-  //       const { rows } = (user.isAdmin == true)
-  //         ? (await dbConfig.query('SELECT * FROM orders'))
-  //         : (await dbConfig.query('SELECT * FROM orders WHERE buyer = $1', [user.userId]));
-  //       returnRows = rows;
-  //     } else {
-  //       const { rows } = (user.isAdmin == true)
-  //         ? (await dbConfig.query('SELECT * FROM orders WHERE id = $1', [car_id]))
-  //         : (await dbConfig.query('SELECT * FROM orders WHERE status = $1 AND id = $2',
-  //           ['available', car_id]));
-  //       returnRows = rows;
-  //     }
-  //     return returnRows;
-  //   } catch (err) {
-  //     carErrorResponse(err, res);
-  //   }
-  // },
 
+  // This method handles the request to delete an order by id...
+  async deleteOrderModel(req, res) {
+    try {
+      const { order_id } = req.params;
+      const { authorization } = req.headers;
+      if (authorization == null || authorization == undefined) {
+        supplyAuthHeader();
+      } else {
+        const user = await verifyUser(authorization, res);
+        if (user.userId) {
+          const row = await this.returnOrderByIdAndBuyer(order_id, { ...user });
+          if (row.length >= 1) {
+            const deleteQuery = 'DELETE FROM orders WHERE id = $1';
+            const { rows } = await dbConfig.query(deleteQuery, [order_id]);
+            res.status(200).json({
+              message: `Successfully deleted order with id: ${order_id} from the database.`,
+              status: 200,
+            });
+          } else {
+            const message = `The order with id: ${order_id} was not found.`;
+            cannotFind(message);
+          }
+        } else {
+          (user.name == 'JsonWebTokenError')
+            ? (invalidToken(user)) : (notAuthorizedMessage());
+        }
+      }
+    } catch (err) {
+      orderErrorResponse(err, res);
+    }
+  },
 };
 
 export default OrdersModel;

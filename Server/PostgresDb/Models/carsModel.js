@@ -6,7 +6,7 @@ import CarsHelper from '../Helpers/carHelper';
 
 const { verifyUser } = AuthorizeUser;
 const {
-  cannotUpdateAd, cannotFindAd, invalidToken, notAuthorizedMessage,
+  cannotUpdateAd, cannotFind, invalidToken, notAuthorizedMessage,
   supplyAuthHeader, supplyBodyValue,
 } = Constants;
 const { carErrorResponse, getCarResponse } = CarsHelper;
@@ -186,7 +186,7 @@ const CarsModel = {
         if (user.userId) {
           const rows = await this.getCarByIsAdmin(user.isAdmin, res, car_id);
           if (rows.length == 0) {
-            cannotFindAd(car_id);
+            cannotFind(car_id);
           } else {
             res.status(200).json({
               data: rows[0],
@@ -269,7 +269,8 @@ const CarsModel = {
               status: 200,
             });
           } else {
-            cannotFindAd(car_id);
+            const message = `The car with id: ${car_id} was not found.`;
+            cannotFind(message);
           }
         } else {
           (user.name == 'JsonWebTokenError')

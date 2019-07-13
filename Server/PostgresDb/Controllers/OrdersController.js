@@ -30,4 +30,10 @@ export class OrdersController {
   getOrdersById(req, res) {
     OrdersModel.getOrdersByIdModel(req, res);
   }
+
+  // This method handles the request to delete a order by id...
+  deleteOrder(req, res) {
+    OrdersModel.deleteOrderModel(req, res);
+  }
+
 }

@@ -45,5 +45,6 @@ router.get('/order-all/:order_id', ordersController.getOrdersById);
 router.post('/order-create', ordersController.createNewCarOrder);
 router.patch('/order-update/amount/:order_id', ordersController.updateOrderAmount);
 router.patch('/order-update/status/:order_id', ordersController.updateOrderStatus);
+router.delete('/order-delete/:order_id', ordersController.deleteOrder);
 
 export default router;

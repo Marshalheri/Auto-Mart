@@ -30,12 +30,22 @@ const errToken = environment.testErrToken;
 
 describe('ORDERS ROUTES TEST', () => {
   describe('GET REQUEST ROUTES', () => {
-    it('should return a 401 if authorization header is not set', (done) => {
+    it('should return a 400 if authorization header is not set', (done) => {
       chai.request(app)
         .get(`${PATH}/order-all`)
         .end((err, res) => {
           const { status } = res;
           chai.expect(status).to.be.eql(400);
+          done(err);
+        });
+    });
+    it('should throw error if authorization header set to get order Ad is invalid ', (done) => {
+      chai.request(app)
+        .get(`${PATH}/order-all`)
+        .set({ authorization: `${errToken}` })
+        .end((err, res) => {
+          const { status } = res;
+          chai.expect(status).to.be.eql(401);
           done(err);
         });
     });
@@ -71,18 +81,57 @@ describe('ORDERS ROUTES TEST', () => {
           done(err);
         });
     });
-    // it('should return a order by its id', (done) => {
-    //   const id = 1;
-    //   chai.request(app)
-    //     .get(`${PATH}/order-all/${id}`)
-    //     .set({ authorization: `${token}` })
-    //     .end((err, res) => {
-    //       const { body, status } = res;
-    //       chai.expect(body).to.have.ownProperty('data');
-    //       chai.expect(status).to.be.eql(200);
-    //       done(err);
-    //     });
-    // });
+    it('should return a 400 if authorization header is not set', (done) => {
+      chai.request(app)
+        .get(`${PATH}/order-user-all`)
+        .end((err, res) => {
+          const { status } = res;
+          chai.expect(status).to.be.eql(400);
+          done(err);
+        });
+    });
+    it('should throw error if authorization header set to get order Ad is invalid ', (done) => {
+      chai.request(app)
+        .get(`${PATH}/order-user-all`)
+        .set({ authorization: `${errToken}` })
+        .end((err, res) => {
+          const { status } = res;
+          chai.expect(status).to.be.eql(401);
+          done(err);
+        });
+    });
+    it('should return an array of orders stored in the database for a particular user.', (done) => {
+      chai.request(app)
+        .get(`${PATH}/order-user-all`)
+        .set({ authorization: `${token}` })
+        .end((err, res) => {
+          const { body } = res;
+          chai.expect(body.data).to.be.instanceof(Array);
+          done(err);
+        });
+    });
+    it('should return a body object that contains a data and status key', (done) => {
+      chai.request(app)
+        .get(`${PATH}/order-user-all`)
+        .set({ authorization: token })
+        .end((err, res) => {
+          const { body } = res;
+          chai.expect(body).to.haveOwnProperty('data' && 'status');
+          done(err);
+        });
+    });
+    it('should return data with; buyer, carId, amount, status, priceOffered, oldPriceOffered', (done) => {
+      chai.request(app)
+        .get(`${PATH}/order-user-all`)
+        .set({ authorization: token })
+        .end((err, res) => {
+          const { data } = res.body;
+          chai.expect(data[0])
+            .to.have
+            .ownProperty('buyer' && 'carId' && 'amount' && 'status' && 'priceOffered' && 'oldPriceOffered');
+          done(err);
+        });
+    });
     it('should return a 404 if a order id is invalid', (done) => {
       const id = 0;
       chai.request(app)
