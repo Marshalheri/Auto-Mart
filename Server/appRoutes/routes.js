@@ -1,13 +1,13 @@
 import { Router } from 'express';
 
 import {
-  UsersController, CarsController, OrdersController, FlagsController,
-} from './Controllers';
-import { cloudinary_upload } from './Helpers/cloudinaryUpload';
+  UserController, CarsController, OrdersController, FlagsController,
+} from '../DataStructureDb/Controllers';
+import { cloudinary_upload } from '../DataStructureDb/Helpers/cloudinaryUpload';
 
 
 const router = Router();
-const usersController = new UsersController();
+const usersController = new UserController();
 const carsController = new CarsController();
 const ordersController = new OrdersController();
 const flagsController = new FlagsController();

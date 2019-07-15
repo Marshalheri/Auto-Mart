@@ -1,7 +1,7 @@
 import multer from 'multer';
 import cloudinary from 'cloudinary';
 import cloudinaryStorage from 'multer-storage-cloudinary';
-import { environment } from '../myEnvironment';
+import { environment } from '../../myEnvironment';
 
 const {
   cloudinary_cloud_name,

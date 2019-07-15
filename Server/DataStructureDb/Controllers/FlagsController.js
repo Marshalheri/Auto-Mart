@@ -10,12 +10,12 @@ const { createNewFlagHelper } = FlagsHelper;
 
 export class FlagsController {
   // This is the method that will handle the request to create new flag...
-  async createNewFlag(req, res) {
+  async createNewFlagModel(req, res) {
     try {
       const { body, headers } = req;
       const { authorization } = headers;
       const queryParam = req.query;
-      //const { car_id } = req.qeury;
+      // const { car_id } = req.qeury;
       const user = await getUserToken(authorization);
       if (user != null || user != undefined) {
         body.car_id = queryParam.car_id;
