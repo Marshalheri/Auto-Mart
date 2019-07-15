@@ -18,8 +18,8 @@ const userTestPayload = {
 };
 
 const token = process.env.TESTTOKEN || environment.testToken;
-const uName = process.env.UNAME;
-const pWord = process.env.PWORD;
+const uName = environment.uName;
+const pWord = environment.pWord;
 
 describe('USERS ROUTES TEST', () => {
   describe('GET REQUEST ROUTES', () => {

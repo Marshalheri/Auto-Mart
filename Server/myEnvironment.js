@@ -16,4 +16,6 @@ export const environment = {
   pgPort: process.env.PGPORT,
   testToken: process.env.TESTTOKEN,
   testErrToken: process.env.TESTERRORTOKEN,
+  uName: process.env.UNAME,
+  pWord: process.env.PWORD
 };
