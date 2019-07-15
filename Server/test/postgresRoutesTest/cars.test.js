@@ -31,8 +31,8 @@ const carTestErrorPayload = {
   body_type: 'car',
 };
 
-const token = environment.testToken || process.env.TESTTOKEN;
-const errToken = environment.testErrToken || process.env.TESTERRORTOKEN;
+const token = process.env.TESTTOKEN || environment.testToken;
+const errToken = process.env.TESTERRORTOKEN || environment.testErrToken;
 
 describe('CARS ROUTES TEST', () => {
   describe('GET REQUEST ROUTES', () => {
@@ -44,6 +44,7 @@ describe('CARS ROUTES TEST', () => {
           const { body } = res;
           chai.expect(body.data).to.be.instanceof(Array);
           done(err);
+          console.log(err);
         });
     });
     it('should return a body object that contains a data and status key', (done) => {

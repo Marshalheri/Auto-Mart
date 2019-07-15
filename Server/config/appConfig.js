@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import path from 'path';
 import { json, urlencoded } from 'body-parser';
 import logger from 'morgan';
@@ -31,6 +32,7 @@ export default class AppConfig {
   configure(app) {
     app.use(json());
     app.use(urlencoded({ extended: true }));
+    app.use(cors({ origin : '*' }));
     app.use(logger('dev'));
 
     app.all('/', (req, res) => {
