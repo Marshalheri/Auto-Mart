@@ -62,7 +62,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should return a body object that contains a data and status key', (done) => {
       chai.request(app)
         .get(`${PATH}/order-all`)
-        .set({ authorization: token })
+        .set({ authorization: `${token}` })
         .end((err, res) => {
           const { body } = res;
           chai.expect(body).to.haveOwnProperty('data' && 'status');
@@ -72,7 +72,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should return data with; buyer, carId, amount, status, price_offered, oldPrice_offered', (done) => {
       chai.request(app)
         .get(`${PATH}/order-all`)
-        .set({ authorization: token })
+        .set({ authorization: `${token}` })
         .end((err, res) => {
           const { data } = res.body;
           chai.expect(data[0])
@@ -113,7 +113,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should return a body object that contains a data and status key', (done) => {
       chai.request(app)
         .get(`${PATH}/order-user-all`)
-        .set({ authorization: token })
+        .set({ authorization: `${token}` })
         .end((err, res) => {
           const { body } = res;
           chai.expect(body).to.haveOwnProperty('data' && 'status');
@@ -123,7 +123,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should return data with; buyer, carId, amount, status, price_offered, oldPrice_offered', (done) => {
       chai.request(app)
         .get(`${PATH}/order-user-all`)
-        .set({ authorization: token })
+        .set({ authorization: `${token}` })
         .end((err, res) => {
           const { data } = res.body;
           chai.expect(data[0])
