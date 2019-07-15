@@ -14,8 +14,8 @@ const UsersHelper = {
   },
 
   // This function generates a token for the user...
-  generateToken: ({ id, isAdmin }) => {
-    const token = jwt.sign({ userId: id, isAdmin }, jwtSecret);
+  generateToken: ({ id, is_admin }) => {
+    const token = jwt.sign({ user_id: id, is_admin }, jwtSecret);
     return token;
   },
 

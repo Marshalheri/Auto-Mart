@@ -8,9 +8,9 @@ const PATH = '/api/v1';
 const { jwtKey } = jwtKeyObj;
 
 const newOrderPayload = {
-  carId: 1,
-  carPrice: 600,
-  orderAmount: 2000,
+  car_id: 1,
+  car_price: 600,
+  order_amount: 2000,
   status: 'pending',
 };
 
@@ -69,7 +69,7 @@ describe('ORDERS ROUTES TEST', () => {
           done(err);
         });
     });
-    it('should return data with; buyer, carId, amount, status, priceOffered, oldPriceOffered', (done) => {
+    it('should return data with; buyer, carId, amount, status, price_offered, oldPrice_offered', (done) => {
       chai.request(app)
         .get(`${PATH}/order-all`)
         .set({ authorization: token })
@@ -77,7 +77,7 @@ describe('ORDERS ROUTES TEST', () => {
           const { data } = res.body;
           chai.expect(data[0])
             .to.have
-            .ownProperty('buyer' && 'carId' && 'amount' && 'status' && 'priceOffered' && 'oldPriceOffered');
+            .ownProperty('buyer' && 'carId' && 'amount' && 'status' && 'price_offered' && 'oldPrice_offered');
           done(err);
         });
     });
@@ -120,7 +120,7 @@ describe('ORDERS ROUTES TEST', () => {
           done(err);
         });
     });
-    it('should return data with; buyer, carId, amount, status, priceOffered, oldPriceOffered', (done) => {
+    it('should return data with; buyer, carId, amount, status, price_offered, oldPrice_offered', (done) => {
       chai.request(app)
         .get(`${PATH}/order-user-all`)
         .set({ authorization: token })
@@ -128,7 +128,7 @@ describe('ORDERS ROUTES TEST', () => {
           const { data } = res.body;
           chai.expect(data[0])
             .to.have
-            .ownProperty('buyer' && 'carId' && 'amount' && 'status' && 'priceOffered' && 'oldPriceOffered');
+            .ownProperty('buyer' && 'carId' && 'amount' && 'status' && 'price_offered' && 'oldPrice_offered');
           done(err);
         });
     });
@@ -156,17 +156,18 @@ describe('ORDERS ROUTES TEST', () => {
           done(err);
         });
     });
-    // it('should create new order if user exist in the database', (done) => {
-    //   chai.request(app)
-    //     .post(`${PATH}/order-create`)
-    //     .set({ authorization: `${token}` })
-    //     .send(newOrderErrorPayload)
-    //     .end((err, res) => {
-    //       const { status } = res;
-    //       chai.expect(status).to.be.eql(201);
-    //       done(err);
-    //     });
-    // });
+    it('should throw error if the car_id does not exist in the database.', (done) => {
+      newOrderPayload.car_id = 0;
+      chai.request(app)
+        .post(`${PATH}/order-create`)
+        .set({ authorization: `${token}` })
+        .send(newOrderPayload)
+        .end((err, res) => {
+          const { status } = res;
+          chai.expect(status).to.be.eql(404);
+          done(err);
+        });
+    });
     it('should throw error if authorization header set to create order Ad is invalid ', (done) => {
       chai.request(app)
         .post(`${PATH}/order-create`)

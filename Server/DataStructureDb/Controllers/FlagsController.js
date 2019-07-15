@@ -10,7 +10,7 @@ const { createNewFlagHelper } = FlagsHelper;
 
 export class FlagsController {
   // This is the method that will handle the request to create new flag...
-  async createNewFlag(req, res) {
+  async createNewFlagModel(req, res) {
     try {
       const { body, headers } = req;
       const { authorization } = headers;
