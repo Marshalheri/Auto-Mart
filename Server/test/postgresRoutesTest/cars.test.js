@@ -31,8 +31,8 @@ const carTestErrorPayload = {
   body_type: 'car',
 };
 
-const token = process.env.TESTTOKEN || environment.testToken;
-const errToken = process.env.TESTERRORTOKEN || environment.testErrToken;
+const token = environment.testToken;
+const errToken = environment.testErrToken;
 
 describe('CARS ROUTES TEST', () => {
   describe('GET REQUEST ROUTES', () => {
