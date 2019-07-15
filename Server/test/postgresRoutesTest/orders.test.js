@@ -25,8 +25,8 @@ const statusUpdatePayload = {
   buyer: 1,
 };
 
-const token = environment.testToken;
-const errToken = environment.testErrToken;
+const token = environment.testToken || process.env.TESTTOKEN;
+const errToken = environment.testErrToken || process.env.TESTERRORTOKEN;
 
 describe('ORDERS ROUTES TEST', () => {
   describe('GET REQUEST ROUTES', () => {
