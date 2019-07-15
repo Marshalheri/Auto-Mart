@@ -16,7 +16,7 @@ const carTestPayload = {
   price: 190.0,
   manufacturer: 'Mercedes',
   model: 'Benz 190',
-  bodyType: 'car',
+  body_type: 'car',
 };
 
 const carTestErrorPayload = {
@@ -28,11 +28,11 @@ const carTestErrorPayload = {
   price: 190.0,
   manufacturer: 'Mercedes',
   model: 'Benz 190',
-  bodyType: 'car',
+  body_type: 'car',
 };
 
-const token = environment.testToken;
-const errToken = environment.testErrToken;
+const token = environment.testToken || process.env.TESTTOKEN;
+const errToken = environment.testErrToken || process.env.TESTERRORTOKEN;
 
 describe('CARS ROUTES TEST', () => {
   describe('GET REQUEST ROUTES', () => {
@@ -75,10 +75,14 @@ describe('CARS ROUTES TEST', () => {
         .end((err, res) => {
           const { body, status } = res;
           const { data } = body;
-          const carStatus = data[0].status;
-          const carStatus2 = data[4].status;
-          chai.expect(carStatus).to.be.eql('available');
-          chai.expect(carStatus2).to.be.eql('sold');
+          //this function returns a status of sold for a car.
+          var carStatus;
+          data.some((eachData) => {
+            if (eachData.status == 'sold') {
+              carStatus = eachData.status;
+            };
+          });
+          chai.expect(carStatus).to.be.eql('sold');
           chai.expect(status).to.be.eql(200);
           done(err);
         });
@@ -90,8 +94,13 @@ describe('CARS ROUTES TEST', () => {
         .end((err, res) => {
           const { body, status } = res;
           const { data } = body;
-          const carStatus = data[0].status;
-          const { length } = data;
+          //this function returns a status of available for a car.
+          var carStatus;
+          data.some((eachData) => {
+            if (eachData.status == 'available') {
+              carStatus = eachData.status;
+            };
+          });
           chai.expect(carStatus).to.be.eql('available');
           chai.expect(status).to.be.eql(200);
           done(err);
@@ -163,7 +172,9 @@ describe('CARS ROUTES TEST', () => {
         .set({ authorization: token })
         .end((err, res) => {
           const { body, status } = res;
-          chai.expect(body).to.not.have.ownProperty('data');
+          const { data } = body;
+          var length = data.length;
+          chai.expect(length).to.eql(0);
           chai.expect(status).to.be.eql(200);
           done(err);
         });

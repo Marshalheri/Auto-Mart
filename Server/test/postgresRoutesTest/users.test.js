@@ -9,15 +9,15 @@ const PATH = '/api/v1';
 const userTestPayload = {
   id: 1,
   email: 'testuser1@gmail.com',
-  firstName: 'Chizoba',
-  lastName: 'Nnamani',
+  first_name: 'Chizoba',
+  last_name: 'Nnamani',
   password: hashSync('adminpassword', genSaltSync(10)),
   address: '79, osho drive olodi apapa lagos',
-  isAdmin: true,
-  phoneNumber: '+2348162956658',
+  is_admin: true,
+  phone_number: '+2348162956658',
 };
 
-const token = environment.testToken;
+const token = environment.testToken || process.env.TESTTOKEN;
 
 describe('USERS ROUTES TEST', () => {
   describe('GET REQUEST ROUTES', () => {
@@ -77,7 +77,7 @@ describe('USERS ROUTES TEST', () => {
 
   describe('POST REQUEST ROUTES', () => {
     describe('Post To Create New User', () => {
-      it('should throw an erro if a user with the request email already exist', (done) => {
+      it('should throw an error if a user with the request email already exist', (done) => {
         chai.request(app)
           .post(`${PATH}/user-create`)
           .send(userTestPayload)
@@ -103,10 +103,24 @@ describe('USERS ROUTES TEST', () => {
             done(err);
           });
       });
+      it('should throw an error if login password is wrong.', (done) => {
+        const loginData = {
+          email: 'testuser1@gmail.com',
+          password: 'password',
+        };
+        chai.request(app)
+          .post(`${PATH}/user-login`)
+          .send(loginData)
+          .end((err, res) => {
+            const { status } = res;
+            chai.expect(status).to.be.eql(404);
+            done(err);
+          });
+      });
       it('should login in user with a valid email and password', (done) => {
         const loginData = {
           email: 'testuser1@gmail.com',
-          password: 'testeruser1',
+          password: 'adminpassword',
         };
         chai.request(app)
           .post(`${PATH}/user-login`)
@@ -121,7 +135,7 @@ describe('USERS ROUTES TEST', () => {
       it('should contain a token value in its response data object', (done) => {
         const loginData = {
           email: 'testuser1@gmail.com',
-          password: 'testeruser1',
+          password: 'adminpassword',
         };
         chai.request(app)
           .post(`${PATH}/user-login`)

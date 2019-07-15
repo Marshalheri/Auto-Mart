@@ -36,54 +36,54 @@ const pool = new Pool(connection);
       CREATE TABLE IF NOT EXISTS users(
         id SERIAL PRIMARY KEY,
         email VARCHAR(50) NOT NULL UNIQUE,
-        "firstName" VARCHAR(50) NOT NULL,
-        "lastName" VARCHAR(50) NOT NULL,
-        "isAdmin" BOOLEAN DEFAULT FALSE,
+        "first_name" VARCHAR(50) NOT NULL,
+        "last_name" VARCHAR(50) NOT NULL,
+        "is_admin" BOOLEAN DEFAULT FALSE,
         address TEXT NOT NULL,
-        "phoneNumber" VARCHAR(50) NOT NULL,
+        "phone_number" VARCHAR(50) NOT NULL,
         password VARCHAR(255) NOT NULL,
-        "createdOn" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        "created_on" TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       );
     `);
     await client.query(`
       CREATE TABLE IF NOT EXISTS cars(
         id SERIAL PRIMARY KEY,
         owner INT NOT NULL,
-        "createdOn" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        "created_on" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         state CarAdState NOT NULL,
         status CarAdStatus DEFAULT 'available',
         price REAL NOT NULL,
         manufacturer VARCHAR(255) NOT NULL,
         model VARCHAR(255) NOT NULL,
-        "bodyType" CarAdBody NOT NULL,
+        "body_type" CarAdBody NOT NULL,
         images JSON [] NOT NULL,
-        FOREIGN KEY (owner) REFERENCES users (id)
+        FOREIGN KEY (owner) REFERENCES users (id) ON DELETE CASCADE
       );
     `);
     await client.query(`
       CREATE TABLE IF NOT EXISTS orders(
         id SERIAL PRIMARY KEY,
         buyer INT NOT NULL,
-        "carId" INT NOT NULL,
+        "car_id" INT NOT NULL,
         amount REAL NOT NULL,
         status CarOrderStatus NOT NULL DEFAULT 'pending',
-        "priceOffered" REAL NOT NULL,
-        "oldPriceOffered" REAL,
-        "createdOn" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (buyer) REFERENCES users (id),
-        FOREIGN KEY ("carId") REFERENCES cars (id)
+        "price_offered" REAL NOT NULL,
+        "oldPrice_offered" REAL,
+        "created_on" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (buyer) REFERENCES users (id) ON DELETE CASCADE,
+        FOREIGN KEY ("car_id") REFERENCES cars (id) ON DELETE CASCADE
       );
     `);
     await client.query(`
       CREATE TABLE IF NOT EXISTS flags(
         id SERIAL PRIMARY KEY,
         creator INT NOT NULL,
-        "carId" INT NOT NULL,
+        "car_id" INT NOT NULL,
         reason CarFLagReason NOT NULL,
         description TEXT NOT NULL,
-        "createdOn" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (creator) REFERENCES users(id),
-        FOREIGN KEY ("carId") REFERENCES cars(id)
+        "created_on" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (creator) REFERENCES users(id) ON DELETE CASCADE,
+        FOREIGN KEY ("car_id") REFERENCES cars(id) ON DELETE CASCADE
       );
     `);
     await client.query('COMMIT');

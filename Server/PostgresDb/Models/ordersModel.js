@@ -24,21 +24,23 @@ const OrdersModel = {
         supplyAuthHeader();
       } else {
         const user = await verifyUser(authorization, res);
-        if (user.userId) {
-          const row = await getCarByIsAdmin(user.isAdmin, res, body.carId);
+        if (user.user_id) {
+          const row = await getCarByIsAdmin(user.is_admin, res, body.car_id);
           if (row.length == 0) {
-            cannotFindAd(body.carId);
+            console.log(row)
+            const message = `The car with id: ${body.car_id} was not found.`;
+            cannotFind(message);
           } else {
-            body.carPrice = row[0].price;
-            body.buyer = user.userId;
+            body.car_price = row[0].price;
+            body.buyer = user.user_id;
             const {
-              buyer, carId, carPrice, orderAmount,
+              buyer, car_id, car_price, order_amount,
             } = body;
             const createOrderQuery = `INSERT INTO
-                orders(buyer, "carId", amount, "priceOffered")
+                orders(buyer, "car_id", amount, "price_offered")
                 VALUES($1, $2, $3, $4)
-                RETURNING id, buyer, "carId", amount, status, "priceOffered"`;
-            const values = [buyer, carId, carPrice, orderAmount];
+                RETURNING id, buyer, "car_id", amount, status, "price_offered"`;
+            const values = [buyer, car_id, car_price, order_amount];
             const { rows } = await dbConfig.query(createOrderQuery, values);
             res.status(201).json({
               data: rows,
@@ -63,29 +65,29 @@ const OrdersModel = {
     try {
       if (authorization == null || authorization == undefined) {
         supplyAuthHeader();
-      } else if (body.orderAmount == null || body.orderAmount == undefined) {
+      } else if (body.order_amount == null || body.order_amount == undefined) {
         const message = 'Please supply order amount to update.';
         supplyBodyValue(message);
       } else {
         const user = await verifyUser(authorization, res);
-        if (user.userId) {
+        if (user.user_id) {
           const { order_id } = params;
           body.id = order_id;
-          body.buyer = user.userId;
-          const { id, buyer, orderAmount } = body;
+          body.buyer = user.user_id;
+          const { id, buyer, order_amount } = body;
           const row = await this.returnOrderByIdAndBuyer(order_id, { ...user });
           if (row.length == 0) {
             const message = `Order with id ${order_id} was not found.`;
             throw new ApiErrors(message, 404);
           } else if (row[0].buyer == buyer) {
-            const oldPriceOffered = row[0].priceOffered;
-            const updateQuery = `UPDATE orders SET "priceOffered" = $3, "oldPriceOffered" = $4 WHERE id = $1 AND buyer = $2
-                                    RETURNING id, buyer, "carId", amount, status, "priceOffered", "oldPriceOffered"`;
-            const values = [id, buyer, orderAmount, oldPriceOffered];
+            const oldPrice_offered = row[0].price_offered;
+            const updateQuery = `UPDATE orders SET "price_offered" = $3, "oldPrice_offered" = $4 WHERE id = $1 AND buyer = $2
+                                    RETURNING id, buyer, "car_id", amount, status, "price_offered", "oldPrice_offered"`;
+            const values = [id, buyer, order_amount, oldPrice_offered];
             const { rows } = await dbConfig.query(updateQuery, values);
             res.status(200).json({
               data: rows[0],
-              message: `Successfully updated the order amount to ${orderAmount}.`,
+              message: `Successfully updated the order amount to ${order_amount}.`,
               status: 200,
             });
           } else {
@@ -108,28 +110,28 @@ const OrdersModel = {
     try {
       if (authorization == null || authorization == undefined) {
         supplyAuthHeader();
-      } else if (body.orderStatus == null || body.orderStatus == undefined) {
+      } else if (body.order_status == null || body.order_status == undefined) {
         const message = 'Please supply order status to update.';
         supplyBodyValue(message);
       } else {
         const user = await verifyUser(authorization, res);
-        if (user.userId) {
+        if (user.user_id) {
           const { order_id } = params;
           body.id = order_id;
-          body.buyer = user.userId;
-          const { id, buyer, orderStatus } = body;
+          body.buyer = user.user_id;
+          const { id, buyer, order_status } = body;
           const row = await this.returnOrderByIdAndBuyer(order_id, { ...user });
           if (row.length == 0) {
             const message = `Order with id ${order_id} was not found.`;
             throw new ApiErrors(message, 404);
-          } else if (row[0].buyer == buyer || user.isAdmin == true) {
+          } else if (row[0].buyer == buyer || user.is_admin == true) {
             const updateQuery = `UPDATE orders SET "status" = $3 WHERE id = $1 AND buyer = $2
-                                    RETURNING id, buyer, "carId", amount, status, "priceOffered", "oldPriceOffered"`;
-            const values = [id, buyer, orderStatus];
+                                    RETURNING id, buyer, "car_id", amount, status, "price_offered", "oldPrice_offered"`;
+            const values = [id, buyer, order_status];
             const { rows } = await dbConfig.query(updateQuery, values);
             res.status(200).json({
               data: rows[0],
-              message: `Successfully updated the order status to ${orderStatus}.`,
+              message: `Successfully updated the order status to ${order_status}.`,
               status: 200,
             });
           } else {
@@ -153,7 +155,7 @@ const OrdersModel = {
         supplyAuthHeader();
       } else {
         const user = await verifyUser(authorization, res);
-        if (user.userId && user.isAdmin == true) {
+        if (user.user_id && user.is_admin == true) {
           const { rows } = await dbConfig.query('SELECT * FROM orders');
           getOrdersResponse(res, rows, user);
         } else {
@@ -175,13 +177,13 @@ const OrdersModel = {
         supplyAuthHeader();
       } else {
         const user = await verifyUser(authorization, res);
-        if (user.userId) {
-          const { rows } = await dbConfig.query('SELECT id, buyer, "carId", amount, status, "priceOffered",'
-                                                  + ' "oldPriceOffered" FROM orders WHERE buyer = $1', [user.userId]);
+        if (user.user_id) {
+          const { rows } = await dbConfig.query('SELECT id, buyer, "car_id", amount, status, "price_offered",'
+                                                  + ' "oldPrice_offered" FROM orders WHERE buyer = $1', [user.user_id]);
           if (rows.length == 0) {
-             message = `There is no order currently stored in the database for user with id: ${user.userId}.`;
+             message = `There is no order currently stored in the database for user with id: ${user.user_id}.`;
           } else {
-            message = `Successfully retrieved all orders from the database for user with id: ${user.userId}.`;
+            message = `Successfully retrieved all orders from the database for user with id: ${user.user_id}.`;
           }
           getOrdersResponse(res, rows, user, message);
         } else {
@@ -203,8 +205,8 @@ const OrdersModel = {
         supplyAuthHeader();
       } else {
         const user = await verifyUser(authorization, res);
-        if (user.userId) {
-          const rows = (user.isAdmin == true)
+        if (user.user_id) {
+          const rows = (user.is_admin == true)
             ? (await this.returnOrderById(order_id))
             : (await this.returnOrderByIdAndBuyer(order_id, { ...user }));
           if (rows.length == 0) {
@@ -225,17 +227,17 @@ const OrdersModel = {
   },
 
   // This method returns the order whose id is passed to it..,
-  async returnOrderById(orderId) {
+  async returnOrderById(order_id) {
     const queryText = 'SELECT * FROM orders WHERE id = $1';
-    const { rows } = await dbConfig.query(queryText, [orderId]);
+    const { rows } = await dbConfig.query(queryText, [order_id]);
     return rows;
   },
 
   // This method returns an order of a particular user...
-  async returnOrderByIdAndBuyer(orderId, { userId }) {
-    const queryText = 'SELECT id, buyer, "carId", amount, status, "priceOffered", "oldPriceOffered"'
+  async returnOrderByIdAndBuyer(order_id, { user_id }) {
+    const queryText = 'SELECT id, buyer, "car_id", amount, status, "price_offered", "oldPrice_offered"'
                     + ' FROM orders WHERE id = $1 AND buyer = $2';
-    const values = [orderId, userId];
+    const values = [order_id, user_id];
     const { rows } = await dbConfig.query(queryText, values);
     return rows;
   },
@@ -249,7 +251,7 @@ const OrdersModel = {
         supplyAuthHeader();
       } else {
         const user = await verifyUser(authorization, res);
-        if (user.userId) {
+        if (user.user_id) {
           const row = await this.returnOrderByIdAndBuyer(order_id, { ...user });
           if (row.length >= 1) {
             const deleteQuery = 'DELETE FROM orders WHERE id = $1';

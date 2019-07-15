@@ -1,21 +1,7 @@
 
-const OrdersHelper = {
+const FlagsHelper = {
 
-  getOrdersResponse(res, rows, user, message) {
-    (rows.length == 0)
-      ? (res.status(200).json({
-        data: rows,
-        message: message || 'There is no order currently stored in the database.',
-        status: 200,
-      }))
-      : (res.status(200).json({
-        data: rows,
-        message: message || 'Successfully retrieved all orders from the database.',
-        status: 200,
-      }));
-  },
-
-  orderErrorResponse(err, res) {
+  flagErrorResponse(err, res) {
     let message;
     let statusCode;
     if (err.code == '22P02') {
@@ -33,6 +19,20 @@ const OrdersHelper = {
     });
   },
 
+  getFlagsResponse(res, rows, user, message) {
+    (rows.length == 0)
+    ? (res.status(200).json({
+      data: rows,
+      message: message || 'There is no flag currently stored in the database.',
+      status: 200,
+    }))
+    : (res.status(200).json({
+      data: rows,
+      message: message || 'Successfully retrieved all flags from the database.',
+      status: 200,
+    }));
+  },
+
 };
 
-export default OrdersHelper;
+export default FlagsHelper;

@@ -16,17 +16,20 @@ const UsersModel = {
   async createNewUserModel(req, res) {
     try {
       const {
-        email, firstName, lastName, isAdmin, address, phoneNumber, password,
+        email, first_name, last_name, is_admin, address, phone_number, password,
       } = req.body;
       const newUserPassword = hashPassword(password);
       const createQuery = `INSERT INTO
-      users(email, "firstName", "lastName", "isAdmin", address, "phoneNumber", password)
+      users(email, "first_name", "last_name", "is_admin", address, "phone_number", password)
       VALUES($1, $2, $3, $4, $5, $6, $7)
-      RETURNING email, "firstName", "lastName", "isAdmin", address, "phoneNumber"`;
-      const values = [email, firstName, lastName, isAdmin, address, phoneNumber, newUserPassword];
+      RETURNING id, email, "first_name", "last_name", "is_admin", address, "phone_number"`;
+      const values = [email, first_name, last_name, is_admin, address, phone_number, newUserPassword];
       const { rows } = await dbConfig.query(createQuery, values);
+      const token = generateToken({ ...rows[0] });
+      rows[0].token = token;
       return res.status(201).json({
-        message: `Successfully created ${firstName} ${lastName} as a new user`,
+        data: rows,
+        message: `Successfully created ${first_name} ${last_name} as a new user`,
         status: 201,
       });
     } catch (err) {
@@ -49,12 +52,12 @@ const UsersModel = {
         const token = generateToken({ ...validUser });
         res.status(200).json({
           data: {
+            token,
             address: validUser.address,
             email: validUser.email,
-            firstName: validUser.firstName,
-            lastName: validUser.lastName,
-            phoneNumber: validUser.phoneNumber,
-            token,
+            first_name: validUser.first_name,
+            last_name: validUser.last_name,
+            phone_number: validUser.phone_number,
           },
           message: 'Login successful',
           status: 200,
@@ -74,7 +77,7 @@ const UsersModel = {
         supplyAuthHeader();
       } else {
         const user = await verifyUser(authorization, res);
-        if (user.isAdmin == true) {
+        if (user.is_admin == true) {
           const getUserQuery = 'SELECT * FROM users';
           const { rows } = await dbConfig.query(getUserQuery);
           if (rows.length == 0) {
@@ -108,7 +111,7 @@ const UsersModel = {
         supplyAuthHeader();
       } else {
         const user = await verifyUser(authorization, res);
-        if (user.isAdmin == true) {
+        if (user.is_admin == true) {
           const getIdQuery = 'SELECT * FROM users WHERE id = $1';
           const { rows } = await dbConfig.query(getIdQuery, [user_id]);
           if (rows.length == 0) {

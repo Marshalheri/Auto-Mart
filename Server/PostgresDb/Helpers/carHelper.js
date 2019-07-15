@@ -14,6 +14,7 @@ const CarsHelper = {
         ? ('There is no car currently stored in the database.')
         : (`There is no car of ${queryName} = ${queryValue} currently stored in the database.`);
       res.status(200).json({
+        data: rows,
         message,
         status: 200,
       });

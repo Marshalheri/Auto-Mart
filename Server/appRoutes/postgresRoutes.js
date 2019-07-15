@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import {
-  CarsController, OrdersController, UsersController,
+  CarsController, FlagsController, OrdersController, UsersController,
 } from '../PostgresDb/Controllers';
 import { cloudinary_upload } from '../DataStructureDb/Helpers/cloudinaryUpload';
 
@@ -9,6 +9,7 @@ const router = Router();
 const carsController = new CarsController();
 const ordersController = new OrdersController();
 const usersController = new UsersController();
+const flagsController = new FlagsController();
 const imageUpload = cloudinary_upload();
 
 router.get('/', (req, res) => {
@@ -46,5 +47,10 @@ router.post('/order-create', ordersController.createNewCarOrder);
 router.patch('/order-update/amount/:order_id', ordersController.updateOrderAmount);
 router.patch('/order-update/status/:order_id', ordersController.updateOrderStatus);
 router.delete('/order-delete/:order_id', ordersController.deleteOrder);
+
+// These are the routes that handles the creation and management of flags...
+router.get('/flag-all', flagsController.getAllFlags);
+router.get('/flag-all/:flag_id', flagsController.getFlagsById);
+router.post('/flag-create', flagsController.createNewFlag);
 
 export default router;
