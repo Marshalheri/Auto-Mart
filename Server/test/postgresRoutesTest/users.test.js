@@ -18,6 +18,8 @@ const userTestPayload = {
 };
 
 const token = environment.testToken || process.env.TESTTOKEN;
+const uName = process.env.UNAME;
+const pWord = process.env.PWORD;
 
 describe('USERS ROUTES TEST', () => {
   describe('GET REQUEST ROUTES', () => {
@@ -119,8 +121,8 @@ describe('USERS ROUTES TEST', () => {
       });
       it('should login in user with a valid email and password', (done) => {
         const loginData = {
-          email: 'testuser1@gmail.com',
-          password: 'adminpassword',
+          email: 'testuser1@gmail.com' || uName,
+          password: 'adminpassword' || pWord,
         };
         chai.request(app)
           .post(`${PATH}/user-login`)
@@ -134,8 +136,8 @@ describe('USERS ROUTES TEST', () => {
       });
       it('should contain a token value in its response data object', (done) => {
         const loginData = {
-          email: 'testuser1@gmail.com',
-          password: 'adminpassword',
+          email: 'testuser1@gmail.com' || uName,
+          password: 'adminpassword' || pWord,
         };
         chai.request(app)
           .post(`${PATH}/user-login`)

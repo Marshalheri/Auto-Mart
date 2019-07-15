@@ -3,7 +3,7 @@ import { Pool } from 'pg';
 import { environment } from '../../myEnvironment';
 
 const connectionString = { connectionString: process.env.DATABASE_URL };
-const connection = connectionString || environment;
+const connection = environment || connectionString;
 
 const pool = new Pool(connection);
 
