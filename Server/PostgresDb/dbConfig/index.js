@@ -67,8 +67,10 @@ const pool = new Pool(connection);
         "car_id" INT NOT NULL,
         amount REAL NOT NULL,
         status CarOrderStatus NOT NULL DEFAULT 'pending',
+        price REAL,
         "price_offered" REAL NOT NULL,
-        "oldPrice_offered" REAL,
+        "old_price_offered" REAL,
+        "new_price_offered" REAL,
         "created_on" TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (buyer) REFERENCES users (id) ON DELETE CASCADE,
         FOREIGN KEY ("car_id") REFERENCES cars (id) ON DELETE CASCADE
