@@ -31,7 +31,7 @@ describe('ORDERS ROUTES TEST', () => {
   describe('GET REQUEST ROUTES', () => {
     it('should return a 400 if authorization header is not set', (done) => {
       chai.request(app)
-        .get(`${PATH}/order-all`)
+        .get(`${PATH}/order`)
         .end((err, res) => {
           const { status } = res;
           chai.expect(status).to.be.eql(400);
@@ -40,7 +40,7 @@ describe('ORDERS ROUTES TEST', () => {
     });
     it('should throw error if authorization header set to get order Ad is invalid ', (done) => {
       chai.request(app)
-        .get(`${PATH}/order-all`)
+        .get(`${PATH}/order`)
         .set({ authorization: `${testErrToken}` })
         .end((err, res) => {
           const { status } = res;
@@ -50,7 +50,7 @@ describe('ORDERS ROUTES TEST', () => {
     });
     it('should return an array of orders stored in the database', (done) => {
       chai.request(app)
-        .get(`${PATH}/order-all`)
+        .get(`${PATH}/order`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body } = res;
@@ -60,7 +60,7 @@ describe('ORDERS ROUTES TEST', () => {
     });
     it('should return a body object that contains a data and status key', (done) => {
       chai.request(app)
-        .get(`${PATH}/order-all`)
+        .get(`${PATH}/order`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body } = res;
@@ -70,7 +70,7 @@ describe('ORDERS ROUTES TEST', () => {
     });
     it('should return data with; buyer, carId, amount, status, price_offered, oldPrice_offered', (done) => {
       chai.request(app)
-        .get(`${PATH}/order-all`)
+        .get(`${PATH}/order`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { data } = res.body;
@@ -134,7 +134,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should return a 404 if a order id is invalid', (done) => {
       const id = 0;
       chai.request(app)
-        .get(`${PATH}/order-all/${id}`)
+        .get(`${PATH}/order/${id}`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { status } = res;
@@ -184,7 +184,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should throw an error if the post request header does not have an authorization token', (done) => {
       const id = 1;
       chai.request(app)
-        .patch(`${PATH}/order-update/amount/${id}`)
+        .patch(`${PATH}/order/${id}/price`)
         .send(amountUpdatePayload)
         .end((err, res) => {
           const { status } = res;
@@ -195,7 +195,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should throw an error if the payload does not have a amount to update', (done) => {
       const id = 1;
       chai.request(app)
-        .patch(`${PATH}/order-update/amount/${id}`)
+        .patch(`${PATH}/order/${id}/price`)
         .set({ authorization: `${testToken}` })
         .send(amountUpdatePayload)
         .end((err, res) => {
@@ -207,7 +207,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should throw an error if the post request header does not have an authorization token', (done) => {
       const id = 1;
       chai.request(app)
-        .patch(`${PATH}/order-update/status/${id}`)
+        .patch(`${PATH}/order/${id}/status`)
         .send(statusUpdatePayload)
         .end((err, res) => {
           const { status } = res;
@@ -218,7 +218,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should throw an error if the payload does not have a status to update', (done) => {
       const id = 1;
       chai.request(app)
-        .patch(`${PATH}/order-update/status/${id}`)
+        .patch(`${PATH}/order/${id}/status`)
         .set({ authorization: `${testToken}` })
         .send(statusUpdatePayload)
         .end((err, res) => {
@@ -231,9 +231,9 @@ describe('ORDERS ROUTES TEST', () => {
 
 describe('DELETE REQUEST ROUTE', () => {
     it('should throw error if authorization header is not set', (done) => {
-      const car_id = 2;
+      const order_id = 2;
       chai.request(app)
-        .delete(`${PATH}/order-delete/:${car_id}`)
+        .delete(`${PATH}/order/:${order_id}`)
         .end((err, res) => {
           const { status } = res;
           chai.expect(status).to.be.eql(400);
@@ -241,9 +241,9 @@ describe('DELETE REQUEST ROUTE', () => {
         });
     });
     it('should throw error if authorization header set is invalid', (done) => {
-      const car_id = 2;
+      const order_id = 2;
       chai.request(app)
-        .delete(`${PATH}/order-delete/:${car_id}`)
+        .delete(`${PATH}/order/:${order_id}`)
         .set({ authorization: `${testErrToken}` })
         .end((err, res) => {
           const { status } = res;
