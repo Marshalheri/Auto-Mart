@@ -34,7 +34,6 @@ const UsersModel = {
       });
     } catch (err) {
       userErrorResponse(err, res);
-      console.log(err);
     }
   },
 
