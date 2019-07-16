@@ -46,6 +46,9 @@ const CarsModel = {
       }
     } catch (err) {
       carErrorResponse(err, res);
+      console.log("cre... id" + err);
+      console.log("cre...id5q" + {...req});
+      console.log("cre...id5s" + {...res});
     }
   },
 
@@ -172,9 +175,6 @@ const CarsModel = {
       }
     } catch (err) {
       carErrorResponse(err, res);
-      console.log("car..." + err);
-      console.log("car...5" + req);
-      console.log("car...5" + res);
     }
   },
 
@@ -203,9 +203,9 @@ const CarsModel = {
       }
     } catch (err) {
       carErrorResponse(err, res);
-      console.log("car..." + err);
-      console.log("car...5" + req);
-      console.log("car...5" + res);
+      console.log("car... id" + err);
+      console.log("car...id5q" + {...req});
+      console.log("car...id5s" + {...res});
     }
   },
 
