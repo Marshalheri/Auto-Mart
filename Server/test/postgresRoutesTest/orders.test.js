@@ -68,7 +68,7 @@ describe('ORDERS ROUTES TEST', () => {
           done(err);
         });
     });
-    it('should return data with; buyer, car_id, amount, status, price_offered, oldPrice_offered', (done) => {
+    it('should return data with; buyer, car_id, amount, status, price_offered, old_price_offered', (done) => {
       chai.request(app)
         .get(`${PATH}/order`)
         .set({ authorization: `${testToken}` })
@@ -76,7 +76,7 @@ describe('ORDERS ROUTES TEST', () => {
           const { data } = res.body;
           chai.expect(data[0])
             .to.have
-            .ownProperty('buyer' && 'car_id' && 'amount' && 'status' && 'price_offered' && 'oldPrice_offered');
+            .ownProperty('buyer' && 'car_id' && 'amount' && 'status' && 'price_offered' && 'old_price_offered');
           done(err);
         });
     });
@@ -119,7 +119,7 @@ describe('ORDERS ROUTES TEST', () => {
           done(err);
         });
     });
-    it('should return data with; buyer, car_id, amount, status, price_offered, oldPrice_offered', (done) => {
+    it('should return data with; buyer, car_id, amount, status, price_offered, old_price_offered', (done) => {
       chai.request(app)
         .get(`${PATH}/order-user-all`)
         .set({ authorization: `${testToken}` })
@@ -127,7 +127,7 @@ describe('ORDERS ROUTES TEST', () => {
           const { data } = res.body;
           chai.expect(data[0])
             .to.have
-            .ownProperty('buyer' && 'car_id' && 'amount' && 'status' && 'price_offered' && 'oldPrice_offered');
+            .ownProperty('buyer' && 'car_id' && 'amount' && 'status' && 'price_offered' && 'old_price_offered');
           done(err);
         });
     });
