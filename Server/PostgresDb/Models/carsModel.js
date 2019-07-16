@@ -86,6 +86,8 @@ const CarsModel = {
       }
     } catch (err) {
       carErrorResponse(err, res);
+      console.log("err order patch: " +err)
+      console.log("order body patch: " + req.body);
     }
   },
 
