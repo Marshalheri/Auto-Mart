@@ -16,10 +16,10 @@ router.get('/', (req, res) => {
   res.status(200).json({
     availableUrls: [
       '/auth/signup', '/auth/signin', '/user-all/:user_id', '/user-all',
-      '/car', '/car/:car_id', '/car-create', '/car/:car_id/price', '/car/:car_id/status',
-      '/car/:car_id', '/order-all', '/order-user-all', '/order-all/:order_id', '/order-create',
+      '/car', '/car/:car_id', '/car', '/car/:car_id/price', '/car/:car_id/status',
+      '/car/:car_id', '/order', '/order-user-all', '/order-all/:order_id', '/order',
       '/order/:order_id/price', '/order/:order_id/status', '/order/:order_id',
-      'flag-all', 'flag-all/:flag_id', 'flag-create'
+      'flag', 'flag/:flag_id', 'flag-create'
     ],
     message: 'Welcome to the Auto-Mart API',
     status: 200,
@@ -35,7 +35,7 @@ router.get('/user-all', usersController.getAllUsers);
 // These are the routes that handles the creation and management of ad...
 router.get('/car', carsController.getAllCars);
 router.get('/car/:car_id', carsController.getCarById);
-router.post('/car-create', imageUpload.single('image'), carsController.createNewCarAd);
+router.post('/car', imageUpload.single('image'), carsController.createNewCarAd);
 router.patch('/car/:car_id/price', carsController.updateCarPrice);
 router.patch('/car/:car_id/status', carsController.updateCarStatus);
 router.delete('/car/:car_id', carsController.deleteCar);
@@ -44,14 +44,14 @@ router.delete('/car/:car_id', carsController.deleteCar);
 router.get('/order', ordersController.getAllOrders);
 router.get('/order-user-all', ordersController.getAllUserOrders);
 router.get('/order-all/:order_id', ordersController.getOrdersById);
-router.post('/order-create', ordersController.createNewCarOrder);
+router.post('/order', ordersController.createNewCarOrder);
 router.patch('/order/:order_id/price', ordersController.updateOrderAmount);
 router.patch('/order/:order_id/status', ordersController.updateOrderStatus);
 router.delete('/order/:order_id', ordersController.deleteOrder);
 
 // These are the routes that handles the creation and management of flags...
-router.get('/flag-all', flagsController.getAllFlags);
-router.get('/flag-all/:flag_id', flagsController.getFlagsById);
-router.post('/flag-create', flagsController.createNewFlag);
+router.get('/flag', flagsController.getAllFlags);
+router.get('/flag/:flag_id', flagsController.getFlagsById);
+router.post('/flag', flagsController.createNewFlag);
 
 export default router;

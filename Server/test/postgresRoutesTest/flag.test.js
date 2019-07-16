@@ -20,7 +20,7 @@ describe('FLAGS ROUTES TEST', () => {
   describe('GET REQUEST ROUTES', () => {
     it('should return a 400 if authorization header is not set', (done) => {
       chai.request(app)
-        .get(`${PATH}/flag-all`)
+        .get(`${PATH}/flag`)
         .end((err, res) => {
           const { status } = res;
           chai.expect(status).to.be.eql(400);
@@ -29,7 +29,7 @@ describe('FLAGS ROUTES TEST', () => {
     });
     it('should throw error if authorization header set to get flag Ad is invalid ', (done) => {
       chai.request(app)
-        .get(`${PATH}/flag-all`)
+        .get(`${PATH}/flag`)
         .set({ authorization: `${testErrToken}` })
         .end((err, res) => {
           const { status } = res;
@@ -39,7 +39,7 @@ describe('FLAGS ROUTES TEST', () => {
     });
     it('should return an array of flags stored in the database', (done) => {
       chai.request(app)
-        .get(`${PATH}/flag-all`)
+        .get(`${PATH}/flag`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body } = res;
@@ -49,7 +49,7 @@ describe('FLAGS ROUTES TEST', () => {
     });
     it('should return a body object that contains a data and status key', (done) => {
       chai.request(app)
-        .get(`${PATH}/flag-all`)
+        .get(`${PATH}/flag`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body } = res;
@@ -59,7 +59,7 @@ describe('FLAGS ROUTES TEST', () => {
     });
     it('should return data with; creator, car_id, reason, description', (done) => {
       chai.request(app)
-        .get(`${PATH}/flag-all`)
+        .get(`${PATH}/flag`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { data } = res.body;
@@ -72,7 +72,7 @@ describe('FLAGS ROUTES TEST', () => {
     it('should return a 404 if a flag id is invalid', (done) => {
       const id = 0;
       chai.request(app)
-        .get(`${PATH}/flag-all/${id}`)
+        .get(`${PATH}/flag/${id}`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { status } = res;
@@ -85,7 +85,7 @@ describe('FLAGS ROUTES TEST', () => {
   describe('POST REQUEST ROUTES', () => {
     it('should throw an error if the post request header does not have an authorization token', (done) => {
       chai.request(app)
-        .post(`${PATH}/flag-create`)
+        .post(`${PATH}/flag`)
         .send(newFlagPayload)
         .end((err, res) => {
           const { status } = res;
@@ -95,7 +95,7 @@ describe('FLAGS ROUTES TEST', () => {
     });
     it('should throw error if authorization header set to create flag Ad is invalid ', (done) => {
       chai.request(app)
-        .post(`${PATH}/flag-create`)
+        .post(`${PATH}/flag`)
         .set({ authorization: `${testErrToken}` })
         .send(newFlagPayload)
         .end((err, res) => {
@@ -107,7 +107,7 @@ describe('FLAGS ROUTES TEST', () => {
     it('should throw error if the car_id does not exist in the database.', (done) => {
       newFlagPayload.car_id = 0;
       chai.request(app)
-        .post(`${PATH}/order-create`)
+        .post(`${PATH}/order`)
         .set({ authorization: `${testToken}` })
         .send(newFlagPayload)
         .end((err, res) => {

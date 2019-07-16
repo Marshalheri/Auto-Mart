@@ -43,7 +43,7 @@ const FlagsModel = {
             const values = [creator, car_id, reason, description];
             const { rows } = await dbConfig.query(createFlagQuery, values);
             res.status(201).json({
-              data: rows,
+              data: rows[0],
               message: 'Successfully created new flag.',
               status: 201,
             });
