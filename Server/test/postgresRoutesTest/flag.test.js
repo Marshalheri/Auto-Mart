@@ -14,8 +14,7 @@ const newFlagPayload = {
   description: 'its too expensive.',
 };
 
-const token = process.env.TESTTOKEN || environment.testToken;
-const errToken = process.env.TESTERRORTOKEN || environment.testErrToken;
+const { testToken, testErrToken } = environment;
 
 describe('FLAGS ROUTES TEST', () => {
   describe('GET REQUEST ROUTES', () => {
@@ -31,7 +30,7 @@ describe('FLAGS ROUTES TEST', () => {
     it('should throw error if authorization header set to get flag Ad is invalid ', (done) => {
       chai.request(app)
         .get(`${PATH}/flag-all`)
-        .set({ authorization: `${errToken}` })
+        .set({ authorization: `${testErrToken}` })
         .end((err, res) => {
           const { status } = res;
           chai.expect(status).to.be.eql(401);
@@ -41,7 +40,7 @@ describe('FLAGS ROUTES TEST', () => {
     it('should return an array of flags stored in the database', (done) => {
       chai.request(app)
         .get(`${PATH}/flag-all`)
-        .set({ authorization: `${token}` })
+        .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body } = res;
           chai.expect(body.data).to.be.instanceof(Array);
@@ -51,7 +50,7 @@ describe('FLAGS ROUTES TEST', () => {
     it('should return a body object that contains a data and status key', (done) => {
       chai.request(app)
         .get(`${PATH}/flag-all`)
-        .set({ authorization: token })
+        .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body } = res;
           chai.expect(body).to.haveOwnProperty('data' && 'status');
@@ -61,7 +60,7 @@ describe('FLAGS ROUTES TEST', () => {
     it('should return data with; creator, car_id, reason, description', (done) => {
       chai.request(app)
         .get(`${PATH}/flag-all`)
-        .set({ authorization: token })
+        .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { data } = res.body;
           chai.expect(data[0])
@@ -74,7 +73,7 @@ describe('FLAGS ROUTES TEST', () => {
       const id = 0;
       chai.request(app)
         .get(`${PATH}/flag-all/${id}`)
-        .set({ authorization: `${token}` })
+        .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { status } = res;
           chai.expect(status).to.be.eql(404);
@@ -97,7 +96,7 @@ describe('FLAGS ROUTES TEST', () => {
     it('should throw error if authorization header set to create flag Ad is invalid ', (done) => {
       chai.request(app)
         .post(`${PATH}/flag-create`)
-        .set({ authorization: `${errToken}` })
+        .set({ authorization: `${testErrToken}` })
         .send(newFlagPayload)
         .end((err, res) => {
           const { status } = res;
@@ -109,7 +108,7 @@ describe('FLAGS ROUTES TEST', () => {
       newFlagPayload.car_id = 0;
       chai.request(app)
         .post(`${PATH}/order-create`)
-        .set({ authorization: `${token}` })
+        .set({ authorization: `${testToken}` })
         .send(newFlagPayload)
         .end((err, res) => {
           const { status } = res;
