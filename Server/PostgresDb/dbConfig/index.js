@@ -56,7 +56,7 @@ const pool = new Pool(connection);
         manufacturer VARCHAR(255) NOT NULL,
         model VARCHAR(255) NOT NULL,
         "body_type" CarAdBody NOT NULL,
-        images JSON [] NOT NULL,
+        images JSON [],
         FOREIGN KEY (owner) REFERENCES users (id) ON DELETE CASCADE
       );
     `);
