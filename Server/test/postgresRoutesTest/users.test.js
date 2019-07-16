@@ -120,8 +120,8 @@ describe('USERS ROUTES TEST', () => {
       });
       it('should login in user with a valid email and password', (done) => {
         const loginData = {
-          email: uName || 'testuser1@gmail.com',
-          password: pWord || 'adminpassword',
+          email: uName,
+          password: pWord,
         };
         chai.request(app)
           .post(`${PATH}/auth/signin`)
@@ -135,8 +135,8 @@ describe('USERS ROUTES TEST', () => {
       });
       it('should contain a token value in its response data object', (done) => {
         const loginData = {
-          email: uName || 'testuser1@gmail.com',
-          password: pWord || 'adminpassword',
+          email: uName,
+          password: pWord,
         };
         chai.request(app)
           .post(`${PATH}/auth/signin`)

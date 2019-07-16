@@ -68,7 +68,7 @@ describe('ORDERS ROUTES TEST', () => {
           done(err);
         });
     });
-    it('should return data with; buyer, carId, amount, status, price_offered, oldPrice_offered', (done) => {
+    it('should return data with; buyer, car_id, amount, status, price_offered, oldPrice_offered', (done) => {
       chai.request(app)
         .get(`${PATH}/order`)
         .set({ authorization: `${testToken}` })
@@ -76,7 +76,7 @@ describe('ORDERS ROUTES TEST', () => {
           const { data } = res.body;
           chai.expect(data[0])
             .to.have
-            .ownProperty('buyer' && 'carId' && 'amount' && 'status' && 'price_offered' && 'oldPrice_offered');
+            .ownProperty('buyer' && 'car_id' && 'amount' && 'status' && 'price_offered' && 'oldPrice_offered');
           done(err);
         });
     });
@@ -119,7 +119,7 @@ describe('ORDERS ROUTES TEST', () => {
           done(err);
         });
     });
-    it('should return data with; buyer, carId, amount, status, price_offered, oldPrice_offered', (done) => {
+    it('should return data with; buyer, car_id, amount, status, price_offered, oldPrice_offered', (done) => {
       chai.request(app)
         .get(`${PATH}/order-user-all`)
         .set({ authorization: `${testToken}` })
@@ -127,7 +127,7 @@ describe('ORDERS ROUTES TEST', () => {
           const { data } = res.body;
           chai.expect(data[0])
             .to.have
-            .ownProperty('buyer' && 'carId' && 'amount' && 'status' && 'price_offered' && 'oldPrice_offered');
+            .ownProperty('buyer' && 'car_id' && 'amount' && 'status' && 'price_offered' && 'oldPrice_offered');
           done(err);
         });
     });
@@ -147,7 +147,7 @@ describe('ORDERS ROUTES TEST', () => {
   describe('POST REQUEST ROUTES', () => {
     it('should throw an error if the post request header does not have an authorization token', (done) => {
       chai.request(app)
-        .post(`${PATH}/order-create`)
+        .post(`${PATH}/order`)
         .send(newOrderPayload)
         .end((err, res) => {
           const { status } = res;
@@ -158,7 +158,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should throw error if the car_id does not exist in the database.', (done) => {
       newOrderPayload.car_id = 0;
       chai.request(app)
-        .post(`${PATH}/order-create`)
+        .post(`${PATH}/order`)
         .set({ authorization: `${testToken}` })
         .send(newOrderPayload)
         .end((err, res) => {
@@ -169,7 +169,7 @@ describe('ORDERS ROUTES TEST', () => {
     });
     it('should throw error if authorization header set to create order Ad is invalid ', (done) => {
       chai.request(app)
-        .post(`${PATH}/order-create`)
+        .post(`${PATH}/order`)
         .set({ authorization: `${testErrToken}` })
         .send(newOrderPayload)
         .end((err, res) => {
