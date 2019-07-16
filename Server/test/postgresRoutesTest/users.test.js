@@ -17,9 +17,8 @@ const userTestPayload = {
   phone_number: '+2348162956658',
 };
 
-const token = process.env.TESTTOKEN || environment.testToken;
-const uName = environment.uName;
-const pWord = environment.pWord;
+const token = environment.testToken;
+const { uName, pWord } = environment;
 
 describe('USERS ROUTES TEST', () => {
   describe('GET REQUEST ROUTES', () => {

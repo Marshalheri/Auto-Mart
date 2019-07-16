@@ -25,8 +25,7 @@ const statusUpdatePayload = {
   buyer: 1,
 };
 
-const token = process.env.TESTTOKEN || environment.testToken;
-const errToken = process.env.TESTERRORTOKEN || environment.testErrToken;
+const { testToken, testErrToken } = environment;
 
 describe('ORDERS ROUTES TEST', () => {
   describe('GET REQUEST ROUTES', () => {
@@ -42,7 +41,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should throw error if authorization header set to get order Ad is invalid ', (done) => {
       chai.request(app)
         .get(`${PATH}/order-all`)
-        .set({ authorization: `${errToken}` })
+        .set({ authorization: `${testErrToken}` })
         .end((err, res) => {
           const { status } = res;
           chai.expect(status).to.be.eql(401);
@@ -52,7 +51,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should return an array of orders stored in the database', (done) => {
       chai.request(app)
         .get(`${PATH}/order-all`)
-        .set({ authorization: `${token}` })
+        .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body } = res;
           chai.expect(body.data).to.be.instanceof(Array);
@@ -62,7 +61,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should return a body object that contains a data and status key', (done) => {
       chai.request(app)
         .get(`${PATH}/order-all`)
-        .set({ authorization: `${token}` })
+        .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body } = res;
           chai.expect(body).to.haveOwnProperty('data' && 'status');
@@ -72,7 +71,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should return data with; buyer, carId, amount, status, price_offered, oldPrice_offered', (done) => {
       chai.request(app)
         .get(`${PATH}/order-all`)
-        .set({ authorization: `${token}` })
+        .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { data } = res.body;
           chai.expect(data[0])
@@ -93,7 +92,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should throw error if authorization header set to get order Ad is invalid ', (done) => {
       chai.request(app)
         .get(`${PATH}/order-user-all`)
-        .set({ authorization: `${errToken}` })
+        .set({ authorization: `${testErrToken}` })
         .end((err, res) => {
           const { status } = res;
           chai.expect(status).to.be.eql(401);
@@ -103,7 +102,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should return an array of orders stored in the database for a particular user.', (done) => {
       chai.request(app)
         .get(`${PATH}/order-user-all`)
-        .set({ authorization: `${token}` })
+        .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body } = res;
           chai.expect(body.data).to.be.instanceof(Array);
@@ -113,7 +112,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should return a body object that contains a data and status key', (done) => {
       chai.request(app)
         .get(`${PATH}/order-user-all`)
-        .set({ authorization: `${token}` })
+        .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body } = res;
           chai.expect(body).to.haveOwnProperty('data' && 'status');
@@ -123,7 +122,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should return data with; buyer, carId, amount, status, price_offered, oldPrice_offered', (done) => {
       chai.request(app)
         .get(`${PATH}/order-user-all`)
-        .set({ authorization: `${token}` })
+        .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { data } = res.body;
           chai.expect(data[0])
@@ -136,7 +135,7 @@ describe('ORDERS ROUTES TEST', () => {
       const id = 0;
       chai.request(app)
         .get(`${PATH}/order-all/${id}`)
-        .set({ authorization: `${token}` })
+        .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { status } = res;
           chai.expect(status).to.be.eql(404);
@@ -160,7 +159,7 @@ describe('ORDERS ROUTES TEST', () => {
       newOrderPayload.car_id = 0;
       chai.request(app)
         .post(`${PATH}/order-create`)
-        .set({ authorization: `${token}` })
+        .set({ authorization: `${testToken}` })
         .send(newOrderPayload)
         .end((err, res) => {
           const { status } = res;
@@ -171,7 +170,7 @@ describe('ORDERS ROUTES TEST', () => {
     it('should throw error if authorization header set to create order Ad is invalid ', (done) => {
       chai.request(app)
         .post(`${PATH}/order-create`)
-        .set({ authorization: `${errToken}` })
+        .set({ authorization: `${testErrToken}` })
         .send(newOrderPayload)
         .end((err, res) => {
           const { status } = res;
@@ -197,7 +196,7 @@ describe('ORDERS ROUTES TEST', () => {
       const id = 1;
       chai.request(app)
         .patch(`${PATH}/order-update/amount/${id}`)
-        .set({ authorization: `${token}` })
+        .set({ authorization: `${testToken}` })
         .send(amountUpdatePayload)
         .end((err, res) => {
           const { status } = res;
@@ -220,7 +219,7 @@ describe('ORDERS ROUTES TEST', () => {
       const id = 1;
       chai.request(app)
         .patch(`${PATH}/order-update/status/${id}`)
-        .set({ authorization: `${token}` })
+        .set({ authorization: `${testToken}` })
         .send(statusUpdatePayload)
         .end((err, res) => {
           const { status } = res;
@@ -228,5 +227,40 @@ describe('ORDERS ROUTES TEST', () => {
           done(err);
         });
     });
+  });
+
+describe('DELETE REQUEST ROUTE', () => {
+    it('should throw error if authorization header is not set', (done) => {
+      const car_id = 2;
+      chai.request(app)
+        .delete(`${PATH}/order-delete/:${car_id}`)
+        .end((err, res) => {
+          const { status } = res;
+          chai.expect(status).to.be.eql(400);
+          done(err);
+        });
+    });
+    it('should throw error if authorization header set is invalid', (done) => {
+      const car_id = 2;
+      chai.request(app)
+        .delete(`${PATH}/order-delete/:${car_id}`)
+        .set({ authorization: `${testErrToken}` })
+        .end((err, res) => {
+          const { status } = res;
+          chai.expect(status).to.be.eql(401);
+          done(err);
+        });
+    });
+    // it('should throw error if car id set is not found', (done) => {
+    //   const car_id = 0;
+    //   chai.request(app)
+    //     .delete(`${PATH}/order-delete/:${car_id}`)
+    //     .set({authorization: `${testToken}` })
+    //     .end((err, res) => {
+    //       const { status } = res;
+    //       chai.expect(status).to.be.eql(404);
+    //       done(err);
+    //     });
+    // });
   });
 });
