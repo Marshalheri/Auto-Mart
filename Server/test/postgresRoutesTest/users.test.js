@@ -2,29 +2,30 @@ import { compareSync, genSaltSync, hashSync } from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import chai, { request } from '../config/testConfig';
 import app from '../..';
-import { jwtKeyObj } from '../../Key/jwtKey';
-
+import { environment } from '../../myEnvironment';
 
 const PATH = '/api/v1';
-const { jwtKey } = jwtKeyObj;
-const token = jwt.sign({ email: 'chizyberto@gmail.com' }, jwtKey);
+
 const userTestPayload = {
   id: 1,
-  email: 'chizyberto@gmail.com',
+  email: 'testuser1@gmail.com',
   first_name: 'Chizoba',
   last_name: 'Nnamani',
   password: hashSync('adminpassword', genSaltSync(10)),
   address: '79, osho drive olodi apapa lagos',
   is_admin: true,
   phone_number: '+2348162956658',
-  token,
 };
+
+const token = environment.testToken;
+const { uName, pWord } = environment;
 
 describe('USERS ROUTES TEST', () => {
   describe('GET REQUEST ROUTES', () => {
     it('should return an array of users stored in the database', (done) => {
       chai.request(app)
         .get(`${PATH}/user-all`)
+        .set({ authorization: token })
         .end((err, res) => {
           const { body } = res;
           chai.expect(body.data).to.be.instanceof(Array);
@@ -34,30 +35,42 @@ describe('USERS ROUTES TEST', () => {
     it('should return a body object that contains a data and status key', (done) => {
       chai.request(app)
         .get(`${PATH}/user-all`)
+        .set({ authorization: token })
         .end((err, res) => {
           const { body } = res;
           chai.expect(body).to.haveOwnProperty('data' && 'status');
           done(err);
         });
     });
-    it('should return a user by its id', (done) => {
-      const id = 1;
-      chai.request(app)
-        .get(`${PATH}/user-all/${id}`)
-        .end((err, res) => {
-          const { body, status } = res;
-          chai.expect(body).to.have.ownProperty('data');
-          chai.expect(status).to.be.eql(200);
-          done(err);
-        });
-    });
-    it('should return a 404 if a user id is invalid', (done) => {
-      const id = 2;
+    it('should throw an error if authorization header is not set', (done) => {
+      const id = 0;
       chai.request(app)
         .get(`${PATH}/user-all/${id}`)
         .end((err, res) => {
           const { status } = res;
+          chai.expect(status).to.be.eql(400);
+          done(err);
+        });
+    });
+    it('should return a 404 if a user id is invalid', (done) => {
+      const id = 0;
+      chai.request(app)
+        .get(`${PATH}/user-all/${id}`)
+        .set({ authorization: token })
+        .end((err, res) => {
+          const { status } = res;
           chai.expect(status).to.be.eql(404);
+          done(err);
+        });
+    });
+    it('should return a user with a valid id', (done) => {
+      const id = 1;
+      chai.request(app)
+        .get(`${PATH}/user-all/${id}`)
+        .set({ authorization: token })
+        .end((err, res) => {
+          const { status } = res;
+          chai.expect(status).to.be.eql(200);
           done(err);
         });
     });
@@ -65,25 +78,13 @@ describe('USERS ROUTES TEST', () => {
 
   describe('POST REQUEST ROUTES', () => {
     describe('Post To Create New User', () => {
-      it('should throw an erro if a user with the request email already exist', (done) => {
+      it('should throw an error if a user with the request email already exist', (done) => {
         chai.request(app)
           .post(`${PATH}/user-create`)
           .send(userTestPayload)
           .end((err, res) => {
             const { status } = res;
             chai.expect(status).to.be.eql(400);
-            done(err);
-          });
-      });
-      it('should create a new user', (done) => {
-        userTestPayload.email = 'testuser1@gmail.com';
-        chai.request(app)
-          .post(`${PATH}/user-create`)
-          .send(userTestPayload)
-          .end((err, res) => {
-            const { message, status } = res.body;
-            chai.expect(message).to.include('Successfully');
-            chai.expect(status).to.be.eql(201);
             done(err);
           });
       });
@@ -103,10 +104,24 @@ describe('USERS ROUTES TEST', () => {
             done(err);
           });
       });
+      it('should throw an error if login password is wrong.', (done) => {
+        const loginData = {
+          email: 'testuser1@gmail.com',
+          password: 'password',
+        };
+        chai.request(app)
+          .post(`${PATH}/user-login`)
+          .send(loginData)
+          .end((err, res) => {
+            const { status } = res;
+            chai.expect(status).to.be.eql(404);
+            done(err);
+          });
+      });
       it('should login in user with a valid email and password', (done) => {
         const loginData = {
-          email: 'chizyberto@gmail.com',
-          password: 'adminpassword',
+          email: uName || 'testuser1@gmail.com',
+          password: pWord || 'adminpassword',
         };
         chai.request(app)
           .post(`${PATH}/user-login`)
@@ -120,8 +135,8 @@ describe('USERS ROUTES TEST', () => {
       });
       it('should contain a token value in its response data object', (done) => {
         const loginData = {
-          email: 'chizyberto@gmail.com',
-          password: 'adminpassword',
+          email: uName || 'testuser1@gmail.com',
+          password: pWord || 'adminpassword',
         };
         chai.request(app)
           .post(`${PATH}/user-login`)
