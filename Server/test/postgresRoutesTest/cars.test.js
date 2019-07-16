@@ -187,7 +187,7 @@ describe('CARS ROUTES TEST', () => {
     describe('Post To Create New Car', () => {
       it('should throw an error if the request header does not have an authorization token', (done) => {
         chai.request(app)
-          .post(`${PATH}/car-create`)
+          .post(`${PATH}/car`)
           .send(carTestPayload)
           .end((err, res) => {
             const { status } = res;
@@ -197,7 +197,7 @@ describe('CARS ROUTES TEST', () => {
       });
       it('should throw error if authorization header set to create car Ad is invalid ', (done) => {
         chai.request(app)
-          .post(`${PATH}/car-create`)
+          .post(`${PATH}/car`)
           .set({ authorization: `${testErrToken}` })
           .send(carTestPayload)
           .end((err, res) => {

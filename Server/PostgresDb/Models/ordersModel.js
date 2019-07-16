@@ -43,7 +43,7 @@ const OrdersModel = {
             const values = [buyer, car_id, car_price, order_amount];
             const { rows } = await dbConfig.query(createOrderQuery, values);
             res.status(201).json({
-              data: rows,
+              data: rows[0],
               message: 'Successfully created new order.',
               status: 201,
             });
