@@ -172,6 +172,7 @@ const CarsModel = {
       }
     } catch (err) {
       carErrorResponse(err, res);
+      console.log(err);
     }
   },
 
