@@ -28,7 +28,7 @@ const UsersModel = {
       const token = generateToken({ ...rows[0] });
       rows[0].token = token;
       return res.status(201).json({
-        data: rows,
+        data: rows[0],
         message: `Successfully created ${first_name} ${last_name} as a new user`,
         status: 201,
       });
