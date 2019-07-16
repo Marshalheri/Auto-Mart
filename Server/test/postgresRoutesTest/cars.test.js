@@ -44,6 +44,8 @@ describe('CARS ROUTES TEST', () => {
           chai.expect(body.data).to.be.instanceof(Array);
           done(err);
           console.log(err);
+          console.log(testToken);
+          console.log(testErrToken);
         });
     });
     it('should return a body object that contains a data and status key', (done) => {
