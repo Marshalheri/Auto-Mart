@@ -55,6 +55,8 @@ const OrdersModel = {
       }
     } catch (err) {
       orderErrorResponse(err, res);
+      console.log("err order: " +err)
+      console.log("order body: " + req.body);
     }
   },
 
@@ -100,6 +102,8 @@ const OrdersModel = {
       }
     } catch (err) {
       orderErrorResponse(err, res);
+      console.log("err order patch: " +err)
+      console.log("order body patch: " + req.body);
     }
   },
 
