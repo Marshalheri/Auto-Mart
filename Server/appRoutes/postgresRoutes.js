@@ -18,7 +18,8 @@ router.get('/', (req, res) => {
       '/user-create', '/user-login', '/user-all/:user_id', '/user-all',
       '/car-all', '/car-all/:car_id', '/car-create', '/car-update/price/:car_id', '/car-update/status/:car_id',
       '/car-delete/:car_id', '/order-all', '/order-user-all', '/order-all/:order_id', '/order-create',
-      '/order-update/amount/:order_id', '/order-update/status/:order_id',
+      '/order-update/amount/:order_id', '/order-update/status/:order_id', '/order-delete/:order_id',
+      'flag-all', 'flag-all/:flag_id', 'flag-create'
     ],
     message: 'Welcome to the Auto-Mart API',
     status: 200,
