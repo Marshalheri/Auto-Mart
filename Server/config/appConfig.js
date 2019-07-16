@@ -8,7 +8,7 @@ import swagRouter from '../docs/swagger';
 
 const errorMsg = {
   success: false,
-  meessage: 'Resource not found.',
+  error: 'Resource not found.',
   possibleCauses: [
     'Maybe you entered the url wrong',
   ],

@@ -2,19 +2,19 @@
 const FlagsHelper = {
 
   flagErrorResponse(err, res) {
-    let message;
+    let error;
     let statusCode;
     if (err.code == '22P02') {
-      message = 'Ensure that all values supplied for this request are of a valid data type.';
+      error = 'Ensure that all values supplied for this request are of a valid data type.';
       statusCode = 400;
     } else if (err.code == '23502') {
-      message = `Please the value of ${err.column} cannot be null.`;
+      error = `Please the value of ${err.column} cannot be null.`;
       statusCode = 400;
     } else {
-      message = err.message;
+      error = err.message;
     }
     res.status(err.statusCode || statusCode || 500).json({
-      message,
+      error,
       status: err.statusCode || statusCode || 500,
     });
   },

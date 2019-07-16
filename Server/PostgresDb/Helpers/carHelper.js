@@ -32,16 +32,16 @@ const CarsHelper = {
 
   // This handles the response to an error....
   carErrorResponse: (err, res) => {
-    let message;
+    let error;
     let statusCode;
     if (err.code == '22P02') {
-      message = 'Ensure that all values supplied for this request are of a valid data type.';
+      error = 'Ensure that all values supplied for this request are of a valid data type.';
       statusCode = 400;
     } else {
-      message = err.message;
+      error = err.message;
     }
     res.status(err.statusCode || statusCode || 500).json({
-      message,
+      error,
       status: err.statusCode || statusCode || 500,
     });
   },
