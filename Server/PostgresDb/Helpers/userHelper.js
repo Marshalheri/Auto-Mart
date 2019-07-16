@@ -15,7 +15,8 @@ const UsersHelper = {
 
   // This function generates a token for the user...
   generateToken: ({ id, is_admin }) => {
-    const token = jwt.sign({ user_id: id, is_admin }, jwtSecret);
+    //I add the string Bearer to the signed jwt object for the token full string...
+    const token = `Bearer ${jwt.sign({ user_id: id, is_admin }, jwtSecret)}`;
     return token;
   },
 
