@@ -62,6 +62,7 @@ const UsersModel = {
           message: 'Login successful',
           status: 200,
         });
+        console.log(token);
       }
     } catch (err) {
       userErrorResponse(err, res);
