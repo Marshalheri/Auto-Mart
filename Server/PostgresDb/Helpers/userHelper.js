@@ -21,16 +21,16 @@ const UsersHelper = {
 
   // This handles the response to an error....
   userErrorResponse: (err, res) => {
-    let message;
+    let error;
     let statusCode;
     if (err.code == 23505 || err.constraint == 'users_email_key') {
-      message = 'Email already exist in the database, please signup with a different email';
+      error = 'Email already exist in the database, please signup with a different email';
       statusCode = 400;
     } else {
-      message = err.message;
+      error = err.message;
     }
     res.status(err.statusCode || statusCode || 500).json({
-      message,
+      error,
       status: err.statusCode || statusCode || 500,
     });
   },
