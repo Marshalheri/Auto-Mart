@@ -14,7 +14,9 @@ const AuthorizeUser = {
   async verifyUser(token, res) {
     return new Promise((resolve) => {
       try {
-        jwt.verify(token, jwtSecret, async (err, payload) => {
+        var authToken = token.replace(/Bearer| /gi, ''); //returns the token with out the Bearer string...
+        console.log(authToken);
+        jwt.verify(authToken, jwtSecret, async (err, payload) => {
           if (err || !payload) {
             resolve(err);
           } else if (Object.getOwnPropertyNames(payload).length === 0) {
