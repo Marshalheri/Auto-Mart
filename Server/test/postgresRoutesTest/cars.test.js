@@ -45,7 +45,7 @@ describe('CARS ROUTES TEST', () => {
           done(err);
           console.log(err);
           console.log(testToken);
-          console.log(testErrToken);
+          console.log(testErrToken + "thajsjajkjakjk");
         });
     });
     it('should return a body object that contains a data and status key', (done) => {
