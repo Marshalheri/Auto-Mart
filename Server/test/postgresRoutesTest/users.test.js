@@ -80,7 +80,7 @@ describe('USERS ROUTES TEST', () => {
     describe('Post To Create New User', () => {
       it('should throw an error if a user with the request email already exist', (done) => {
         chai.request(app)
-          .post(`${PATH}/user-create`)
+          .post(`${PATH}/auth/signup`)
           .send(userTestPayload)
           .end((err, res) => {
             const { status } = res;
@@ -96,7 +96,7 @@ describe('USERS ROUTES TEST', () => {
           password: 'adminpassword',
         };
         chai.request(app)
-          .post(`${PATH}/user-login`)
+          .post(`${PATH}/auth/signin`)
           .send(loginData)
           .end((err, res) => {
             const { status } = res;
@@ -110,7 +110,7 @@ describe('USERS ROUTES TEST', () => {
           password: 'password',
         };
         chai.request(app)
-          .post(`${PATH}/user-login`)
+          .post(`${PATH}/auth/signin`)
           .send(loginData)
           .end((err, res) => {
             const { status } = res;
@@ -124,7 +124,7 @@ describe('USERS ROUTES TEST', () => {
           password: pWord || 'adminpassword',
         };
         chai.request(app)
-          .post(`${PATH}/user-login`)
+          .post(`${PATH}/auth/signin`)
           .send(loginData)
           .end((err, res) => {
             const { body, status } = res;
@@ -139,7 +139,7 @@ describe('USERS ROUTES TEST', () => {
           password: pWord || 'adminpassword',
         };
         chai.request(app)
-          .post(`${PATH}/user-login`)
+          .post(`${PATH}/auth/signin`)
           .send(loginData)
           .end((err, res) => {
             const { data } = res.body;

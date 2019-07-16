@@ -37,7 +37,7 @@ describe('CARS ROUTES TEST', () => {
   describe('GET REQUEST ROUTES', () => {
     it('should return an array of cars stored in the database', (done) => {
       chai.request(app)
-        .get(`${PATH}/car-all`)
+        .get(`${PATH}/car`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body } = res;
@@ -48,7 +48,7 @@ describe('CARS ROUTES TEST', () => {
     });
     it('should return a body object that contains a data and status key', (done) => {
       chai.request(app)
-        .get(`${PATH}/car-all`)
+        .get(`${PATH}/car`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body } = res;
@@ -58,7 +58,7 @@ describe('CARS ROUTES TEST', () => {
     });
     it('should return data with; createdOn, owner, status, state and price keys', (done) => {
       chai.request(app)
-        .get(`${PATH}/car-all`)
+        .get(`${PATH}/car`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { data } = res.body;
@@ -70,7 +70,7 @@ describe('CARS ROUTES TEST', () => {
     });
     it('should return cars with status sold if user is admin', (done) => {
       chai.request(app)
-        .get(`${PATH}/car-all`)
+        .get(`${PATH}/car`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body, status } = res;
@@ -89,7 +89,7 @@ describe('CARS ROUTES TEST', () => {
     });
     it('should return only cars with status available if user is not admin', (done) => {
       chai.request(app)
-        .get(`${PATH}/car-all`)
+        .get(`${PATH}/car`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body, status } = res;
@@ -109,7 +109,7 @@ describe('CARS ROUTES TEST', () => {
     it('should return a car by its id', (done) => {
       const id = 3;
       chai.request(app)
-        .get(`${PATH}/car-all/${id}`)
+        .get(`${PATH}/car/${id}`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body, status } = res;
@@ -121,7 +121,7 @@ describe('CARS ROUTES TEST', () => {
     it('should return a 404 if a car id is invalid', (done) => {
       const id = 0;
       chai.request(app)
-        .get(`${PATH}/car-all/${id}`)
+        .get(`${PATH}/car/${id}`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { status } = res;
@@ -132,7 +132,7 @@ describe('CARS ROUTES TEST', () => {
     it('should return cars by specific status', (done) => {
       const carStatus = 'available';
       chai.request(app)
-        .get(`${PATH}/car-all?status=${carStatus}`)
+        .get(`${PATH}/car?status=${carStatus}`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body, status } = res;
@@ -144,7 +144,7 @@ describe('CARS ROUTES TEST', () => {
     it('should return cars by specific state', (done) => {
       const carState = 'new';
       chai.request(app)
-        .get(`${PATH}/car-all?state=${carState}`)
+        .get(`${PATH}/car?state=${carState}`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body, status } = res;
@@ -156,7 +156,7 @@ describe('CARS ROUTES TEST', () => {
     it('should return cars by specific body type', (done) => {
       const bodyType = 'car';
       chai.request(app)
-        .get(`${PATH}/car-all?bodyType=${bodyType}`)
+        .get(`${PATH}/car?bodyType=${bodyType}`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body, status } = res;
@@ -168,7 +168,7 @@ describe('CARS ROUTES TEST', () => {
     it('should return an empty array if manufacturer supplied in query string does not exist', (done) => {
       const manufacturer = 'xxxxxx';
       chai.request(app)
-        .get(`${PATH}/car-all?manufacturer=${manufacturer}`)
+        .get(`${PATH}/car?manufacturer=${manufacturer}`)
         .set({ authorization: `${testToken}` })
         .end((err, res) => {
           const { body, status } = res;
@@ -211,7 +211,7 @@ describe('CARS ROUTES TEST', () => {
     it('should throw error if authorization header is not set', (done) => {
       const car_id = 2;
       chai.request(app)
-        .delete(`${PATH}/car-delete/:${car_id}`)
+        .delete(`${PATH}/car/:${car_id}`)
         .end((err, res) => {
           const { status } = res;
           chai.expect(status).to.be.eql(400);
@@ -221,7 +221,7 @@ describe('CARS ROUTES TEST', () => {
     it('should throw error if authorization header set is invalid', (done) => {
       const car_id = 2;
       chai.request(app)
-        .delete(`${PATH}/car-delete/:${car_id}`)
+        .delete(`${PATH}/car/:${car_id}`)
         .set({ authorization: `${testErrToken}` })
         .end((err, res) => {
           const { status } = res;
