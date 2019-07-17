@@ -31,7 +31,7 @@ const CarsModel = {
           const createCarQuery = `INSERT INTO
             cars(owner, state, status, price, manufacturer, model, "body_type", images)
             VALUES($1, $2, $3, $4, $5, $6, $7, $8)
-            RETURNING owner, state, status, price, manufacturer, model, "body_type", images`;
+            RETURNING id, owner, state, status, price, manufacturer, model, "body_type", images`;
           const values = [owner, state, status, price, manufacturer, model, body_type, images];
           const { rows } = await dbConfig.query(createCarQuery, values);
           res.status(201).json({
@@ -86,6 +86,8 @@ const CarsModel = {
       }
     } catch (err) {
       carErrorResponse(err, res);
+      console.log("err order patch: " +err)
+      console.log("order body patch: " + req.body);
     }
   },
 
@@ -172,8 +174,6 @@ const CarsModel = {
       }
     } catch (err) {
       carErrorResponse(err, res);
-      console.log(err);
-      console.log(req);
     }
   },
 
