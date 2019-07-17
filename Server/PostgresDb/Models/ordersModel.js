@@ -34,7 +34,7 @@ const OrdersModel = {
             body.car_price = row[0].price;
             body.buyer = user.user_id;
             const {
-              buyer, car_id, car_price, amount, status,
+              buyer, car_id, amount, status, car_price
             } = body;
             var price_offered = amount
             const createOrderQuery = `INSERT INTO
@@ -58,6 +58,7 @@ const OrdersModel = {
       orderErrorResponse(err, res);
       console.log("err order: " +err)
       console.log("order body: " + req.body);
+      console.log("order res: " + res);
     }
   },
 
@@ -183,8 +184,8 @@ const OrdersModel = {
       } else {
         const user = await verifyUser(authorization, res);
         if (user.user_id) {
-          const { rows } = await dbConfig.query('SELECT id, buyer, "car_id", amount, status, "price_offered",'
-                                                  + ' "oldPrice_offered" FROM orders WHERE buyer = $1', [user.user_id]);
+          const { rows } = await dbConfig.query('SELECT id, buyer, "car_id", amount, status, price, "price_offered",'
+                                                  + ' "old_price_offered" FROM orders WHERE buyer = $1', [user.user_id]);
           if (rows.length == 0) {
              message = `There is no order currently stored in the database for user with id: ${user.user_id}.`;
           } else {
@@ -240,7 +241,7 @@ const OrdersModel = {
 
   // This method returns an order of a particular user...
   async returnOrderByIdAndBuyer(order_id, { user_id }) {
-    const queryText = 'SELECT id, buyer, "car_id", amount, status, "price_offered", "oldPrice_offered"'
+    const queryText = 'SELECT id, buyer, "car_id", amount, status, price, "price_offered", "old_price_offered"'
                     + ' FROM orders WHERE id = $1 AND buyer = $2';
     const values = [order_id, user_id];
     const { rows } = await dbConfig.query(queryText, values);
